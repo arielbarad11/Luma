@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/aclonica</item>
+        <item>@font/agbalumo</item>
+        <item>@font/alumni_sans_inline_one</item>
+        <item>@font/amaranth_bold</item>
+        <item>@font/angkor</item>
+        <item>@font/archivo_black</item>
+        <item>@font/fredoka_one</item>
+        <item>@font/fredoka_semibold</item>
+        <item>@font/rubik_bubbles</item>
+    </array>
+</resources>

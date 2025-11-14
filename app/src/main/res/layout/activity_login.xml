@@ -26,11 +26,11 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/Logo"
-                        android:layout_width="191dp"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/Luma_Logo" />
+                <ImageView
+                    android:id="@+id/Logo"
+                    android:layout_width="173dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/luma_logo" />
             </LinearLayout>
 
                 <LinearLayout
@@ -47,12 +47,13 @@
                 android:layout_height="88dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="התחברות"
-                    android:textSize="40dp" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/amaranth_bold"
+                android:text="התחברות"
+                android:textSize="40dp" />
         </LinearLayout>
 
         <LinearLayout

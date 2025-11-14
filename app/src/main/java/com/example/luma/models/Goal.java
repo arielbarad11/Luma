@@ -1,4 +1,4 @@
-package com.example.luma.modles;
+package com.example.luma.models;
 
 public class Goal {
     public String daysSelected;

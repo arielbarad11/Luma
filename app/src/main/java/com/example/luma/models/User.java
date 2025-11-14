@@ -1,4 +1,4 @@
-package com.example.luma.modles;
+package com.example.luma.models;
 
 import java.util.ArrayList;
 
@@ -37,11 +37,11 @@ public class User {
         this.password = password;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -69,7 +69,8 @@ public class User {
         isAdmin = admin;
     }
 
-    public User(String id, String firstname, String email, String password, String age, ArrayList<Goal> goals, ArrayList<String> crisisTime, boolean isAdmin) {
+    public User(String id, String firstname, String email,
+                String password, int age, ArrayList<Goal> goals, ArrayList<String> crisisTime, boolean isAdmin) {
         this.id = id;
         this.firstName = firstname;
         this.email = email;
@@ -90,7 +91,7 @@ public class User {
     public String email;
     public String password;
 
-    public String age;
+    public int age;
 
     public ArrayList<Goal> goals; // מטרה אישית של כל משתמש
 

@@ -13,24 +13,38 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 
-public class MainActivity extends AppCompatActivity {
+public class LandingActivity extends AppCompatActivity {
 
+    Button toRegister;
+    Button toLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_landing);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        toRegister = findViewById(R.id.btn_landing_go_to_register);
+        toLogin = findViewById(R.id.btn_landing_go_to_login);
 
+        toRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LandingActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        toLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LandingActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-
-
-
 }
