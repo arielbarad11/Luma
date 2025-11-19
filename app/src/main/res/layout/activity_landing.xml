@@ -9,20 +9,27 @@
 
     <Button
         android:id="@+id/btn_landing_go_to_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="111dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="120dp"
         android:text="הרשמה"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="145dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btn_landing_go_to_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="120dp"
         android:text="התחברות"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="306dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_landing_go_to_register"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

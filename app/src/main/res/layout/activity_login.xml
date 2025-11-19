@@ -67,13 +67,13 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/filledTextFieldEmail"
                     style="?attr/textInputFilledStyle"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:hint="אימייל">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_register_email"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:backgroundTint="#0D009688" />
@@ -89,7 +89,6 @@
                 tools:ignore="MissingConstraints">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/filledTextFieldPassword"
                     style="?attr/textInputFilledStyle"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -97,6 +96,7 @@
                     android:inputType="textPassword">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_register_password"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:backgroundTint="#0D009688" />

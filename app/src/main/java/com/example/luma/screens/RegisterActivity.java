@@ -58,9 +58,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         etAge = findViewById(R.id.et_register_age);
         btnRegister = findViewById(R.id.btn_register_register);
 
+
         /// set the click listener
         btnRegister.setOnClickListener(this);
-        tvLogin.setOnClickListener(this);
     }
 
     @Override

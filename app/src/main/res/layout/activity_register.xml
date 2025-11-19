@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/register"
@@ -13,8 +12,8 @@
         android:layout_height="729dp"
         android:background="#AEE1CF"
         android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints,MissingPrefix"
-        tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
         <LinearLayout
@@ -25,7 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/amaranth_bold"
-                android:text="הרשמה"
+                android:text="הצטרפו אלינו!"
                 android:textSize="40dp" />
         </LinearLayout>
 
@@ -59,13 +58,13 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_register_first_name"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="שם פרטי">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_register_first_name"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:backgroundTint="#0D009688" />
@@ -79,13 +78,13 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_register_email"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="אימייל">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_register_email"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:backgroundTint="#0D009688" />
@@ -100,7 +99,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_register_password"
+
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -108,6 +107,7 @@
                 android:inputType="textPassword">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_register_password"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:backgroundTint="#0D009688" />
@@ -122,7 +122,6 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_register_verifypassword"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,6 +129,7 @@
                 android:inputType="textPassword">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_register_verifypassword"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:backgroundTint="#0D009688" />
@@ -144,7 +144,6 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_register_age"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,6 +151,7 @@
                 android:inputType="number">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_register_age"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:backgroundTint="#0D009688" />
