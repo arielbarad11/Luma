@@ -24,6 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
+                android:gravity="left"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -52,7 +53,8 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/amaranth_bold"
                 android:text="הצטרפו אלינו!"
-                android:textSize="40dp" />
+                android:textSize="40dp"
+                android:paddingRight="15dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -95,7 +97,8 @@
                     android:id="@+id/et_register_email"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:backgroundTint="#0D009688" />
+                    android:backgroundTint="#0D009688"
+                    android:inputType="textEmailAddress"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,15 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="אימות סיסמה"
-                android:inputType="textPassword">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_register_verifypassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:backgroundTint="#0D009688" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:inputType="textPassword"/>
 
         </LinearLayout>
 
@@ -162,7 +157,8 @@
                     android:id="@+id/et_register_age"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:backgroundTint="#0D009688" />
+                    android:backgroundTint="#0D009688"
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,7 +191,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextTextEmailAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

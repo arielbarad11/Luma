@@ -72,7 +72,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
             String fName = etFName.getText().toString();
-            int age = Integer.parseInt(etAge.getText().toString()+"");
+            int age;
+            try {
+                age = Integer.parseInt(etAge.getText().toString()+"");
+            } catch (NumberFormatException e) {
+                etAge.setError("Age invalid");
+                /// set focus to password field
+                etAge.requestFocus();
+                return;
+            }
+
 
 
             /// log the input
@@ -143,6 +152,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
                 } else {
                     /// proceed to create the user
+                    Log.e(TAG, "onCompleted: proceed to create the user");
                     createUserInDatabase(user);
                 }
             }

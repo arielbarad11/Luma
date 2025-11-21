@@ -4,6 +4,27 @@ import java.util.ArrayList;
 
 public class User {
     public String id;
+    public String firstName;
+    public String email;
+    public String password;
+    public int age;
+    public ArrayList<Goal> goals; // מטרה אישית של כל משתמש
+    public ArrayList<String> crisisTime; // תוכנית אישית בזמן משבר
+    public boolean isAdmin;
+
+    public User() {
+    }
+
+    public User(String id, String firstName, String email, String password, int age, ArrayList<Goal> goals, ArrayList<String> crisisTime, boolean isAdmin) {
+        this.id = id;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.goals = goals;
+        this.crisisTime = crisisTime;
+        this.isAdmin = isAdmin;
+    }
 
     public String getId() {
         return id;
@@ -69,35 +90,17 @@ public class User {
         isAdmin = admin;
     }
 
-    public User(String id, String firstname, String email,
-                String password, int age, ArrayList<Goal> goals, ArrayList<String> crisisTime, boolean isAdmin) {
-        this.id = id;
-        this.firstName = firstname;
-        this.email = email;
-        this.password = password;
-        this.age = age;
-        this.goals = goals;
-        this.crisisTime = crisisTime;
-        this.isAdmin = isAdmin;
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", goals=" + goals +
+                ", crisisTime=" + crisisTime +
+                ", isAdmin=" + isAdmin +
+                '}';
     }
-
-    public User() {
-
-    }
-
-    public String firstName;
-    public String email;
-    public String password;
-
-    public int age;
-
-    public ArrayList<Goal> goals; // מטרה אישית של כל משתמש
-
-    public ArrayList<String> crisisTime; // תוכנית אישית בזמן משבר
-
-
-
-    public boolean isAdmin;
 }
