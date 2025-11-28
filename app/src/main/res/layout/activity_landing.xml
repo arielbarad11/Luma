@@ -8,29 +8,43 @@
     android:layout_height="match_parent"
     tools:context=".screens.LandingActivity">
 
+    <!-- לוגו האפליקציה - ממורכז בחלק העליון -->
+    <ImageView
+        android:id="@+id/iv_landing_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/luma_logo"
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/btn_landing_go_to_register"
         android:layout_width="111dp"
         android:layout_height="52dp"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="356dp"
         android:layout_marginEnd="120dp"
         android:text="הרשמה"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:backgroundTint="#59005396"/>
 
     <Button
         android:id="@+id/btn_landing_go_to_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="120dp"
         android:text="התחברות"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_landing_go_to_register"
-        tools:ignore="MissingConstraints" />
+        android:backgroundTint="#59005396"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

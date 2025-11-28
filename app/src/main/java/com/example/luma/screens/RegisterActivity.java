@@ -57,10 +57,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         etFName = findViewById(R.id.et_register_first_name);
         etAge = findViewById(R.id.et_register_age);
         btnRegister = findViewById(R.id.btn_register_register);
+        tvLogin = findViewById(R.id.tv_register_login);
+
 
 
         /// set the click listener
         btnRegister.setOnClickListener(this);
+        tvLogin.setOnClickListener(this);
     }
 
     @Override
@@ -102,9 +105,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             /// Register user
             registerUser(email, password, fName, age);
-        } else if (v.getId() == tvLogin.getId()) {
-            /// Navigate back to Login Activity
-            finish();
+        }  // במקרה של לחיצה על טקסט "התחברות" (tvLogin)
+        else if (v.getId() == tvLogin.getId()) {
+            Log.d(TAG, "onClick: Login text clicked");
+
+            // חזרה למסך ההתחברות (LoginActivity)
+            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(loginIntent);  // התחלת פעילות התחברות
         }
     }
 
