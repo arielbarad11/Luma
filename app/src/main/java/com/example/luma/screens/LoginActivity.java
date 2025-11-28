@@ -62,8 +62,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Log.d(TAG, "onClick: Login button clicked");
 
             /// get the email and password entered by the user
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
+            String email = (etEmail.getText().toString()+"").trim();
+            String password = (etPassword.getText().toString()+"").trim();
 
             /// log the email and password
             Log.d(TAG, "onClick: Email: " + email);

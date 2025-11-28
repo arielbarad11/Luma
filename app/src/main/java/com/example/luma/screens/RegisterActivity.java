@@ -143,6 +143,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         /// create a new user object
         User user = new User(uid, fName, email, password, age, new ArrayList<>(), new ArrayList<>(), false);
+        Log.d(TAG, "registerUser: Registering user... : " + user);
         databaseService.checkIfEmailExists(email, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Boolean exists) {

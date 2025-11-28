@@ -25,15 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
                 android:gravity="left"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/logo2"
-                    android:layout_width="168dp"
-                    android:layout_height="match_parent"
-                    android:scaleX="1"
-                    app:srcCompat="@drawable/luma_logo" />
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,15 +183,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/editTextTextEmailAddress2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress" />
-        </LinearLayout>
+            android:orientation="vertical"/>
 
         <LinearLayout
             android:layout_width="match_parent"

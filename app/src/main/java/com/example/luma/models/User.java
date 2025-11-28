@@ -1,5 +1,7 @@
 package com.example.luma.models;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class User {
@@ -90,6 +92,7 @@ public class User {
         isAdmin = admin;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "User{" +
