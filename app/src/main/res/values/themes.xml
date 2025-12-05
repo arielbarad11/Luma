@@ -28,7 +28,7 @@
     </style>
 
 
-    <!-- Theme מותאם למסך פתיחה -->
+    <!-- Theme (landing)מותאם למסך פתיחה -->
     <style name="Theme.Luma.Landing" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">#AEE1CF</item> <!-- צבע רקע אחיד -->
     </style>

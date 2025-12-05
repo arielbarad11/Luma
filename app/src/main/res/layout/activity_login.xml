@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="176dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_gravity="left"/>
@@ -38,20 +38,20 @@
                     android:id="@+id/tv_login_register"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+
                     android:gravity="right"
                     android:paddingTop="30dp"
                     android:paddingRight="15dp"
+                    android:text="משתמש חדש? הירשם"
 
-                    android:text="הירשם"
-                    android:textStyle="bold"
+                    android:textAllCaps="true"
                     android:textColor="#005396"
+
                     android:textSize="18sp"
-
-                    android:clickable="true"
-                    android:focusable="true"
-
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:textAllCaps="true"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
