@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
+import com.example.luma.utils.SharedPreferencesUtil;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -28,6 +29,13 @@ public class LandingActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        if (SharedPreferencesUtil.isUserLoggedIn(this)) {
+            Intent intent = new Intent(LandingActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         toRegister = findViewById(R.id.btn_landing_go_to_register);
         toLogin = findViewById(R.id.btn_landing_go_to_login);

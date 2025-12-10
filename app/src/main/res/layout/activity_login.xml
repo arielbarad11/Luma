@@ -107,7 +107,7 @@
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="סיסמה"
+                android:hint="סיסמא"
                 android:inputType="textPassword">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -124,6 +124,32 @@
                 android:layout_height="48dp"
                 android:backgroundTint="#59005396"
                 android:text="התחבר" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="right">
+
+                <TextView
+                    android:id="@+id/tv_login_forgotPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+
+                    android:gravity="right"
+                    android:paddingTop="30dp"
+                    android:paddingRight="15dp"
+                    android:text="שכחתי סיסמא"
+
+                    android:textAllCaps="true"
+                    android:textColor="#005396"
+
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

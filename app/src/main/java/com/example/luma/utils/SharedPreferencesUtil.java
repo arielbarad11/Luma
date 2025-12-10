@@ -1,11 +1,14 @@
 package com.example.luma.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.annotation.Nullable;
 
 import com.example.luma.models.User;
+import com.example.luma.screens.ForgotPasswordActivity;
+import com.example.luma.screens.MainActivity;
 import com.google.gson.Gson;
 
 /// Utility class for shared preferences operations
@@ -16,7 +19,7 @@ public class SharedPreferencesUtil {
 
     /// The name of the shared preferences file
     /// @see Context#getSharedPreferences(String, int)
-    private static final String PREF_NAME = "com.example.testapp.PREFERENCE_FILE_KEY";
+    private static final String PREF_NAME = "com.example.luma.PREFERENCE_FILE_KEY";
 
     /// Save a string to shared preferences
     /// @param context The context to use

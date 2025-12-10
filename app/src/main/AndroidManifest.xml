@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
+            android:name=".screens.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.MainActivity"
             android:exported="false" />
         <activity

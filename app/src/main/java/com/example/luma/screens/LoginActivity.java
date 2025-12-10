@@ -30,7 +30,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private EditText etEmail, etPassword;
     private Button btnLogin;
-    private TextView tvRegister;
+    private TextView tvRegister, tvForgotPassword;
 
 
     @Override
@@ -50,10 +50,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         etPassword = findViewById(R.id.et_login_password);
         btnLogin = findViewById(R.id.btn_login_login);
         tvRegister = findViewById(R.id.tv_login_register);
+        tvForgotPassword = findViewById(R.id.tv_login_forgotPassword);
 
         /// set the click listener
         btnLogin.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
+        tvForgotPassword.setOnClickListener(this);
     }
 
     @Override
@@ -84,6 +86,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             /// Navigate to Register Activity
             Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(registerIntent);
+        }
+        else if (v.getId() == tvForgotPassword.getId()) {
+            /// Navigate to Register Activity
+            Intent forgotPasswordIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(forgotPasswordIntent);
         }
     }
 

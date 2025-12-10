@@ -139,7 +139,7 @@
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="סיסמה"
+                android:hint="סיסמא"
                 android:inputType="textPassword">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -149,20 +149,6 @@
                     android:backgroundTint="#0D009688" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="?attr/textInputFilledStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="אימות סיסמה"
-                android:inputType="textPassword"/>
 
         </LinearLayout>
 
