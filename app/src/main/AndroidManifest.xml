@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
+            android:name=".services.TempActivity"
+            android:exported="false"
+            android:label="@string/title_activity_temp"
+            android:theme="@style/Theme.Luma.NoActionBar" />
+        <activity
             android:name=".screens.ForgotPasswordActivity"
             android:exported="false" />
         <activity

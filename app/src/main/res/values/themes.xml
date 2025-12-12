@@ -33,4 +33,13 @@
         <item name="android:windowBackground">#AEE1CF</item> <!-- צבע רקע אחיד -->
     </style>
 
+    <style name="Theme.Luma.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Luma.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Luma.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
