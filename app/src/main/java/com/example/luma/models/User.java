@@ -92,7 +92,11 @@ public class User {
         isAdmin = admin;
     }
 
-    @NonNull
+    // פעולה שמתזירה את השם הפרטי של המשתמש
+    public String getFName(){
+        return this.firstName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
