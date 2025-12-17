@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.LoginActivity">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#AEE1CF"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints,MissingPrefix"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-16dp">
+        android:background="#AEE1CF">
 
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="62dp"
@@ -24,134 +19,92 @@
 
             <LinearLayout
                 android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="left"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="right">
-
-                <TextView
-                    android:id="@+id/tv_login_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-
-                    android:gravity="right"
-                    android:paddingTop="30dp"
-                    android:paddingRight="15dp"
-                    android:text="משתמש חדש? הירשם"
-
-                    android:textAllCaps="true"
-                    android:textColor="#005396"
-
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="88dp"
-            android:orientation="vertical">
+                android:layout_height="match_parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_login_register"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/amaranth_bold"
-                android:text="ברוכים השבים!"
-                android:textSize="40dp"
-                android:paddingRight="15dp"/>
+                android:gravity="right"
+                android:paddingTop="30dp"
+                android:paddingRight="15dp"
+                android:text="משתמש חדש? הירשם"
+                android:textAllCaps="true"
+                android:textColor="#005396"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
 
-        <LinearLayout
+        <!-- Title -->
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:fontFamily="@font/amaranth_bold"
+            android:text="ברוכים השבים!"
+            android:textSize="40dp"
+            android:paddingRight="15dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"/>
 
-        <LinearLayout
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="?attr/textInputFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:hint="אימייל"
+            android:layout_marginBottom="0dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="?attr/textInputFilledStyle"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_login_email"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="אימייל">
+                android:layout_height="58dp"
+                android:backgroundTint="#0D009688" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_login_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:backgroundTint="#0D009688" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <!-- Password -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="?attr/textInputFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints">
+            android:hint="סיסמא"
+            android:layout_marginBottom="0dp"
+            android:inputType="textPassword">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="?attr/textInputFilledStyle"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_login_password"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="סיסמא"
-                android:inputType="textPassword">
+                android:layout_height="58dp"
+                android:backgroundTint="#0D009688" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_login_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:backgroundTint="#0D009688" />
+        <!-- Login Button – צמוד לגמרי -->
+        <Button
+            android:id="@+id/btn_login_login"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:backgroundTint="#59005396"
+            android:text="התחבר"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <!-- Forgot Password -->
+        <TextView
+            android:id="@+id/tv_login_forgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingTop="24dp"
+            android:paddingRight="15dp"
+            android:text="שכחתי סיסמא"
+            android:textAllCaps="true"
+            android:textColor="#005396"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"/>
 
-            <Button
-                android:id="@+id/btn_login_login"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:backgroundTint="#59005396"
-                android:text="התחבר" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="right">
-
-                <TextView
-                    android:id="@+id/tv_login_forgotPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-
-                    android:gravity="right"
-                    android:paddingTop="30dp"
-                    android:paddingRight="15dp"
-                    android:text="שכחתי סיסמא"
-
-                    android:textAllCaps="true"
-                    android:textColor="#005396"
-
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
     </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
