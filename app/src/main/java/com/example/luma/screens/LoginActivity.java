@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
+import com.example.luma.screens.ui.AdminActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
@@ -129,11 +130,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Log.d(TAG, "onCompleted: User logged in: " + user.toString());
                 /// save the user data to shared preferences
                 SharedPreferencesUtil.saveUser(LoginActivity.this, user);
-                /// Redirect to main activity and clear back stack to prevent user from going back to login screen
-                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                /// Clear the back stack (clear history) and start the MainActivity
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(mainIntent);
+                ///  checking "isAdmin"
+                /// if true - redirect to AdminActivity
+                /// if false - Redirect to main activity
+                Log.d("!!!!!!!!!!!!!!!!!!!!!", user.toString());
+                if(user.isAdmin()){
+                    Intent AdminIntent = new Intent(LoginActivity.this, AdminActivity.class);
+                    /// Clear the back stack (clear history) and start the AdminActivity
+                    AdminIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(AdminIntent);
+                }
+                else{
+                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    /// Clear the back stack (clear history) and start the MainActivity
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(mainIntent);
+                }
+
             }
 
             @Override

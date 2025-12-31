@@ -1,10 +1,12 @@
 package com.example.luma.services;
 
+import android.icu.lang.UProperty;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.luma.models.Psychologist;
 import com.example.luma.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +36,7 @@ public class DatabaseService {
     /// paths for different data types in the database
     /// @see DatabaseService#readData(String)
     private static final String USERS_PATH = "users";
+    private static final String Psychologist_PATH = "Psychologist";
 
     /// callback interface for database operations
     /// @param <T> the type of the object to return
@@ -337,6 +340,79 @@ public class DatabaseService {
         runTransaction(USERS_PATH + "/" + user.getId(), User.class, currentUser -> user, new DatabaseCallback<User>() {
             @Override
             public void onCompleted(User object) {
+                if (callback != null) {
+                    callback.onCompleted(null);
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) {
+                    callback.onFailed(e);
+                }
+            }
+        });
+    }
+
+
+    // endregion Psychologist Section
+
+
+    // region Psychologist Section
+
+    /// generate a new id for a new Psychologist in the database
+    /// @return a new id for the Psychologist
+    /// @see #generateNewId(String)
+    /// @see Psychologist
+    public String generatePsychologistId() {
+        return generateNewId(Psychologist_PATH);
+    }
+
+    /// create a new user in the database
+    /// @param Psychologist the Psychologist object to create
+    /// @param callback the callback to call when the operation is completed
+    ///              the callback will receive void
+    ///            if the operation fails, the callback will receive an exception
+    /// @see DatabaseCallback
+    /// @see Psychologist
+    public void createNewPsychologist(@NotNull final Psychologist Psychologist, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(Psychologist_PATH + "/" + Psychologist.getId(), Psychologist.class, callback);
+    }
+
+    /// get a Psychologist from the database
+    /// @param uid the id of the Psychologist to get
+    /// @param callback the callback to call when the operation is completed
+    ///               the callback will receive the user object
+    ///             if the operation fails, the callback will receive an exception
+    /// @see DatabaseCallback
+    /// @see Psychologist
+    public void getPsychologist(@NotNull final String uid, @NotNull final DatabaseCallback<Psychologist> callback) {
+        getData(Psychologist_PATH + "/" + uid, Psychologist.class, callback);
+    }
+
+    /// get all the Psychologists from the database
+    /// @param callback the callback to call when the operation is completed
+    ///              the callback will receive a list of Psychologist objects
+    ///            if the operation fails, the callback will receive an exception
+    /// @see DatabaseCallback
+    /// @see List
+    /// @see Psychologist
+    public void getPsychologistList(@NotNull final DatabaseCallback<List<Psychologist>> callback) {
+        getDataList(Psychologist_PATH, Psychologist.class, callback);
+    }
+
+    /// delete a Psychologist from the database
+    /// @param uid the Psychologist id to delete
+    /// @param callback the callback to call when the operation is completed
+    public void deletePsychologist(@NotNull final String uid, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(Psychologist_PATH + "/" + uid, callback);
+    }
+
+
+    public void updatePsychologist(@NotNull final Psychologist psychologist, @Nullable final DatabaseCallback<Void> callback) {
+        runTransaction(Psychologist_PATH + "/" + psychologist.getId(), Psychologist.class, currentUser -> psychologist, new DatabaseCallback<Psychologist>() {
+            @Override
+            public void onCompleted(Psychologist object) {
                 if (callback != null) {
                     callback.onCompleted(null);
                 }

@@ -109,14 +109,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvEmail, tvPhone, tvInitials;
+        TextView tvName, tvEmail, tvInitials;
         Chip chipRole;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_item_user_name);
             tvEmail = itemView.findViewById(R.id.tv_item_user_email);
-            tvPhone = itemView.findViewById(R.id.tv_item_user_phone);
             tvInitials = itemView.findViewById(R.id.tv_user_initials);
             chipRole = itemView.findViewById(R.id.chip_user_role);
         }

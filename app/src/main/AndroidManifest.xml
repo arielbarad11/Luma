@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
+            android:name=".screens.ui.AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.UpdateUserActivity"
             android:exported="false" />
         <activity
