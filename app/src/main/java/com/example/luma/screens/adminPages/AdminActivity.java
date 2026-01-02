@@ -12,10 +12,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
+import com.example.luma.screens.LoginActivity;
+import com.example.luma.screens.MainActivity;
+import com.example.luma.utils.LogoutHelper;
+import com.example.luma.utils.SharedPreferencesUtil;
 
 public class AdminActivity extends AppCompatActivity {
 
     Button toUsersList;
+    private Button btnToExit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,24 @@ public class AdminActivity extends AppCompatActivity {
             return insets;
 
         });
+
+        // ===== refresh user from DB =====
+        String userId = SharedPreferencesUtil.getUserId(this);
+        if (userId == null) {
+            redirectToLogin();
+            return;
+        }
+
         toUsersList = findViewById(R.id.btn_admin_go_to_usersList);
+
+        // ===== init views =====
+        btnToExit = findViewById(R.id.btn_admin_to_exit);
+
+        // ===== listeners =====
+        btnToExit.setOnClickListener(v ->
+                LogoutHelper.logout(AdminActivity.this)
+        );
+
 
         toUsersList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,5 +60,16 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    };
+
+    }
+
+        private void redirectToLogin() {
+            SharedPreferencesUtil.signOutUser(this);
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+    }
+
+
 }

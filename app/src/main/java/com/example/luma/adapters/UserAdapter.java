@@ -18,7 +18,9 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-
+    // =======================
+    // Listener ללחיצות
+    // =======================
     public interface OnUserClickListener {
         void onUserClick(User user);
         void onLongUserClick(User user);
@@ -26,15 +28,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private final List<User> userList;
     private final OnUserClickListener onUserClickListener;
+
     public UserAdapter(@Nullable final OnUserClickListener onUserClickListener) {
-        userList = new ArrayList<>();
+        this.userList = new ArrayList<>();
         this.onUserClickListener = onUserClickListener;
     }
 
     @NonNull
     @Override
-    public UserAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.item_user, parent, false);
         return new ViewHolder(view);
     }
 
@@ -43,17 +48,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         User user = userList.get(position);
         if (user == null) return;
 
+        // שם ואימייל
         holder.tvName.setText(user.getFirstName());
         holder.tvEmail.setText(user.getEmail());
 
-        // Set initials
+        // ראשי תיבות
         String initials = "";
         if (user.getFirstName() != null && !user.getFirstName().isEmpty()) {
-            initials += user.getFirstName().charAt(0);
+            initials = String.valueOf(user.getFirstName().charAt(0));
         }
         holder.tvInitials.setText(initials.toUpperCase());
 
-        // Show admin chip if user is admin
+        // הצגת Chip אם המשתמש אדמין
         if (user.isAdmin()) {
             holder.chipRole.setVisibility(View.VISIBLE);
             holder.chipRole.setText("Admin");
@@ -61,25 +67,30 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             holder.chipRole.setVisibility(View.GONE);
         }
 
+        // לחיצה רגילה
         holder.itemView.setOnClickListener(v -> {
             if (onUserClickListener != null) {
                 onUserClickListener.onUserClick(user);
             }
         });
 
+        // לחיצה ארוכה
         holder.itemView.setOnLongClickListener(v -> {
             if (onUserClickListener != null) {
                 onUserClickListener.onLongUserClick(user);
             }
             return true;
         });
-
     }
 
     @Override
     public int getItemCount() {
         return userList.size();
     }
+
+    // =======================
+    // ניהול רשימה
+    // =======================
 
     public void setUserList(List<User> users) {
         userList.clear();
@@ -91,20 +102,39 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         userList.add(user);
         notifyItemInserted(userList.size() - 1);
     }
-    public void updateUser(User user) {
-        int index = userList.indexOf(user);
-        if (index == -1) return;
-        userList.set(index, user);
-        notifyItemChanged(index);
+
+    /**
+     * ⚠️ תיקון קריטי:
+     * לא משתמשים ב-indexOf
+     * מחפשים משתמש לפי ID
+     */
+    public void updateUser(User updatedUser) {
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getId().equals(updatedUser.getId())) {
+                userList.set(i, updatedUser);
+                notifyItemChanged(i);
+                return;
+            }
+        }
     }
 
+    /**
+     * ⚠️ תיקון קריטי:
+     * מחיקה לפי ID ולא לפי אובייקט
+     */
     public void removeUser(User user) {
-        int index = userList.indexOf(user);
-        if (index == -1) return;
-        userList.remove(index);
-        notifyItemRemoved(index);
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getId().equals(user.getId())) {
+                userList.remove(i);
+                notifyItemRemoved(i);
+                return;
+            }
+        }
     }
 
+    // =======================
+    // ViewHolder
+    // =======================
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvEmail, tvInitials;
         Chip chipRole;
