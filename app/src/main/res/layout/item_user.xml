@@ -19,6 +19,7 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
+        <!-- ראשי תיבות -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -35,9 +36,9 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorPrimary" />
-
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- פרטי משתמש -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,16 +54,13 @@
                 android:text="John Doe"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_marginBottom="4dp"
-                tools:text="@tools:sample/full_names" />
+                android:textColor="?attr/colorOnSurface" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="2dp">
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="14dp"
@@ -77,25 +75,18 @@
                     android:layout_height="wrap_content"
                     android:text="john.doe@example.com"
                     android:textSize="14sp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    tools:text="user@example.com" />
-
+                    android:textColor="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"/>
-
         </LinearLayout>
 
+        <!-- פעולות מנהל -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center|end"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
+            <!-- תג Admin -->
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_user_role"
                 android:layout_width="wrap_content"
@@ -103,19 +94,31 @@
                 android:text="Admin"
                 android:textSize="12sp"
                 android:visibility="gone"
-                app:chipBackgroundColor="?attr/colorSecondary"
-                app:chipStrokeWidth="0dp"
-                tools:visibility="visible" />
+                app:chipBackgroundColor="?attr/colorSecondary" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+            <!-- Make Admin -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_make_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
                 android:layout_marginTop="8dp"
-                android:src="@android:drawable/ic_menu_more"
-                app:tint="#999999" />
+                android:text="Make Admin"
+                android:textSize="12sp"
+                app:cornerRadius="18dp"
+                app:backgroundTint="?attr/colorPrimary" />
+
+            <!-- Delete User -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_user"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="6dp"
+                android:text="Delete"
+                android:textSize="12sp"
+                app:cornerRadius="18dp"
+                app:backgroundTint="@android:color/holo_red_dark" />
 
         </LinearLayout>
 
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

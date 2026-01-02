@@ -158,7 +158,7 @@ public class SharedPreferencesUtil {
     public static String getUserId(Context context) {
         User user = getUser(context);
         if (user != null) {
-            return user.getId();
+            return user.id;
         }
         return null;
     }

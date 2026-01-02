@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:id="@+id/dialog_add_user">
+
+    <!-- כותרת הדיאלוג -->
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="אישור מחיקה"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="12dp"/>
+
+    <!-- הודעת הדיאלוג -->
+    <TextView
+        android:id="@+id/tv_dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="בטוח שאתה רוצה למחוק את המשתמש?"
+        android:textSize="16sp"
+        android:paddingBottom="24dp"/>
+
+    <!-- כפתורי הדיאלוג -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <!-- כפתור ביטול -->
+        <Button
+            android:id="@+id/btn_dialog_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="לא"
+            android:textColor="@android:color/black"
+            android:background="?attr/selectableItemBackground"/>
+
+        <!-- כפתור אישור מחיקה -->
+        <Button
+            android:id="@+id/btn_dialog_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="כן"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginStart="16dp"
+            android:background="?attr/selectableItemBackground"/>
+
+    </LinearLayout>
+</LinearLayout>

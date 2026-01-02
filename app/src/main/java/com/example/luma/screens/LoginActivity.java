@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
-import com.example.luma.screens.ui.AdminActivity;
+import com.example.luma.screens.adminPages.AdminActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;

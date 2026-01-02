@@ -1,4 +1,4 @@
-package com.example.luma.Adapters;
+package com.example.luma.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,16 +43,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         User user = userList.get(position);
         if (user == null) return;
 
-        holder.tvName.setText(user.getFName());
+        holder.tvName.setText(user.getFirstName());
         holder.tvEmail.setText(user.getEmail());
 
         // Set initials
         String initials = "";
         if (user.getFirstName() != null && !user.getFirstName().isEmpty()) {
             initials += user.getFirstName().charAt(0);
-        }
-        if (user.getFName() != null && !user.getFName().isEmpty()) {
-            initials += user.getFName().charAt(0);
         }
         holder.tvInitials.setText(initials.toUpperCase());
 

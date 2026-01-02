@@ -12,7 +12,7 @@ import com.example.luma.services.DatabaseService;
 public class BaseActivity extends AppCompatActivity {
 
     protected DatabaseService databaseService;
-    protected DrawerLayout drawerLayout;
+//    protected DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +23,6 @@ public class BaseActivity extends AppCompatActivity {
         databaseService = DatabaseService.getInstance();
 
         // Drawer
-        drawerLayout = findViewById(R.id.drawer_layout);
+//        drawerLayout = findViewById(R.id.drawer_layout);
     }
 }

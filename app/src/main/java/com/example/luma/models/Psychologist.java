@@ -8,6 +8,10 @@ public class Psychologist {
 
     String name;
 
+    String city;
+
+    int sessionPrice;
+
 
     public Psychologist() {
     }
@@ -16,6 +20,8 @@ public class Psychologist {
         this.id = id;
         this.email = email;
         this.name = name;
+        this.city = city;
+        this.sessionPrice = sessionPrice;
     }
 
     public String getId() {
@@ -38,8 +44,24 @@ public class Psychologist {
         return name;
     }
 
-    public void setName(){
+    public void setName(String name){
         this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city){
+        this.city = city;
+    }
+
+    public int getSessionPrice() {
+        return sessionPrice;
+    }
+
+    public void setName(int sessionPrice){
+        this.sessionPrice = sessionPrice;
     }
 
     @NonNull
@@ -49,6 +71,8 @@ public class Psychologist {
                 "id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", sessionPrice='" + sessionPrice + '\'' +
                 '}';
     }
 }

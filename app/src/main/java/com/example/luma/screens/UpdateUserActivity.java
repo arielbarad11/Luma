@@ -24,9 +24,8 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
     private static final String TAG = "UpdateUserActivity";
 
     private EditText etUserFirstName, etUserEmail, etUserPassword;
-    private TextView tvUserDisplayName, tvUserDisplayEmail;
+    private TextView tvUserDisplayEmail;
     private Button btnUpdateProfile;
-    private View adminBadge;
 
     private String selectedUid;
     private User selectedUser;
@@ -73,10 +72,8 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
         etUserFirstName = findViewById(R.id.et_user_first_name);
         etUserEmail = findViewById(R.id.et_user_email);
         etUserPassword = findViewById(R.id.et_user_password);
-        tvUserDisplayName = findViewById(R.id.tv_user_display_name);
         tvUserDisplayEmail = findViewById(R.id.tv_user_display_email);
         btnUpdateProfile = findViewById(R.id.btn_edit_profile);
-        adminBadge = findViewById(R.id.admin_badge);
 
         btnUpdateProfile.setOnClickListener(this);
 
@@ -100,10 +97,8 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
                 etUserEmail.setText(user.getEmail());
                 etUserPassword.setText(user.getPassword());
 
-                tvUserDisplayName.setText(user.getFirstName());
                 tvUserDisplayEmail.setText(user.getEmail());
 
-                adminBadge.setVisibility(user.isAdmin() ? View.VISIBLE : View.GONE);
             }
 
             @Override
