@@ -75,4 +75,7 @@ public class Psychologist {
                 ", sessionPrice='" + sessionPrice + '\'' +
                 '}';
     }
+
+    public void setSessionPrice(int i) {
+    }
 }
