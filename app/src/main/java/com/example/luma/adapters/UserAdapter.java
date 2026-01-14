@@ -24,6 +24,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public interface OnUserClickListener {
         void onUserClick(User user);
         void onLongUserClick(User user);
+
+        boolean showAdminChip(User user);
+
+        boolean showRemoveAdminBtn(User user);
+
+        boolean showMakeAdminBtn(User user);
     }
 
     private final List<User> userList;
@@ -60,7 +66,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.tvInitials.setText(initials.toUpperCase());
 
         // הצגת Chip אם המשתמש אדמין
-        if (user.isAdmin()) {
+        if (onUserClickListener.showAdminChip(user)) {
             holder.chipRole.setVisibility(View.VISIBLE);
             holder.chipRole.setText("Admin");
         } else {
@@ -80,6 +86,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 onUserClickListener.onLongUserClick(user);
             }
             return true;
+        });
+        holder.tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
         });
     }
 

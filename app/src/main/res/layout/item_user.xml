@@ -79,13 +79,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- פעולות מנהל -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
             <!-- תג Admin -->
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_user_role"
@@ -96,29 +89,5 @@
                 android:visibility="gone"
                 app:chipBackgroundColor="?attr/colorSecondary" />
 
-            <!-- Make Admin -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_make_admin"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginTop="8dp"
-                android:text="Make Admin"
-                android:textSize="12sp"
-                app:cornerRadius="18dp"
-                app:backgroundTint="?attr/colorPrimary" />
-
-            <!-- Delete User -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_delete_user"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginTop="6dp"
-                android:text="Delete"
-                android:textSize="12sp"
-                app:cornerRadius="18dp"
-                app:backgroundTint="@android:color/holo_red_dark" />
-
         </LinearLayout>
-
-    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

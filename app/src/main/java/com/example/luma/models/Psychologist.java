@@ -16,7 +16,7 @@ public class Psychologist {
     public Psychologist() {
     }
 
-    public Psychologist(String id, String email, String name) {
+    public Psychologist(String id, String email, String name, int sessionPrice) {
         this.id = id;
         this.email = email;
         this.name = name;

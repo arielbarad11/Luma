@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
+            android:name=".screens.adminPages.AdminPsychologistListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.adminPages.AdminPsychologistListActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.adminPages.UsersListActivity"
             android:exported="false" />
         <activity

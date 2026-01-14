@@ -22,9 +22,9 @@ import com.example.luma.utils.SharedPreferencesUtil;
 
 import java.util.List;
 
-public class UsersListActivity extends BaseActivity {
+public class AdminPsychologistListActivity extends BaseActivity {
 
-    private static final String TAG = "UsersListActivity";
+    private static final String TAG = "AdminPsychologistListActivity";
 
     private UserAdapter userAdapter;
     private TextView tvUserCount;
@@ -193,4 +193,6 @@ public class UsersListActivity extends BaseActivity {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+}
+
 }

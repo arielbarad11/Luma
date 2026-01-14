@@ -20,8 +20,8 @@ import com.example.luma.utils.SharedPreferencesUtil;
 public class AdminActivity extends AppCompatActivity {
 
     Button toUsersList;
+    Button toAdminPsychologistList;
     private Button btnToExit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,8 @@ public class AdminActivity extends AppCompatActivity {
         }
 
         toUsersList = findViewById(R.id.btn_admin_go_to_usersList);
+        toAdminPsychologistList = findViewById(R.id.btn_admin_go_to_adminPsychologistList);
+
 
         // ===== init views =====
         btnToExit = findViewById(R.id.btn_admin_to_exit);
@@ -59,6 +61,13 @@ public class AdminActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminActivity.this, UsersListActivity.class);
                 startActivity(intent);
             }
+        });
+        toAdminPsychologistList.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                Intent intent = new Intent(AdminActivity.this, AdminPsychologistListActivity.class);
+                 startActivity(intent);
+             }
         });
 
     }
