@@ -1,6 +1,7 @@
 package com.example.luma.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 
 @IgnoreExtraProperties

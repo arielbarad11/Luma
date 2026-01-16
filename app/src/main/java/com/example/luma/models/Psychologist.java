@@ -16,7 +16,7 @@ public class Psychologist {
     public Psychologist() {
     }
 
-    public Psychologist(String id, String email, String name, int sessionPrice) {
+    public Psychologist(String id, String email, String name, String city, int sessionPrice) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -59,10 +59,10 @@ public class Psychologist {
     public int getSessionPrice() {
         return sessionPrice;
     }
-
-    public void setName(int sessionPrice){
+    public void setSessionPrice(int sessionPrice) {
         this.sessionPrice = sessionPrice;
     }
+
 
     @NonNull
     @Override
@@ -74,8 +74,5 @@ public class Psychologist {
                 ", city='" + city + '\'' +
                 ", sessionPrice='" + sessionPrice + '\'' +
                 '}';
-    }
-
-    public void setSessionPrice(int i) {
     }
 }

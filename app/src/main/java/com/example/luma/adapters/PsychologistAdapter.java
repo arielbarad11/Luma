@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.luma.R;
 import com.example.luma.models.Psychologist;
-import com.example.luma.models.User;
-import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +51,9 @@ public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapte
         // שם ואימייל
         holder.tvName.setText(psychologist.getName());
         holder.tvEmail.setText(psychologist.getEmail());
+        holder.tvCity.setText(psychologist.getCity());
+        holder.tvSessionPrice.setText(String.valueOf(psychologist.getSessionPrice()));
+
 
         // לחיצה רגילה
         holder.itemView.setOnClickListener(v -> {

@@ -8,15 +8,12 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.LogoutHelper;
 import com.example.luma.utils.SharedPreferencesUtil;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 

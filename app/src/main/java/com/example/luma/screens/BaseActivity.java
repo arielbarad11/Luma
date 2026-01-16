@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.luma.R;
 import com.example.luma.services.DatabaseService;
 
 public class BaseActivity extends AppCompatActivity {

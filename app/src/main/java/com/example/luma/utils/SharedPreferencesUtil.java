@@ -1,14 +1,11 @@
 package com.example.luma.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.annotation.Nullable;
 
 import com.example.luma.models.User;
-import com.example.luma.screens.ForgotPasswordActivity;
-import com.example.luma.screens.MainActivity;
 import com.google.gson.Gson;
 
 /// Utility class for shared preferences operations

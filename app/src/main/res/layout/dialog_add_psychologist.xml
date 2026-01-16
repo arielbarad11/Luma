@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_add_psychologist"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.adminPages.showAddPsychologistDialog">
+    android:layout_height="match_parent">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <EditText
-        android:id="@+id/et_psychologist_name"
-        android:hint="שם"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/et_psychologist_email"
-        android:hint="אימייל"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_psychologist_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="שם" />
 
-    <EditText
-        android:id="@+id/et_psychologist_city"
-        android:hint="עיר"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_psychologist_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="אימייל" />
 
-    <EditText
-        android:id="@+id/et_psychologist_price"
-        android:hint="מחיר פגישה"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/et_psychologist_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="עיר" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/et_psychologist_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="מחיר פגישה"
+            android:inputType="number" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

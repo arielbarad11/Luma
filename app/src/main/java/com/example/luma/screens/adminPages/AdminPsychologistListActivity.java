@@ -3,6 +3,8 @@ package com.example.luma.screens.adminPages;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -71,6 +73,12 @@ public class AdminPsychologistListActivity extends BaseActivity {
         );
 
         usersList.setAdapter(psychologistAdapter);
+
+        TextView tvAddPsychologist = findViewById(R.id.tv_add_item_psychologist);
+
+        tvAddPsychologist.setOnClickListener(v -> {
+            showAddPsychologistDialog();
+        });
     }
 
     @Override
@@ -166,5 +174,69 @@ public class AdminPsychologistListActivity extends BaseActivity {
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+
+    private void showAddPsychologistDialog() {
+
+        View dialogView = getLayoutInflater()
+                .inflate(R.layout.dialog_add_psychologist, null);
+
+        EditText etName = dialogView.findViewById(R.id.et_psychologist_name);
+        EditText etEmail = dialogView.findViewById(R.id.et_psychologist_email);
+        EditText etCity = dialogView.findViewById(R.id.et_psychologist_city);
+        EditText etPrice = dialogView.findViewById(R.id.et_psychologist_price);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Add psychologist")
+                .setView(dialogView)
+                .setPositiveButton("Continue", (dialog, which) -> {
+
+                    Psychologist psychologist = new Psychologist();
+                    String id = DatabaseService.getInstance().generatePsychologistId();
+                    psychologist.setId(id);
+                    psychologist.setName(etName.getText().toString());
+                    psychologist.setEmail(etEmail.getText().toString());
+                    psychologist.setCity(etCity.getText().toString());
+                    String stPrice = etPrice.getText().toString();
+                    int price = 0;
+                    if(!stPrice.isEmpty()) {
+                        price = Integer.parseInt(stPrice);
+                    }
+                    psychologist.setSessionPrice(price);
+                    showConfirmAddPsychologistDialog(psychologist);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void showConfirmAddPsychologistDialog(Psychologist psychologist) {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm add psychologist")
+                .setMessage(
+                        "Name: " + psychologist.getName() + "\n" +
+                                "Email: " + psychologist.getEmail() + "\n" +
+                                "City: " + psychologist.getCity() + "\n" +
+                                "Price: " + psychologist.getSessionPrice()
+                )
+                .setPositiveButton("Add", (dialog, which) -> {
+                    addPsychologist(psychologist);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void addPsychologist(Psychologist psychologist) {
+        databaseService.createNewPsychologist(psychologist, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void v) {
+                psychologistAdapter.add(psychologist);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "Add psychologist failed", e);
+            }
+        });
     }
 }

@@ -17,9 +17,7 @@ import com.google.firebase.database.Transaction;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.UnaryOperator;
 
@@ -31,7 +29,7 @@ public class DatabaseService {
     private static final String TAG = "DatabaseService";
 
     private static final String USERS_PATH = "users";
-    private static final String Psychologist_PATH = "Psychologist";
+    private static final String Psychologist_PATH = "psychologist";
 
     public interface DatabaseCallback<T> {
         void onCompleted(T object);
@@ -265,5 +263,8 @@ public class DatabaseService {
         });
     }
 
+
     // endregion
+
+
 }
