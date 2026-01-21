@@ -1,46 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
     tools:context=".screens.SplashActivity">
 
+    <!-- Logo -->
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:layout_constraintBottom_toTopOf="@+id/appName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/splash_logo_app"
+        android:contentDescription="@string/app_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"/>
-    <!--        to add above: android:src="@drawable/ic_launcher"-->
+        app:layout_constraintBottom_toTopOf="@id/appName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-
+    <!-- App name -->
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Food Cart"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="36sp"
+        android:layout_marginTop="16dp"
+        android:text="LUMA"
+        android:textColor="@color/black"
+        android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintTop_toBottomOf="@id/logo" />
 
+    <!-- Slogan -->
+    <TextView
+        android:id="@+id/appSlogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Peace within your reach"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appName" />
+
+    <!-- Loading -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:indeterminateTint="?attr/colorOnPrimary"
+        android:layout_marginBottom="40dp"
+        android:indeterminateTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

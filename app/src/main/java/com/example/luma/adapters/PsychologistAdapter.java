@@ -23,6 +23,7 @@ public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapte
     public interface OnClickListener {
         void onClick(Psychologist psychologist);
         void onLongClick(Psychologist psychologist);
+        void onEmailCLick(Psychologist psychologist);
 
     }
 
@@ -69,10 +70,12 @@ public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapte
             }
             return true;
         });
-        holder.tvName.setOnClickListener(new View.OnClickListener() {
+        holder.tvEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (onClickListener != null) {
+                    onClickListener.onEmailCLick(psychologist);
+                }
             }
         });
     }

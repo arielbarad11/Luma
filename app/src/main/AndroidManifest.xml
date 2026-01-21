@@ -11,16 +11,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
-            android:name=".screens.SplashActivity"
+            android:name=".screens.PsychologistListActivity"
             android:exported="false" />
+        <!-- Splash / Launcher -->
         <activity
-            android:name=".SplashActivity"
-            android:exported="false" />
+            android:name=".screens.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".screens.adminPages.showAddPsychologistDialogActivity"
-            android:exported="false" />
-        <activity
-            android:name=".screens.adminPages.AdminPsychologistListActivity"
             android:exported="false" />
         <activity
             android:name=".screens.adminPages.AdminPsychologistListActivity"
@@ -48,14 +52,8 @@
             android:exported="false" />
         <activity
             android:name=".screens.LandingActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Luma.Landing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.Luma.Landing" />
 
         <meta-data
             android:name="preloaded_fonts"

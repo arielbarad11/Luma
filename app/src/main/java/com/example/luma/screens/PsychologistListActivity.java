@@ -1,0 +1,101 @@
+package com.example.luma.screens;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.luma.R;
+import com.example.luma.adapters.PsychologistAdapter;
+import com.example.luma.models.Psychologist;
+import com.example.luma.screens.BaseActivity;
+import com.example.luma.services.DatabaseService;
+
+import java.util.List;
+
+public class PsychologistListActivity extends BaseActivity {
+
+    private static final String TAG = "UserPsychologistList";
+
+    private PsychologistAdapter psychologistAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_psychologist_list);
+
+        RecyclerView rvPsychologists = findViewById(R.id.rv_users_list);
+        rvPsychologists.setLayoutManager(new LinearLayoutManager(this));
+
+        psychologistAdapter = new PsychologistAdapter(
+                new PsychologistAdapter.OnClickListener() {
+
+                    // ❌ אין לחיצה רגילה
+                    @Override
+                    public void onClick(Psychologist psychologist) {
+                        // לא עושים כלום
+                    }
+
+                    // ❌ אין לחיצה ארוכה
+                    @Override
+                    public void onLongClick(Psychologist psychologist) {
+                        // לא עושים כלום
+                    }
+
+                    // ✅ צור קשר – מייל
+                    @Override
+                    public void onEmailCLick(Psychologist psychologist) {
+                        sendEmail(psychologist);
+                    }
+                }
+        );
+
+        rvPsychologists.setAdapter(psychologistAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        databaseService.getPsychologistList(
+                new DatabaseService.DatabaseCallback<List<Psychologist>>() {
+
+                    @Override
+                    public void onCompleted(List<Psychologist> psychologists) {
+                        psychologistAdapter.setList(psychologists);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.e(TAG, "Failed to load psychologists", e);
+                    }
+                }
+        );
+    }
+
+    // =======================
+    // שליחת מייל – צור קשר
+    // =======================
+    private void sendEmail(Psychologist psychologist) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL,
+                new String[]{psychologist.getEmail()});
+        intent.putExtra(Intent.EXTRA_SUBJECT,
+                "צור קשר – אפליקציית Luma");
+
+        try {
+            startActivity(Intent.createChooser(intent, "שלח אימייל באמצעות..."));
+        } catch (Exception e) {
+            Toast.makeText(this,
+                    "לא נמצאה אפליקציית מייל",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+}

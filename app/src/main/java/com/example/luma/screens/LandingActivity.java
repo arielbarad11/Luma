@@ -11,10 +11,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
-import com.example.luma.models.User;
-import com.example.luma.screens.adminPages.AdminActivity;
-import com.example.luma.services.DatabaseService;
-import com.example.luma.utils.SharedPreferencesUtil;
 
 public class LandingActivity extends BaseActivity {
 
@@ -31,29 +27,6 @@ public class LandingActivity extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        User current = SharedPreferencesUtil.getUser(this);
-        if (SharedPreferencesUtil.isUserLoggedIn(this)) {
-            databaseService.getUser(current.getId(), new DatabaseService.DatabaseCallback<User>() {
-                @Override
-                public void onCompleted(User user) {
-                    if (user != null) {
-                        Intent intent;
-                        if (user.isAdmin()) {
-                            intent = new Intent(LandingActivity.this, AdminActivity.class);
-                        } else {
-                            intent = new Intent(LandingActivity.this, MainActivity.class);
-                        }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                }
-            });
-        }
 
         toRegister = findViewById(R.id.btn_landing_go_to_register);
         toLogin = findViewById(R.id.btn_landing_go_to_login);

@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginBottom="8dp"
-                android:text="ניהול פסיכולוגים"
+                android:text="רשימת פסיכולוגים"
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -39,21 +39,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="מספר הפסיכולוגים: 0"
+                android:text="מספר הפסיכולוגים שלנו: 0"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp" />
 
-
-            <TextView
-                android:id="@+id/tv_add_item_psychologist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="+"
-                android:textSize="33dp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 

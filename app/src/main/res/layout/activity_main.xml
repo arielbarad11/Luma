@@ -8,6 +8,22 @@
     tools:context=".screens.MainActivity">
 
     <Button
+        android:id="@+id/btn_main_to_PsychologistList"
+        android:layout_width="320dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="15dp"
+        android:text="רשימת פסיכולוגים"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_UpdateUser"
+        app:layout_constraintVertical_bias="0.851" />
+
+    <Button
         android:id="@+id/tv_main_UpdateUser"
         android:layout_width="320dp"
         android:layout_height="53dp"
@@ -17,7 +33,7 @@
         android:text="עדכון פרטי משתמש"
         app:layout_constraintBottom_toTopOf="@+id/btn_main_to_exit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.932" />
@@ -36,4 +52,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_main_UpdateUser" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,12 +14,13 @@ import com.example.luma.models.User;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.LogoutHelper;
 import com.example.luma.utils.SharedPreferencesUtil;
+import com.example.luma.screens.PsychologistListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnToExit;
     private TextView btnToUpdateUser;
-    private TextView txtHomePageTitle;
+    private Button btnToPsychologists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // ===== init views =====
         btnToExit = findViewById(R.id.btn_main_to_exit);
         btnToUpdateUser = findViewById(R.id.tv_main_UpdateUser);
+        btnToPsychologists = findViewById(R.id.btn_main_to_PsychologistList);
 
         // ===== listeners =====
         btnToExit.setOnClickListener(v ->
@@ -43,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnToUpdateUser.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, UpdateUserActivity.class);
+            startActivity(intent);
+        });
+
+        btnToPsychologists.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    MainActivity.this,
+                    PsychologistListActivity.class
+            );
             startActivity(intent);
         });
 
