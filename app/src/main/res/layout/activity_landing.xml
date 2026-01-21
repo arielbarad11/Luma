@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.LandingActivity">
+    tools:context=".screens.LandingActivity"
+    android:id="@+id/landing">
 
     <!-- רקע מלא של המסך -->
     <ImageView
@@ -58,6 +58,7 @@
         android:layout_marginTop="268dp"
         android:backgroundTint="#59005396"
         android:text="הרשמה"
+        android:fontFamily="@font/font_secularone_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +71,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="#59005396"
         android:text="התחברות"
+        android:fontFamily="@font/font_secularone_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

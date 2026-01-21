@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.SplashActivity">
+    tools:context=".screens.SplashActivity"
+    android:id="@+id/splash_screen">
 
     <!-- Logo -->
     <ImageView
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="LUMA"
+        android:fontFamily="@font/font_suezone_regular"
         android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -44,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Peace within your reach"
+        android:fontFamily="@font/font_secularone_regular"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="normal"

@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.MainActivity">
+    tools:context=".screens.MainActivity"
+    android:id="@+id/main">
 
     <Button
         android:id="@+id/btn_main_to_PsychologistList"
@@ -16,6 +16,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="15dp"
         android:text="רשימת פסיכולוגים"
+        android:fontFamily="@font/font_secularone_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,6 +32,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
         android:text="עדכון פרטי משתמש"
+        android:fontFamily="@font/font_secularone_regular"
         app:layout_constraintBottom_toTopOf="@+id/btn_main_to_exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.888"
@@ -47,6 +49,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="15dp"
         android:text="התנתק"
+        android:fontFamily="@font/font_secularone_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

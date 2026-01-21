@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.RegisterActivity">
+    tools:context=".screens.RegisterActivity"
+    android:id="@+id/register">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,9 +75,10 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/amaranth_bold"
+                android:fontFamily="@font/font_suezone_regular"
                 android:text="הצטרפו אלינו!"
                 android:textSize="40dp"
+                android:textColor="@color/black"
                 android:paddingRight="15dp"/>
         </LinearLayout>
 
@@ -177,7 +178,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:backgroundTint="#59005396"
-                android:text="שלח" />
+                android:text="הירשם"
+                android:fontFamily="@font/font_secularone_regular" />
 
         </LinearLayout>
 
@@ -187,26 +189,6 @@
             android:orientation="vertical">
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
 
     </LinearLayout>
 

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="24dp"
-    android:id="@+id/dialog_add_user">
+    android:id="@+id/dialog_delete_user">
 
     <!-- כותרת הדיאלוג -->
     <TextView
@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="אישור מחיקה"
+        android:fontFamily="@font/font_suezone_regular"
+        android:layout_gravity="right"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingBottom="12dp"/>
@@ -22,6 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="בטוח שאתה רוצה למחוק את המשתמש?"
+        android:layout_gravity="right"
+        android:fontFamily="@font/font_secularone_regular"
         android:textSize="16sp"
         android:paddingBottom="24dp"/>
 
@@ -38,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="לא"
+            android:fontFamily="@font/font_secularone_regular"
             android:textColor="@android:color/black"
             android:background="?attr/selectableItemBackground"/>
 
@@ -47,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="כן"
+            android:fontFamily="@font/font_secularone_regular"
             android:textColor="@android:color/holo_red_dark"
             android:layout_marginStart="16dp"
             android:background="?attr/selectableItemBackground"/>
