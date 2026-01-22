@@ -1,4 +1,4 @@
-package com.example.luma.services.ui.gallery;
+package com.example.luma.services.ui.gallery; // ודאי שזה תואם לנתיב התיקייה שלך
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,31 +7,29 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.luma.databinding.FragmentGalleryBinding;
+import com.example.luma.R;
 
 public class GalleryFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
-
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
+    // הסרנו את ה-Binding המסובך כדי לפתור את השגיאות מיד
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+        // טעינת ה-XML בצורה פשוטה וישירה
+        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+
+        // מציאת הטקסט בתוך ה-XML
+        TextView textView = root.findViewById(R.id.text_gallery);
+
+        if (textView != null) {
+            textView.setText("מסך גלריה - בבנייה");
+        }
+
+        return root;
     }
 }

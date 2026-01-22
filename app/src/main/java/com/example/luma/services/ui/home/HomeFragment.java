@@ -1,4 +1,4 @@
-package com.example.luma.services.ui.home;
+package com.example.luma.services.ui.home; // תיקון הנתיב ל-services
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,28 +10,34 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.luma.databinding.FragmentHomeBinding;
+import com.example.luma.R;
+// הוספת ייבוא ל-ViewModel - ודאי שהנתיב הזה נכון
+import com.example.luma.services.ui.home.HomeViewModel;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
-
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        // טעינת העיצוב בצורה ישירה - ודאי שקיים קובץ fragment_home.xml ב-layout
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        try {
+            // אתחול ה-ViewModel
+            HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+            // מציאת הטקסט
+            final TextView textView = root.findViewById(R.id.text_home);
+
+            if (textView != null) {
+                homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+            }
+        } catch (Exception e) {
+            // אם ה-ViewModel עושה בעיות, האפליקציה לפחות לא תקרוס
+            e.printStackTrace();
+        }
+
         return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
+import com.example.luma.screens.simulators.BreathingSimulationActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.LogoutHelper;
 import com.example.luma.utils.SharedPreferencesUtil;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnToExit;
     private TextView btnToUpdateUser;
     private Button btnToPsychologists;
+
+    private Button btnToBreathingSimulation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btnToExit = findViewById(R.id.btn_main_to_exit);
         btnToUpdateUser = findViewById(R.id.tv_main_UpdateUser);
         btnToPsychologists = findViewById(R.id.btn_main_to_PsychologistList);
+        btnToBreathingSimulation = findViewById(R.id.btn_main_to_BreathingSimulation);
 
         // ===== listeners =====
         btnToExit.setOnClickListener(v ->
@@ -53,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this,
                     PsychologistListActivity.class
             );
+            startActivity(intent);
+        });
+
+        btnToBreathingSimulation.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, BreathingSimulationActivity.class);
             startActivity(intent);
         });
 

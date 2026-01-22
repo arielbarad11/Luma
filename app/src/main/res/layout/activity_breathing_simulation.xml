@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F7FF"
+    android:layoutDirection="rtl">
+
+    <!-- כפתור סגירה -->
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:tint="#005396" />
+
+    <!-- הוראות למשתמש -->
+    <TextView
+        android:id="@+id/tv_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="מוכנים להתחיל?"
+        android:textSize="28sp"
+        android:textColor="#005396"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+    <!-- עיגול הנשימה עם צל (Elevation) -->
+    <View
+        android:id="@+id/breathing_circle"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle_shape"
+        android:elevation="8dp"
+        android:alpha="0.7" />
+
+    <!-- כפתור התחלה מעוצב -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_start_breathing"
+        android:layout_width="220dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:text="התחל תרגיל הרגעה"
+        android:textSize="18sp"
+        app:cornerRadius="32dp"
+        android:backgroundTint="#005396"
+        app:elevation="4dp" />
+
+</RelativeLayout>

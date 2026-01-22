@@ -3,40 +3,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.SplashActivity"
-    android:id="@+id/splash_screen">
+    tools:context=".screens.SplashActivity">
 
     <!-- Logo -->
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="200dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/splash_logo_app"
         android:contentDescription="@string/app_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/appName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/appName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- App name -->
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="LUMA"
         android:fontFamily="@font/font_suezone_regular"
-        android:textColor="@color/black"
-        android:textSize="34sp"
+        android:textColor="#005396"
+        android:textSize="40sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/appSlogan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <!-- Slogan -->
     <TextView
@@ -46,21 +45,22 @@
         android:layout_marginTop="8dp"
         android:text="Peace within your reach"
         android:fontFamily="@font/font_secularone_regular"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textColor="#555555"
+        android:textSize="18sp"
         android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appName" />
+        app:layout_constraintTop_toBottomOf="@+id/appName" />
 
-    <!-- Loading -->
+    <!-- Loading Indicator -->
     <ProgressBar
         android:id="@+id/progressBar"
-        style="@style/Widget.AppCompat.ProgressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:indeterminateTint="@color/black"
+        android:layout_marginBottom="60dp"
+        android:indeterminateTint="#005396"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

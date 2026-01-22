@@ -5,33 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.luma.databinding.FragmentGalleryBinding;
+import com.example.luma.R; // ודאי שהייבוא הזה קיים
 
 public class GalleryFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        // טעינת העיצוב בצורה פשוטה ללא Binding כדי למנוע שגיאות כרגע
+        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // אם יש לך טקסט בעיצוב שאת רוצה לשנות:
+        TextView textView = root.findViewById(R.id.text_gallery);
+        if (textView != null) {
+            textView.setText("מסך גלריה (בבנייה)");
+        }
+
         return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

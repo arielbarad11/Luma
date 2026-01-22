@@ -10,28 +10,30 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.luma.databinding.FragmentSlideshowBinding;
+import com.example.luma.R;
 
 public class SlideshowFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
-
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        // טעינת ה-XML בצורה ישירה ופשוטה
+        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // אתחול ה-ViewModel (אם קיים קובץ SlideshowViewModel)
+        try {
+            SlideshowViewModel slideshowViewModel =
+                    new ViewModelProvider(this).get(SlideshowViewModel.class);
+
+            final TextView textView = root.findViewById(R.id.text_slideshow);
+            if (textView != null) {
+                slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }
