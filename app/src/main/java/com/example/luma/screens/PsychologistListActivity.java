@@ -30,7 +30,7 @@ public class PsychologistListActivity extends BaseActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_psychologist_list);
 
-        RecyclerView rvPsychologists = findViewById(R.id.rv_users_list);
+        RecyclerView rvPsychologists = findViewById(R.id.rv_psychologist_list);
         rvPsychologists.setLayoutManager(new LinearLayoutManager(this));
 
         psychologistAdapter = new PsychologistAdapter(

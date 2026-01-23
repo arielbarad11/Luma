@@ -8,6 +8,22 @@
     android:id="@+id/mainAdmin">
 
     <Button
+        android:id="@+id/btn_admin_go_to_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="185dp"
+        android:layout_marginTop="229dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="29dp"
+        android:text="תצוגת משתמשים"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
         android:id="@+id/btn_admin_go_to_usersList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

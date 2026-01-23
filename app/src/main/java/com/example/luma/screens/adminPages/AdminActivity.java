@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.screens.LoginActivity;
+import com.example.luma.screens.MainActivity;
 import com.example.luma.utils.LogoutHelper;
 import com.example.luma.utils.SharedPreferencesUtil;
 
@@ -20,7 +21,10 @@ public class AdminActivity extends AppCompatActivity {
 
     Button toUsersList;
     Button toAdminPsychologistList;
+
+    Button toMain;
     private Button btnToExit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class AdminActivity extends AppCompatActivity {
 
         toUsersList = findViewById(R.id.btn_admin_go_to_usersList);
         toAdminPsychologistList = findViewById(R.id.btn_admin_go_to_adminPsychologistList);
+        toMain = findViewById(R.id.btn_admin_go_to_main);
 
 
         // ===== init views =====
@@ -67,6 +72,13 @@ public class AdminActivity extends AppCompatActivity {
                 Intent intent = new Intent(AdminActivity.this, AdminPsychologistListActivity.class);
                  startActivity(intent);
              }
+        });
+        toMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
         });
 
     }

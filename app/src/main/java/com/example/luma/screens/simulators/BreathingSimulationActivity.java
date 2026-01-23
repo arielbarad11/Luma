@@ -27,7 +27,7 @@ public class BreathingSimulationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breathing_simulation);
 
-        // אתחול הרכיבים - ודאי שה-IDs תואמים ל-XML
+        // אתחול הרכיבים
         breathingCircle = findViewById(R.id.breathing_circle);
         tvInstruction = findViewById(R.id.tv_instruction);
         btnStart = findViewById(R.id.btn_start_breathing);

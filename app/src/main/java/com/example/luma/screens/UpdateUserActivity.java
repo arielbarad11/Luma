@@ -38,7 +38,7 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_update_user);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.tv_UpdateUser), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

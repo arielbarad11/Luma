@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- הוספנו fitsSystemWindows כדי למנוע מהתוכן לעלות על השעה והסוללה -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".screens.PsychologistListActivity"
     android:id="@+id/psychologist_list">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@android:color/transparent"
+        app:elevation="0dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +22,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- כותרת ומונה -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,9 +50,9 @@
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp" />
 
-
         </LinearLayout>
 
+        <!-- כרטיס המכיל את הרשימה -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -62,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!-- הרשימה עצמה -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_psychologist_list"
                     android:layout_width="match_parent"
@@ -70,6 +76,7 @@
                     android:clipToPadding="false"
                     tools:listitem="@layout/item_psychologist" />
 
+                <!-- מצב רשימה ריקה -->
                 <LinearLayout
                     android:id="@+id/empty_state"
                     android:layout_width="match_parent"
@@ -94,16 +101,9 @@
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:layout_marginBottom="8dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="פסיכולוגים יופיעו פה"
-                        android:fontFamily="@font/font_secularone_regular"
-                        android:textSize="14sp"
-                        android:textColor="?attr/colorOnSurfaceVariant" />
-
                 </LinearLayout>
 
+                <!-- אינדיקטור טעינה -->
                 <ProgressBar
                     android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"
