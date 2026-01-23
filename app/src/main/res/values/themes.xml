@@ -1,22 +1,20 @@
 <resources>
 
     <style name="Base.Theme.Luma" parent="Theme.Material3.DayNight">
+        <!-- צבע הרקע הכללי של כל האפליקציה (גוון חול חם ומרגיע) -->
+        <item name="android:windowBackground">#F7F3F0</item>
 
-        <item name="android:windowBackground">#AEE1CF</item>
+        <!-- הגדרת צבע ה-StatusBar לכחול -->
+        <item name="android:statusBarColor">#005396</item>
+        <item name="android:windowLightStatusBar">false</item>
 
-        <!-- הפעלת ActionBar -->
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
 
-        <!-- צבע רקע עליון -->
         <item name="actionBarStyle">@style/Luma.ActionBar</item>
-
-        <!-- הצגת לוגו -->
         <item name="logo">@drawable/luma_logo</item>
         <item name="displayOptions">useLogo|showHome</item>
         <item name="android:logo">@drawable/luma_logo</item>
-
-        <!-- ביטול הטייטל כדי שלא יוצג -->
         <item name="android:label"></item>
     </style>
 
@@ -27,19 +25,25 @@
         <item name="displayOptions">useLogo|showHome</item>
     </style>
 
-
-    <!-- Theme (landing)מותאם למסך פתיחה -->
+    <!-- עיצוב מותאם למסך הנחיתה (Splash) -->
+    <!-- שיניתי פה את ה-windowBackground חזרה לכחול (או לטורקיז המקורי שלך) -->
     <style name="Theme.Luma.Landing" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowBackground">#AEE1CF</item> <!-- צבע רקע אחיד -->
+        <!-- אם את רוצה שהמסך פתיחה יהיה כולו כחול: -->
+        <item name="android:windowBackground">#005396</item>
+
+        <!-- אם את רוצה להחזיר לטורקיז שהיה קודם, תשני ל-#0D009688 -->
+
+        <item name="android:statusBarColor">#005396</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <style name="Theme.Luma.NoActionBar">
+    <style name="Theme.Luma.NoActionBar" parent="Base.Theme.Luma">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#005396</item>
     </style>
 
     <style name="Theme.Luma.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="Theme.Luma.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

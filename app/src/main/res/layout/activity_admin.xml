@@ -4,70 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.adminPages.AdminActivity"
-    android:id="@+id/mainAdmin">
+    android:id="@+id/mainAdmin"
+    android:fitsSystemWindows="true"
+    tools:context=".screens.adminPages.AdminActivity">
 
-    <Button
-        android:id="@+id/btn_admin_go_to_main"
+    <!-- רקע עליון דקורטיבי (בצבע כחול כהה יותר למנהל) -->
+    <View
+        android:id="@+id/topBackgroundAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#1A237E"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/adminTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="229dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginBottom="29dp"
-        android:text="תצוגת משתמשים"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_admin_go_to_usersList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="229dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginBottom="29dp"
-        android:text="ניהול משתמשים"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/font_suezone_regular"
+        android:text="פאנל ניהול מערכת"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/btn_admin_to_exit"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="229dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginBottom="29dp"
-        android:text="התנתק"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
+        android:text="ניהול משתמשים ותוכן"
+        android:textColor="#BBDEFB"
+        android:fontFamily="@font/font_secularone_regular"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715" />
+        app:layout_constraintTop_toBottomOf="@+id/adminTitle" />
 
-    <Button
-        android:id="@+id/btn_admin_go_to_adminPsychologistList"
-        android:layout_width="wrap_content"
+    <!-- מיכל כפתורים מרכזי -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="229dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginBottom="29dp"
-        android:text="ניהול פסיכולוגים"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.263" />
+        app:layout_constraintTop_toBottomOf="@+id/topBackgroundAdmin">
+
+        <Button
+            android:id="@+id/btn_admin_go_to_usersList"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#283593"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="ניהול משתמשים"
+            android:textColor="@color/white"
+            app:cornerRadius="12dp"
+            app:elevation="4dp" />
+
+        <Button
+            android:id="@+id/btn_admin_go_to_adminPsychologistList"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#283593"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="ניהול פסיכולוגים"
+            android:textColor="@color/white"
+            app:cornerRadius="12dp"
+            app:elevation="4dp" />
+
+        <Button
+            android:id="@+id/btn_admin_go_to_main"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#5C6BC0"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="חזרה לתצוגת משתמש"
+            android:textColor="@color/white"
+            app:cornerRadius="12dp"
+            app:elevation="4dp" />
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="24dp"
+            android:background="#DDDDDD" />
+
+        <Button
+            android:id="@+id/btn_admin_to_exit"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#555555"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="התנתק"
+            android:textColor="@color/white"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

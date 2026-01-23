@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:background="#5C6BC0"
         android:gravity="center_vertical">
 
         <!-- ראשי תיבות -->
@@ -25,7 +26,7 @@
             android:layout_height="56dp"
             app:cardCornerRadius="28dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="?attr/colorSurfaceVariant">
+            app:cardBackgroundColor="@color/white">
 
             <TextView
                 android:id="@+id/tv_user_initials"
@@ -35,7 +36,7 @@
                 android:text="JD"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/black" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- פרטי משתמש -->
@@ -54,7 +55,7 @@
                 android:text="John Doe"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="?attr/colorOnSurface" />
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:src="@android:drawable/ic_dialog_email"
-                    app:tint="#666666"
+                    app:tint="#C2000000"
                     android:layout_marginEnd="6dp" />
 
                 <TextView
@@ -75,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="john.doe@example.com"
                     android:textSize="14sp"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>
 

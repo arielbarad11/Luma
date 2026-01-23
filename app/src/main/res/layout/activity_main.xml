@@ -2,75 +2,116 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.MainActivity"
-    android:id="@+id/main">
+    android:background="#F7F3F0"
+    android:fitsSystemWindows="false"
+    tools:context=".screens.MainActivity">
 
-    <Button
-        android:id="@+id/btn_main_to_BreathingSimulation"
-        android:layout_width="320dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:fontFamily="@font/font_secularone_regular"
-        android:text="סימולציית נשימה"
-        app:layout_constraintBottom_toTopOf="@+id/btn_main_to_exit"
+    <!-- רקע כחול עליון - צבוע את כל החלק העליון -->
+    <View
+        android:id="@+id/topBackground"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#005396"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Guideline - קו דמיוני שמונע מהטקסט לעלות על השעה והסוללה -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/statusBarGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="40dp" />
+
+    <TextView
+        android:id="@+id/welcomeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/font_suezone_regular"
+        android:text="תפריט ראשי"
+        android:textColor="@color/white"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932" />
+        app:layout_constraintTop_toTopOf="@id/statusBarGuideline" />
 
-    <Button
-        android:id="@+id/btn_main_to_PsychologistList"
-        android:layout_width="320dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="15dp"
-        android:text="רשימת פסיכולוגים"
-        android:fontFamily="@font/font_secularone_regular"
+    <TextView
+        android:id="@+id/helloUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/font_suezone_regular"
+        android:text="טוען..."
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTitle" />
+
+    <!-- מיכל הכפתורים - מוגבל לשטח שמתחת לרקע הכחול -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_main_UpdateUser"
-        app:layout_constraintVertical_bias="0.851" />
+        app:layout_constraintTop_toBottomOf="@+id/topBackground">
 
-    <Button
-        android:id="@+id/tv_main_UpdateUser"
-        android:layout_width="320dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:text="עדכון פרטי משתמש"
-        android:fontFamily="@font/font_secularone_regular"
-        app:layout_constraintBottom_toTopOf="@+id/btn_main_to_exit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.888"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932" />
+        <Button
+            android:id="@+id/btn_main_to_admin"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#D32F2F"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="ניהול מערכת"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:cornerRadius="12dp" />
 
-    <Button
-        android:id="@+id/btn_main_to_exit"
-        android:layout_width="320dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="15dp"
-        android:text="התנתק"
-        android:fontFamily="@font/font_secularone_regular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_main_UpdateUser" />
+        <Button
+            android:id="@+id/btn_main_to_BreathingSimulation"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="סימולציית נשימה"
+            android:backgroundTint="#005396"
+            app:cornerRadius="12dp" />
 
+        <Button
+            android:id="@+id/btn_main_to_PsychologistList"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="רשימת פסיכולוגים"
+            android:backgroundTint="#005396"
+            app:cornerRadius="12dp" />
+
+        <Button
+            android:id="@+id/tv_main_UpdateUser"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="עדכון פרטי משתמש"
+            android:backgroundTint="#005396"
+            app:cornerRadius="12dp" />
+
+        <Button
+            android:id="@+id/btn_main_to_exit"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#555555"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="התנתק מהמערכת"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F7FF"
+    android:background="#F7F3F0"
     android:layoutDirection="rtl">
 
     <!-- כפתור סגירה -->
@@ -11,37 +11,53 @@
         android:id="@+id/btn_close"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_margin="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
         app:tint="#005396" />
 
-    <!-- הוראות למשתמש -->
-    <TextView
-        android:id="@+id/tv_instruction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="מוכנים להתחיל?"
-        android:textSize="28sp"
-        android:textColor="#005396"
-        android:textStyle="bold"
-        android:textAlignment="center" />
+    <!-- המיכל הראשי - clipChildren="false" קריטי כדי שהאנימציה לא תיחתך -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
-    <!-- עיגול הנשימה עם צל (Elevation) -->
-    <View
-        android:id="@+id/breathing_circle"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/circle_shape"
-        android:elevation="8dp"
-        android:alpha="0.7" />
+        <!-- המיכל שגדל וקטן (מכיל את העיגול והטקסט) -->
+        <FrameLayout
+            android:id="@+id/breathing_container"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:clipChildren="false">
 
-    <!-- כפתור התחלה מעוצב -->
+            <!-- עיגול הנשימה -->
+            <View
+                android:id="@+id/breathing_circle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle_shape"
+                android:outlineProvider="background"
+                android:clipToOutline="true"
+                android:elevation="8dp" />
+
+            <!-- הכיתוב בפנים - עכשיו הוא יגדל יחד עם המיכל -->
+            <TextView
+                android:id="@+id/tv_instruction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="מוכנים?"
+                android:fontFamily="@font/font_secularone_regular"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:elevation="12dp"
+                android:textAlignment="center" />
+        </FrameLayout>
+
+    </FrameLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_start_breathing"
         android:layout_width="220dp"
@@ -49,10 +65,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
-        android:text="התחל תרגיל הרגעה"
+        android:text="התחל סשן"
+        android:fontFamily="@font/font_secularone_regular"
         android:textSize="18sp"
         app:cornerRadius="32dp"
         android:backgroundTint="#005396"
-        app:elevation="4dp" />
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

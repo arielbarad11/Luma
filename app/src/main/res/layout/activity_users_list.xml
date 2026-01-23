@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/android:colorBackground"
     tools:context=".screens.adminPages.UsersListActivity"
     android:id="@+id/users_list">
 
@@ -41,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="מספר המשתמשים שלנו: 0"
+                android:text= "מספר המשתמשים שלנו: 0"
                 android:fontFamily="@font/font_secularone_regular"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp" />
@@ -67,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="8dp"
+                    android:background="#5C6BC0"
                     android:clipToPadding="false"
                     tools:listitem="@layout/item_user" />
 
