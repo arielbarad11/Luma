@@ -2,6 +2,9 @@ package com.example.luma.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -16,7 +19,7 @@ import com.example.luma.utils.SharedPreferencesUtil;
 
 public class SplashActivity extends BaseActivity {
 
-    private Intent intent;
+    private static final String TAG = "SplashActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,73 +33,79 @@ public class SplashActivity extends BaseActivity {
             return insets;
         });
 
-        Thread splashThread = new Thread(() -> {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ignored) {
+        Log.d(TAG, "SplashActivity started");
+
+        // Wait 3 seconds then check login status
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            Log.d(TAG, "Starting navigation check");
+            checkUserAndNavigate();
+        }, 3000);
+    }
+
+    private void checkUserAndNavigate() {
+        Log.d(TAG, "Checking if user is logged in");
+
+        if (!SharedPreferencesUtil.isUserLoggedIn(this)) {
+            Log.d(TAG, "User not logged in, navigating to Landing");
+            navigateToActivity(LandingActivity.class);
+            return;
+        }
+
+        User current = SharedPreferencesUtil.getUser(this);
+        Log.d(TAG, "User logged in, ID: " + (current != null ? current.getId() : "null"));
+
+        if (current == null) {
+            Log.e(TAG, "Current user is null despite being logged in");
+            SharedPreferencesUtil.signOutUser(this);
+            navigateToActivity(LandingActivity.class);
+            return;
+        }
+
+        Log.d(TAG, "Fetching user from database");
+        DatabaseService.getInstance().getUser(current.getId(), new DatabaseService.DatabaseCallback<User>() {
+
+            @Override
+            public void onCompleted(User user) {
+                Log.d(TAG, "Database fetch completed. User: " + (user != null ? user.getId() : "null"));
+                runOnUiThread(() -> {
+                    if (user == null) {
+                        Log.d(TAG, "User not found in database, signing out");
+                        SharedPreferencesUtil.signOutUser(SplashActivity.this);
+                        navigateToActivity(LandingActivity.class);
+                    } else {
+                        SharedPreferencesUtil.saveUser(SplashActivity.this, user);
+                        if (user.isAdmin()) {
+                            Log.d(TAG, "User is admin, navigating to Admin");
+                            navigateToActivity(AdminActivity.class);
+                        } else {
+                            Log.d(TAG, "User is regular, navigating to Main");
+                            navigateToActivity(MainActivity.class);
+                        }
+                    }
+                });
             }
 
-            runOnUiThread(() -> {
-                if (SharedPreferencesUtil.isUserLoggedIn(this)) {
-
-                    User current = SharedPreferencesUtil.getUser(this);
-                    if (current != null) {
-                        DatabaseService.getInstance()
-                                .getUser(current.getId(), new DatabaseService.DatabaseCallback<User>() {
-
-                                    @Override
-                                    public void onCompleted(User user) {
-                                        if (user != null) {
-                                            SharedPreferencesUtil.saveUser(SplashActivity.this, user);
-
-                                            if (user.isAdmin()) {
-                                                intent = new Intent(SplashActivity.this, AdminActivity.class);
-                                            } else {
-                                                intent = new Intent(SplashActivity.this, MainActivity.class);
-                                            }
-                                        } else {
-                                            SharedPreferencesUtil.signOutUser(SplashActivity.this);
-                                            intent = new Intent(SplashActivity.this, LandingActivity.class);
-                                        }
-
-                                        intent.setFlags(
-                                                Intent.FLAG_ACTIVITY_NEW_TASK |
-                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        );
-                                        startActivity(intent);
-                                    }
-
-                                    @Override
-                                    public void onFailed(Exception e) {
-                                        SharedPreferencesUtil.signOutUser(SplashActivity.this);
-                                        intent = new Intent(SplashActivity.this, LandingActivity.class);
-                                        intent.setFlags(
-                                                Intent.FLAG_ACTIVITY_NEW_TASK |
-                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        );
-                                        startActivity(intent);
-                                    }
-                                });
-                    } else {
-                        intent = new Intent(SplashActivity.this, LandingActivity.class);
-                        intent.setFlags(
-                                Intent.FLAG_ACTIVITY_NEW_TASK |
-                                        Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        );
-                        startActivity(intent);
-                    }
-
-                } else {
-                    intent = new Intent(SplashActivity.this, LandingActivity.class);
-                    intent.setFlags(
-                            Intent.FLAG_ACTIVITY_NEW_TASK |
-                                    Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    );
-                    startActivity(intent);
-                }
-            });
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "Database fetch failed: " + e.getMessage(), e);
+                runOnUiThread(() -> {
+                    SharedPreferencesUtil.signOutUser(SplashActivity.this);
+                    navigateToActivity(LandingActivity.class);
+                });
+            }
         });
+    }
 
-        splashThread.start();
+    private void navigateToActivity(Class<?> activityClass) {
+        Log.d(TAG, "Navigating to: " + activityClass.getSimpleName());
+        try {
+            Intent intent = new Intent(SplashActivity.this, activityClass);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            Log.d(TAG, "Navigation completed successfully");
+        } catch (Exception e) {
+            Log.e(TAG, "Navigation failed: " + e.getMessage(), e);
+        }
     }
 }

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F3F0"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="מעקב מצב רוח"
+            android:textSize="32sp"
+            android:textColor="#700053"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="איך את/ה מרגיש/ה היום?"
+            android:textSize="14sp"
+            android:textColor="#700053"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- Main Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            android:elevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <!-- Mood Selection Label -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="בחר/י מצב רוח"
+                    android:textSize="14sp"
+                    android:textColor="#700053"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="right"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Mood Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    android:layout_marginBottom="32dp">
+
+                    <Button
+                        android:id="@+id/btnMood1"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="😢\nקשה\nמאוד"
+                        android:textSize="16sp"
+                        android:background="@android:color/white"
+                        android:elevation="0dp"/>
+
+                    <Button
+                        android:id="@+id/btnMood2"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="😟\nלא\nטוב"
+                        android:textSize="16sp"
+                        android:background="@android:color/white"
+                        android:elevation="0dp"/>
+
+                    <Button
+                        android:id="@+id/btnMood3"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="😐\nבסדר"
+                        android:textSize="16sp"
+                        android:background="@android:color/white"
+                        android:elevation="0dp"/>
+
+                    <Button
+                        android:id="@+id/btnMood4"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="🙂\nטוב"
+                        android:textSize="16sp"
+                        android:background="@android:color/white"
+                        android:elevation="0dp"/>
+
+                    <Button
+                        android:id="@+id/btnMood5"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="😊\nמצוין"
+                        android:textSize="16sp"
+                        android:background="@android:color/white"
+                        android:elevation="0dp"/>
+
+                </LinearLayout>
+
+                <!-- Notes Label -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="הערות (אופציונלי)"
+                    android:textSize="14sp"
+                    android:textColor="#700053"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="right"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Notes Input -->
+                <EditText
+                    android:id="@+id/etNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:padding="16dp"
+                    android:gravity="top|right"
+                    android:hint="מה עבר עליך היום? איך הרגשת?"
+                    android:textColorHint="#A89B94"
+                    android:textColor="#700053"
+                    android:textSize="14sp"
+                    android:inputType="textMultiLine"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- Submit Button -->
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="שלח"
+                    android:textSize="18sp"
+                    android:textColor="#F7F3F0"
+                    android:background="#700053"
+                    android:fontFamily="sans-serif-medium"
+                    android:enabled="false"
+                    android:alpha="0.6"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Chart Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            android:elevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="המעקב שלך"
+                    android:textSize="20sp"
+                    android:textColor="#700053"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="right"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Chart -->
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chartMood"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#E5DDD8"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Emoji Summary Label -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="סיכום האימוגים שלך"
+                    android:textSize="14sp"
+                    android:textColor="#700053"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="right"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Emoji Summary -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:padding="12dp"
+                        android:layout_margin="4dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="😢"
+                            android:textSize="24sp"
+                            android:layout_marginEnd="8dp"/>
+                        <TextView
+                            android:id="@+id/tvEmoji1Count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="×0"
+                            android:textSize="14sp"
+                            android:textColor="#700053"
+                            android:fontFamily="sans-serif-medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:padding="12dp"
+                        android:layout_margin="4dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="😟"
+                            android:textSize="24sp"
+                            android:layout_marginEnd="8dp"/>
+                        <TextView
+                            android:id="@+id/tvEmoji2Count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="×0"
+                            android:textSize="14sp"
+                            android:textColor="#700053"
+                            android:fontFamily="sans-serif-medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:padding="12dp"
+                        android:layout_margin="4dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="😐"
+                            android:textSize="24sp"
+                            android:layout_marginEnd="8dp"/>
+                        <TextView
+                            android:id="@+id/tvEmoji3Count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="×0"
+                            android:textSize="14sp"
+                            android:textColor="#700053"
+                            android:fontFamily="sans-serif-medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:padding="12dp"
+                        android:layout_margin="4dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🙂"
+                            android:textSize="24sp"
+                            android:layout_marginEnd="8dp"/>
+                        <TextView
+                            android:id="@+id/tvEmoji4Count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="×0"
+                            android:textSize="14sp"
+                            android:textColor="#700053"
+                            android:fontFamily="sans-serif-medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:padding="12dp"
+                        android:layout_margin="4dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="😊"
+                            android:textSize="24sp"
+                            android:layout_marginEnd="8dp"/>
+                        <TextView
+                            android:id="@+id/tvEmoji5Count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="×0"
+                            android:textSize="14sp"
+                            android:textColor="#700053"
+                            android:fontFamily="sans-serif-medium"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

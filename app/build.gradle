@@ -53,4 +53,6 @@ dependencies {
        This is used in the SharedPreferenceUtil.java class to parse the object to and from JSON data.
    */
     implementation libs.gson
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
