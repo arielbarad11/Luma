@@ -73,7 +73,7 @@ public class PsychologistListActivity extends BaseActivity {
 
                     @Override
                     public void onFailed(Exception e) {
-                        Log.e(TAG, "Failed to load psychologists", e);
+                        Log.e(TAG, "טעינת הפסיכולוגים נכשלה", e);
                     }
                 }
         );
@@ -83,19 +83,16 @@ public class PsychologistListActivity extends BaseActivity {
     // שליחת מייל – צור קשר
     // =======================
     private void sendEmail(Psychologist psychologist) {
+        String email = psychologist.getEmail();
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_EMAIL,
-                new String[]{psychologist.getEmail()});
-        intent.putExtra(Intent.EXTRA_SUBJECT,
-                "צור קשר – אפליקציית Luma");
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "שאלה בנושא תיאום פגישה, אפליקציית Luma");
 
         try {
             startActivity(Intent.createChooser(intent, "שלח אימייל באמצעות..."));
-        } catch (Exception e) {
-            Toast.makeText(this,
-                    "לא נמצאה אפליקציית מייל",
-                    Toast.LENGTH_SHORT).show();
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, "לא נמצאה אפליקציית מייל מותקנת", Toast.LENGTH_SHORT).show();
         }
     }
 }

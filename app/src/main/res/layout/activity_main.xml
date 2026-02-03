@@ -62,6 +62,16 @@
         app:layout_constraintTop_toBottomOf="@+id/topBackground">
 
         <Button
+            android:id="@+id/btn_main_to_MoodTracker"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#005396"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="מעקב מצב רוח"
+            app:cornerRadius="12dp" />
+
+        <Button
             android:id="@+id/btn_main_to_admin"
             android:layout_width="320dp"
             android:layout_height="60dp"

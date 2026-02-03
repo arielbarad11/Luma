@@ -8,11 +8,15 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import com.example.luma.R;
 import com.example.luma.models.User;
 import com.example.luma.screens.adminPages.AdminActivity;
 import com.example.luma.screens.simulators.BreathingSimulationActivity;
+import com.example.luma.screens.simulators.MoodTrackerActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.LogoutHelper;
 import com.example.luma.utils.SharedPreferencesUtil;
@@ -22,16 +26,27 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnToExit, btnToUpdateUser, btnToPsychologists,
-            btnToBreathingSimulation, btnToAdmin;
+            btnToBreathingSimulation, btnToAdmin, btnToMoodTracker;
     private TextView tvHelloUser; // משתנה לברכה האישית
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // מאפשר פריסה על כל המסך (EdgeToEdge)
         EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_main);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> insets);
+        // תיקון החפיפה: מוסיף Padding אוטומטי כדי שהתוכן לא יחפוף עם השעה והסוללה (System Bars)
+        View mainView = findViewById(R.id.main);
+        if (mainView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
+        }
 
         // אתחול רכיבים
         tvHelloUser = findViewById(R.id.helloUser);
@@ -40,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
         btnToPsychologists = findViewById(R.id.btn_main_to_PsychologistList);
         btnToBreathingSimulation = findViewById(R.id.btn_main_to_BreathingSimulation);
         btnToAdmin = findViewById(R.id.btn_main_to_admin);
+        btnToMoodTracker = findViewById(R.id.btn_main_to_MoodTracker);
 
-        // האזנה לכפתורים
+        // האזנה לכפתורים - מעברים בין מסכים
         btnToExit.setOnClickListener(v -> LogoutHelper.logout(MainActivity.this));
 
         btnToUpdateUser.setOnClickListener(v -> startActivity(new Intent(this, UpdateUserActivity.class)));
@@ -50,10 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
         btnToBreathingSimulation.setOnClickListener(v -> startActivity(new Intent(this, BreathingSimulationActivity.class)));
 
-        btnToAdmin.setOnClickListener(v -> {
-            startActivity(new Intent(this, AdminActivity.class));
-        });
+        btnToAdmin.setOnClickListener(v -> startActivity(new Intent(this, AdminActivity.class)));
 
+        btnToMoodTracker.setOnClickListener(v -> startActivity(new Intent(this, MoodTrackerActivity.class)));
+
+        // בדיקת סטטוס משתמש ועדכון הרשאות
         checkUserStatus();
     }
 
@@ -71,12 +88,14 @@ public class MainActivity extends AppCompatActivity {
                     redirectToLogin();
                     return;
                 }
+
+                // שמירת המשתמש המעודכן
                 SharedPreferencesUtil.saveUser(MainActivity.this, updatedUser);
 
-                // עדכון הברכה האישית לפי השעה ושם המשתמש
+                // עדכון הברכה האישית
                 updateGreeting(updatedUser.getFirstName());
 
-                // הצגת כפתור מנהל רק אם הוא אדמין
+                // לוגיקת כפתור אדמין: מוצג רק אם המשתמש הוא מנהל
                 if (updatedUser.isAdmin()) {
                     btnToAdmin.setVisibility(View.VISIBLE);
                 } else {
@@ -101,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         String greeting;
 
-        // חלוקת שעות מדויקת ללא חפיפה
         if (hour >= 5 && hour < 12) {
             greeting = "בוקר טוב, ";
         } else if (hour >= 12 && hour < 18) {
