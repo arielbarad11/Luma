@@ -18,9 +18,9 @@
         android:background="#5C6BC0"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:layoutDirection="rtl"> <!-- הגדרה ליישור לימין -->
+        android:layoutDirection="rtl">
 
-        <!-- ראשי תיבות - עכשיו יופיעו בצד ימין -->
+        <!-- ראשי תיבות -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -39,12 +39,12 @@
                 android:textStyle="bold" />
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- פרטי פסיכולוג - עכשיו יופיעו משמאל ללוגו -->
+        <!-- פרטי פסיכולוג -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -52,8 +52,8 @@
                 android:id="@+id/tv_item_psychologist_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="עומר חיים"
-                android:textColor= "@color/white"
+                android:text="עומר פלג"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="10dp"
                     android:src="@android:drawable/ic_dialog_email"
                     app:tint="#C2000000" />
 
@@ -90,7 +90,7 @@
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/iconcity"
                     app:tint="#C2000000" />
 
@@ -113,7 +113,7 @@
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/price_icon"
                     app:tint="#C2000000" />
 
@@ -126,7 +126,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

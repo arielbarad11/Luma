@@ -50,7 +50,7 @@
                 android:id="@+id/tv_item_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="עומר חיים"
+                android:text="עומר פלג"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/white" />
@@ -62,20 +62,20 @@
                 android:gravity="center_vertical">
 
                 <!-- המעטפה תהיה מימין למייל -->
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/ic_dialog_email"
-                    app:tint="#C2000000"
-                    android:layout_marginStart="6dp" />
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:src="@android:drawable/ic_dialog_email"
+                        app:tint="#C2000000" />
 
-                <TextView
-                    android:id="@+id/tv_item_user_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="john.doe@example.com"
-                    android:textSize="14sp"
-                    android:textColor="@color/black" />
+                    <TextView
+                        android:id="@+id/tv_item_user_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="john.doe@example.com"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
