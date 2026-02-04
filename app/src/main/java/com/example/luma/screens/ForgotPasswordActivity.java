@@ -18,6 +18,8 @@ import com.example.luma.models.User;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.Validator;
 
+import java.util.function.UnaryOperator;
+
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etEmail, etNewPassword;
@@ -91,7 +93,14 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 // Update password
                 user.setPassword(newPassword);
 
-                databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+                databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
+                    @Override
+                    public User apply(User u) {
+                        if(u == null) return null;
+                        u.setPassword(user.getPassword());
+                        return u;
+                    }
+                }, new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void result) {
                         Toast.makeText(ForgotPasswordActivity.this,

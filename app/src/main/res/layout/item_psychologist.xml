@@ -17,9 +17,10 @@
         android:gravity="center_vertical"
         android:background="#5C6BC0"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:layoutDirection="rtl"> <!-- הגדרה ליישור לימין -->
 
-        <!-- ראשי תיבות -->
+        <!-- ראשי תיבות - עכשיו יופיעו בצד ימין -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -32,13 +33,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="JD"
+                android:text="עו"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- פרטי פסיכולוג -->
+        <!-- פרטי פסיכולוג - עכשיו יופיעו משמאל ללוגו -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,13 +52,14 @@
                 android:id="@+id/tv_item_psychologist_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="John Doe"
+                android:text="עומר חיים"
                 android:textColor= "@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <!-- אימייל -->
             <LinearLayout
-                android:layout_width="226dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -65,22 +67,22 @@
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="6dp"
                     android:src="@android:drawable/ic_dialog_email"
                     app:tint="#C2000000" />
 
                 <TextView
                     android:id="@+id/tv_item_psychologist_email"
                     android:layout_width="wrap_content"
-                    android:layout_height="22dp"
+                    android:layout_height="wrap_content"
                     android:text="john.doe@example.com"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
 
-
+            <!-- עיר -->
             <LinearLayout
-                android:layout_width="226dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -88,22 +90,22 @@
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="6dp"
                     android:src="@drawable/iconcity"
                     app:tint="#C2000000" />
 
                 <TextView
                     android:id="@+id/tv_item_psychologist_city"
                     android:layout_width="wrap_content"
-                    android:layout_height="22dp"
-                    android:text="Tel Aviv"
+                    android:layout_height="wrap_content"
+                    android:text="תל אביב"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
 
-
+            <!-- מחיר -->
             <LinearLayout
-                android:layout_width="226dp"
+                android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -111,7 +113,7 @@
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="6dp"
                     android:src="@drawable/price_icon"
                     app:tint="#C2000000" />
 

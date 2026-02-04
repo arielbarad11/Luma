@@ -19,6 +19,8 @@ import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
 
+import java.util.function.UnaryOperator;
+
 public class UpdateUserActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "UpdateUserActivity";
@@ -140,7 +142,16 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
     }
 
     private void updateUserInDatabase(User user) {
-        databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
+            @Override
+            public User apply(User u) {
+                if(u == null) return null;
+                u.setFirstName(user.getFirstName());
+                u.setEmail(user.getEmail());
+                u.setPassword(user.getPassword());
+                return u;
+            }
+        }, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void result) {
                 Toast.makeText(UpdateUserActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();

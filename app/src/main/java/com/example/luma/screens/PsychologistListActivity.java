@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,7 +24,7 @@ public class PsychologistListActivity extends BaseActivity {
     private static final String TAG = "UserPsychologistList";
 
     private PsychologistAdapter psychologistAdapter;
-
+    private TextView tvPsychologistCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,9 @@ public class PsychologistListActivity extends BaseActivity {
         setContentView(R.layout.activity_psychologist_list);
 
         RecyclerView rvPsychologists = findViewById(R.id.rv_psychologist_list);
+        tvPsychologistCount = findViewById(R.id.tv_item_psychologist_count);
         rvPsychologists.setLayoutManager(new LinearLayoutManager(this));
+
 
         psychologistAdapter = new PsychologistAdapter(
                 new PsychologistAdapter.OnClickListener() {
@@ -69,6 +72,7 @@ public class PsychologistListActivity extends BaseActivity {
                     @Override
                     public void onCompleted(List<Psychologist> psychologists) {
                         psychologistAdapter.setList(psychologists);
+                        updatePsychologistCount();
                     }
 
                     @Override
@@ -77,6 +81,11 @@ public class PsychologistListActivity extends BaseActivity {
                     }
                 }
         );
+    }
+
+    private void updatePsychologistCount() {
+        int count = psychologistAdapter.getItemCount();
+        tvPsychologistCount.setText("מספר הפסיכולוגים: " + count);
     }
 
     // =======================

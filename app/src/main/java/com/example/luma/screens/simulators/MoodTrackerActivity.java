@@ -1,13 +1,22 @@
 package com.example.luma.screens.simulators;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import com.example.luma.models.MoodEntry;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.EdgeToEdge;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import com.example.luma.R;
+import com.example.luma.models.User;
+import com.example.luma.screens.BaseActivity;
+import com.example.luma.services.DatabaseService;
+import com.example.luma.utils.SharedPreferencesUtil;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -17,35 +26,40 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class MoodTrackerActivity extends AppCompatActivity {
+// יורש מ-BaseActivity כדי לקבל גישה ל-databaseService
+public class MoodTrackerActivity extends BaseActivity {
 
-    // UI Components
     private Button btnMood1, btnMood2, btnMood3, btnMood4, btnMood5;
     private EditText etNotes;
     private Button btnSubmit;
     private LineChart chartMood;
     private TextView tvEmoji1Count, tvEmoji2Count, tvEmoji3Count, tvEmoji4Count, tvEmoji5Count;
 
-    // Data
     private Integer selectedMood = null;
     private List<MoodEntry> moodHistory = new ArrayList<>();
 
-    // Colors
-    private final int colorPrimary = 0xFF700053;
-    private final int colorSecondary = 0xFFF7F3F0;
-    private final int colorBorder = 0xFFE5DDD8;
+    // שימוש בצבעי המותג מה-Theme
+    private final int colorPrimary = Color.parseColor("#005396"); // כחול Luma
+    private final int colorAccent = Color.parseColor("#700053");  // סגול לסימון
+    private final int colorBackground = Color.parseColor("#F7F3F0"); // צבע חול
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_mood_tracker);
+
+        // יישור ל-Insets (Status Bar)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_mood_layout), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         initViews();
         setupMoodButtons();
         setupSubmitButton();
-        loadMoodHistory();
-        updateChart();
-        updateEmojiSummary();
+        refreshData(); // טעינה ראשונית מה-DB
     }
 
     private void initViews() {
@@ -64,9 +78,29 @@ public class MoodTrackerActivity extends AppCompatActivity {
         tvEmoji5Count = findViewById(R.id.tvEmoji5Count);
     }
 
+    // פונקציה לטעינת נתונים אמיתיים מה-Firebase
+    private void refreshData() {
+        String userId = getCurrentUserId();
+        // כאן את צריכה לוודא שיש לך פונקציה ב-DatabaseService שמושכת מעקבים
+        databaseService.getMoodHistory(userId, new DatabaseService.DatabaseCallback<List<MoodEntry>>() {
+            @Override
+            public void onCompleted(List<MoodEntry> entries) {
+                moodHistory = entries;
+                // מיון לפי תאריך כדי שהגרף ייראה נכון
+                Collections.sort(moodHistory, (o1, o2) -> o1.timestamp.compareTo(o2.timestamp));
+                updateChart();
+                updateEmojiSummary();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(MoodTrackerActivity.this, "שגיאה בטעינת נתונים", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void setupMoodButtons() {
         Button[] buttons = {btnMood1, btnMood2, btnMood3, btnMood4, btnMood5};
-
         for (int i = 0; i < buttons.length; i++) {
             final int moodValue = i + 1;
             buttons[i].setOnClickListener(v -> {
@@ -78,210 +112,104 @@ public class MoodTrackerActivity extends AppCompatActivity {
 
     private void updateMoodButtonsUI() {
         Button[] buttons = {btnMood1, btnMood2, btnMood3, btnMood4, btnMood5};
-
         for (int i = 0; i < buttons.length; i++) {
-            int moodValue = i + 1;
-            Button button = buttons[i];
-
-            if (selectedMood != null && selectedMood == moodValue) {
-                // Selected state
-                button.setBackgroundColor(colorPrimary);
-                button.setTextColor(colorSecondary);
-                button.setElevation(8f);
-                button.setScaleX(1.05f);
-                button.setScaleY(1.05f);
+            if (selectedMood != null && selectedMood == (i + 1)) {
+                buttons[i].setBackgroundColor(colorAccent);
+                buttons[i].setScaleX(1.1f);
+                buttons[i].setScaleY(1.1f);
             } else {
-                // Unselected state
-                button.setBackgroundColor(colorSecondary);
-                button.setTextColor(colorPrimary);
-                button.setElevation(0f);
-                button.setScaleX(1.0f);
-                button.setScaleY(1.0f);
+                buttons[i].setBackgroundColor(Color.TRANSPARENT);
+                buttons[i].setScaleX(1.0f);
+                buttons[i].setScaleY(1.0f);
             }
         }
-
-        // Enable submit button if mood is selected
         btnSubmit.setEnabled(selectedMood != null);
-        btnSubmit.setAlpha(selectedMood != null ? 1.0f : 0.6f);
     }
 
     private void setupSubmitButton() {
-        btnSubmit.setOnClickListener(v -> submitMoodEntry());
-    }
+        btnSubmit.setOnClickListener(v -> {
+            if (selectedMood == null) return;
 
-    private void submitMoodEntry() {
-        if (selectedMood == null) return;
-
-        String notes = etNotes.getText().toString();
-
-        MoodEntry entry = new MoodEntry(
-                UUID.randomUUID().toString(),
-                getCurrentUserId(),
-                new Date(),
-                selectedMood,
-                notes.isEmpty() ? null : notes
-        );
-
-        // Save to database/adapter
-        saveMoodEntry(entry);
-
-        // Add to history
-        moodHistory.add(entry);
-
-        // Update UI
-        updateChart();
-        updateEmojiSummary();
-
-        // Reset form
-        selectedMood = null;
-        etNotes.setText("");
-        updateMoodButtonsUI();
-
-        // Show feedback
-        Toast.makeText(this, "מצב הרוח נשמר בהצלחה! 💜", Toast.LENGTH_SHORT).show();
-
-        // Animation feedback
-        btnSubmit.animate()
-                .scaleX(0.95f)
-                .scaleY(0.95f)
-                .setDuration(100)
-                .withEndAction(() -> {
-                    btnSubmit.animate()
-                            .scaleX(1.0f)
-                            .scaleY(1.0f)
-                            .setDuration(100)
-                            .start();
-                })
-                .start();
-    }
-
-    private void loadMoodHistory() {
-        // Load from your adapter/database
-        // Example:
-        // moodHistory.addAll(moodAdapter.getUserMoods(getCurrentUserId()));
-
-        // Demo data for testing
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
-        Calendar calendar = Calendar.getInstance();
-
-        for (int i = 5; i >= 1; i--) {
-            calendar.add(Calendar.DAY_OF_YEAR, -1);
-            moodHistory.add(new MoodEntry(
+            MoodEntry entry = new MoodEntry(
                     UUID.randomUUID().toString(),
                     getCurrentUserId(),
-                    calendar.getTime(),
-                    new Random().nextInt(4) + 2, // Random 2-5
-                    null
-            ));
-        }
+                    new Date(),
+                    selectedMood,
+                    etNotes.getText().toString()
+            );
+
+            databaseService.saveMoodEntry(entry, new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void result) {
+                    Toast.makeText(MoodTrackerActivity.this, "נשמר בהצלחה", Toast.LENGTH_SHORT).show();
+                    selectedMood = null;
+                    etNotes.setText("");
+                    updateMoodButtonsUI();
+                    refreshData(); // עדכון הגרף מיד אחרי השמירה
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(MoodTrackerActivity.this, "שגיאה בשמירה", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 
     private void updateChart() {
+        if (moodHistory.isEmpty()) return;
+
         List<Entry> entries = new ArrayList<>();
         for (int i = 0; i < moodHistory.size(); i++) {
             entries.add(new Entry(i, moodHistory.get(i).moodValue));
         }
 
-        LineDataSet dataSet = new LineDataSet(entries, "מצב רוח");
+        LineDataSet dataSet = new LineDataSet(entries, "מצב רוח לאורך זמן");
         dataSet.setColor(colorPrimary);
         dataSet.setCircleColor(colorPrimary);
-        dataSet.setLineWidth(3f);
-        dataSet.setCircleRadius(6f);
-        dataSet.setDrawCircleHole(false);
-        dataSet.setValueTextSize(0f);
-        dataSet.setDrawFilled(false);
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        dataSet.setLineWidth(2f);
+        dataSet.setDrawValues(false);
+        dataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER); // גרף מעוגל ויפה
 
         chartMood.setData(new LineData(dataSet));
+        chartMood.setBackgroundColor(colorBackground);
         chartMood.getDescription().setEnabled(false);
-        chartMood.getLegend().setEnabled(false);
 
-        // X Axis
         XAxis xAxis = chartMood.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(colorPrimary);
-        xAxis.setDrawGridLines(true);
-        xAxis.setGridColor(colorBorder);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                int index = (int) value;
-                if (index >= 0 && index < moodHistory.size()) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM", Locale.getDefault());
-                    return sdf.format(moodHistory.get(index).timestamp);
+                int idx = (int) value;
+                if (idx >= 0 && idx < moodHistory.size()) {
+                    return new SimpleDateFormat("dd/MM", Locale.getDefault()).format(moodHistory.get(idx).timestamp);
                 }
                 return "";
             }
         });
 
-        // Y Axis
-        chartMood.getAxisLeft().setTextColor(colorPrimary);
-        chartMood.getAxisLeft().setAxisMinimum(0f);
-        chartMood.getAxisLeft().setAxisMaximum(6f);
-        chartMood.getAxisLeft().setDrawGridLines(true);
-        chartMood.getAxisLeft().setGridColor(colorBorder);
-
         chartMood.getAxisRight().setEnabled(false);
-
-        chartMood.setTouchEnabled(true);
-        chartMood.setDragEnabled(true);
-        chartMood.setScaleEnabled(false);
-        chartMood.setPinchZoom(false);
-
-        chartMood.animateX(1000);
+        chartMood.getAxisLeft().setAxisMinimum(1f);
+        chartMood.getAxisLeft().setAxisMaximum(5f);
+        chartMood.animateX(800);
         chartMood.invalidate();
     }
 
     private void updateEmojiSummary() {
-        int[] counts = new int[6]; // 0-5, index 0 unused
+        int[] counts = new int[6];
+        for (MoodEntry entry : moodHistory) counts[entry.moodValue]++;
 
-        for (MoodEntry entry : moodHistory) {
-            counts[entry.moodValue]++;
-        }
-
-        tvEmoji1Count.setText(counts[1] > 0 ? "×" + counts[1] : "");
-        tvEmoji2Count.setText(counts[2] > 0 ? "×" + counts[2] : "");
-        tvEmoji3Count.setText(counts[3] > 0 ? "×" + counts[3] : "");
-        tvEmoji4Count.setText(counts[4] > 0 ? "×" + counts[4] : "");
-        tvEmoji5Count.setText(counts[5] > 0 ? "×" + counts[5] : "");
-
-        // Hide emoji summaries with 0 count
-        tvEmoji1Count.setVisibility(counts[1] > 0 ? View.VISIBLE : View.GONE);
-        tvEmoji2Count.setVisibility(counts[2] > 0 ? View.VISIBLE : View.GONE);
-        tvEmoji3Count.setVisibility(counts[3] > 0 ? View.VISIBLE : View.GONE);
-        tvEmoji4Count.setVisibility(counts[4] > 0 ? View.VISIBLE : View.GONE);
-        tvEmoji5Count.setVisibility(counts[5] > 0 ? View.VISIBLE : View.GONE);
-    }
-
-    private void saveMoodEntry(MoodEntry entry) {
-        // Save using your adapter
-        // Example:
-        // moodAdapter.insertMoodEntry(entry);
-        // or
-        // database.moodDao().insert(entry);
+        tvEmoji1Count.setText("×" + counts[1]);
+        tvEmoji2Count.setText("×" + counts[2]);
+        tvEmoji3Count.setText("×" + counts[3]);
+        tvEmoji4Count.setText("×" + counts[4]);
+        tvEmoji5Count.setText("×" + counts[5]);
     }
 
     private String getCurrentUserId() {
-        // Get from your User class/session
-        // Example:
-        // return User.getCurrentUser().getId();
-        return "user_123"; // Placeholder
+        User user = SharedPreferencesUtil.getUser(this);
+        return (user != null) ? user.getId() : "guest";
     }
 
-    // Data class
-    public static class MoodEntry {
-        public String id;
-        public String userId;
-        public Date timestamp;
-        public int moodValue; // 1-5
-        public String notes;
 
-        public MoodEntry(String id, String userId, Date timestamp, int moodValue, String notes) {
-            this.id = id;
-            this.userId = userId;
-            this.timestamp = timestamp;
-            this.moodValue = moodValue;
-            this.notes = notes;
-        }
-    }
 }

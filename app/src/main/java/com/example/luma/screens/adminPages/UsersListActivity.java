@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +22,7 @@ import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 public class UsersListActivity extends BaseActivity {
 
@@ -135,7 +137,14 @@ public class UsersListActivity extends BaseActivity {
     // =======================
 
     private void makeAdmin(User user) {
-        databaseService.updateUserAdminStatus(user.getId(), true,
+        databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
+                    @Override
+                    public User apply(User user) {
+                        if(user == null) return null;
+                        user.setAdmin(true);
+                        return user;
+                    }
+                },
                 new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void object) {
@@ -152,7 +161,18 @@ public class UsersListActivity extends BaseActivity {
     }
 
     private void removeAdmin(User user) {
-        databaseService.updateUserAdminStatus(user.getId(), false,
+        if (user.getId().equals(SharedPreferencesUtil.getUserId(this))) {
+            Toast.makeText(this, "Can't remove admin from current user", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
+                    @Override
+                    public User apply(User user) {
+                        if(user == null) return null;
+                        user.setAdmin(false);
+                        return user;
+                    }
+                },
                 new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void object) {
