@@ -1,7 +1,7 @@
 package com.example.luma.screens.simulators;
 
-import android.animation.ArgbEvaluator;
 import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
@@ -9,7 +9,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewOutlineProvider;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,15 +18,14 @@ import com.google.android.material.button.MaterialButton;
 
 public class BreathingSimulationActivity extends AppCompatActivity {
 
+    private final int COLOR_DEEP_BLUE = Color.parseColor("#005396");
+    private final int COLOR_LIGHT_BLUE = Color.parseColor("#4A90E2");
     private View breathingCircle;
     private View breathingContainer;
     private TextView tvInstruction;
     private MaterialButton btnStart, btnStop;
     private boolean isRunning = false;
     private AnimatorSet fullCycle;
-
-    private final int COLOR_DEEP_BLUE = Color.parseColor("#005396");
-    private final int COLOR_LIGHT_BLUE = Color.parseColor("#4A90E2");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

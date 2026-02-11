@@ -28,15 +28,13 @@ import java.util.ArrayList;
 /// It contains fields for the user to enter their information
 /// It also contains a button to register the user
 /// When the user is registered, they are redirected to the main activity
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "RegisterActivity";
-
+    DatabaseService databaseService;
     private EditText etEmail, etPassword, etFName, etAge;
     private Button btnRegister;
     private TextView tvLogin;
-
-    DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         tvLogin = findViewById(R.id.tv_register_login);
 
 
-
         /// set the click listener
         btnRegister.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
@@ -76,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String fName = etFName.getText().toString();
             int age;
             try {
-                age = Integer.parseInt(etAge.getText().toString()+"");
+                age = Integer.parseInt(etAge.getText().toString());
             } catch (NumberFormatException e) {
                 etAge.setError("Age invalid");
                 /// set focus to password field
@@ -85,12 +82,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
 
 
-
             /// log the input
             Log.d(TAG, "onClick: Email: " + email);
             Log.d(TAG, "onClick: Password: " + password);
             Log.d(TAG, "onClick: First Name: " + fName);
-
 
 
             /// Validate input
@@ -115,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /// Check if the input is valid
+    ///
     /// @return true if the input is valid, false otherwise
     /// @see Validator
     private boolean checkInput(String email, String password) {
@@ -174,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void createUserInDatabase(User user) {
-        databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void object) {
                 Log.d(TAG, "createUserInDatabase: User created successfully");

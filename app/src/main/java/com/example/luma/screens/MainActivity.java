@@ -25,9 +25,9 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnToExit, btnToUpdateUser, btnToPsychologists,
-            btnToBreathingSimulation, btnToAdmin, btnToMoodTracker;
-    private TextView tvHelloUser; // משתנה לברכה האישית
+    private Button btnToAdmin;
+    private TextView tvHelloUser; //(tvHelloUser)-> משתנה לברכה האישית
+    private View tvAdminLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
         // אתחול רכיבים
         tvHelloUser = findViewById(R.id.helloUser);
-        btnToExit = findViewById(R.id.btn_main_to_exit);
-        btnToUpdateUser = findViewById(R.id.tv_main_UpdateUser);
-        btnToPsychologists = findViewById(R.id.btn_main_to_PsychologistList);
-        btnToBreathingSimulation = findViewById(R.id.btn_main_to_BreathingSimulation);
+        Button btnToExit = findViewById(R.id.btn_main_to_exit);
+        Button btnToUpdateUser = findViewById(R.id.tv_main_UpdateUser);
+        Button btnToPsychologists = findViewById(R.id.btn_main_to_PsychologistList);
+        Button btnToBreathingSimulation = findViewById(R.id.btn_main_to_BreathingSimulation);
         btnToAdmin = findViewById(R.id.btn_main_to_admin);
-        btnToMoodTracker = findViewById(R.id.btn_main_to_MoodTracker);
+        tvAdminLine = findViewById(R.id.adminLine);
+        Button btnToMoodTracker = findViewById(R.id.btn_main_to_MoodTracker);
 
         // האזנה לכפתורים - מעברים בין מסכים
         btnToExit.setOnClickListener(v -> LogoutHelper.logout(MainActivity.this));
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        DatabaseService.getInstance().getUser(userId, new DatabaseService.DatabaseCallback<User>() {
+        DatabaseService.getInstance().getUser(userId, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(User updatedUser) {
                 if (updatedUser == null) {
@@ -98,8 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 // לוגיקת כפתור אדמין: מוצג רק אם המשתמש הוא מנהל
                 if (updatedUser.isAdmin()) {
                     btnToAdmin.setVisibility(View.VISIBLE);
+                    tvAdminLine.setVisibility(View.VISIBLE);
                 } else {
                     btnToAdmin.setVisibility(View.GONE);
+                    tvAdminLine.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -130,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             greeting = "לילה טוב, ";
         }
 
-        tvHelloUser.setText(greeting + firstName);
+        tvHelloUser.setText(String.format("%s%s", greeting, firstName));
     }
 
     private void redirectToLogin() {

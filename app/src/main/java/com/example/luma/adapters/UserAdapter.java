@@ -15,26 +15,12 @@ import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    // =======================
-    // Listener ללחיצות
-    // =======================
-    public interface OnUserClickListener {
-        void onUserClick(User user);
-        void onLongUserClick(User user);
-
-        boolean showAdminChip(User user);
-
-        boolean showRemoveAdminBtn(User user);
-
-        boolean showMakeAdminBtn(User user);
-    }
-
     private final List<User> userList;
     private final OnUserClickListener onUserClickListener;
-
     public UserAdapter(@Nullable final OnUserClickListener onUserClickListener) {
         this.userList = new ArrayList<>();
         this.onUserClickListener = onUserClickListener;
@@ -66,7 +52,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.tvInitials.setText(initials.toUpperCase());
 
         // הצגת Chip אם המשתמש אדמין
-        if (onUserClickListener.showAdminChip(user)) {
+        if (Objects.requireNonNull(onUserClickListener).showAdminChip(user)) {
             holder.chipRole.setVisibility(View.VISIBLE);
             holder.chipRole.setText("Admin");
         } else {
@@ -75,23 +61,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         // לחיצה רגילה
         holder.itemView.setOnClickListener(v -> {
-            if (onUserClickListener != null) {
-                onUserClickListener.onUserClick(user);
-            }
+            onUserClickListener.onUserClick(user);
         });
 
         // לחיצה ארוכה
         holder.itemView.setOnLongClickListener(v -> {
-            if (onUserClickListener != null) {
-                onUserClickListener.onLongUserClick(user);
-            }
+            onUserClickListener.onLongUserClick(user);
             return true;
         });
-        holder.tvName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.tvName.setOnClickListener(v -> {
 
-            }
         });
     }
 
@@ -100,15 +79,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         return userList.size();
     }
 
-    // =======================
-    // ניהול רשימה
-    // =======================
-
     public void setUserList(List<User> users) {
         userList.clear();
         userList.addAll(users);
         notifyDataSetChanged();
     }
+
+    // =======================
+    // ניהול רשימה
+    // =======================
 
     public void addUser(User user) {
         userList.add(user);
@@ -145,11 +124,28 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     // =======================
+    // Listener ללחיצות
+    // =======================
+    public interface OnUserClickListener {
+        void onUserClick(User user);
+
+        void onLongUserClick(User user);
+
+        boolean showAdminChip(User user);
+
+        boolean showRemoveAdminBtn(User user);
+
+        boolean showMakeAdminBtn(User user);
+    }
+
+    // =======================
     // ViewHolder
     // =======================
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvEmail, tvInitials;
-        Chip chipRole;
+        final TextView tvName;
+        final TextView tvEmail;
+        final TextView tvInitials;
+        final Chip chipRole;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

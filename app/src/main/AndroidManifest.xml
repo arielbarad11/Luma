@@ -11,10 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
-            android:name=".MediaPlayerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".screens.ui.MusicListActivity"
+            android:name=".screens.MediaPlayerActivity"
             android:exported="false" />
         <activity
             android:name=".screens.simulators.MoodTrackerActivity"

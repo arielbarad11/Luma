@@ -5,20 +5,19 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/item_psychologist">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:background="#5C6BC0"
+        android:gravity="center_vertical"
+        android:layoutDirection="rtl"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:layoutDirection="rtl">
+        android:padding="16dp">
 
         <!-- ראשי תיבות -->
         <com.google.android.material.card.MaterialCardView
@@ -43,8 +42,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -68,6 +67,7 @@
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
+                    android:contentDescription="TODO"
                     android:src="@android:drawable/ic_dialog_email"
                     app:tint="#C2000000" />
 
@@ -91,6 +91,7 @@
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/iconcity"
                     app:tint="#C2000000" />
 
@@ -114,6 +115,7 @@
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
+                    android:contentDescription="TODO"
                     android:src="@drawable/price_icon"
                     app:tint="#C2000000" />
 

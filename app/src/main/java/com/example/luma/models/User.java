@@ -16,7 +16,8 @@ public class User {
     public ArrayList<String> crisisTime;
     public boolean admin;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String id, String firstName, String email, String password,
                 int age, ArrayList<Goal> goals, ArrayList<String> crisisTime, boolean admin) {

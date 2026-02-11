@@ -1,12 +1,13 @@
 package com.example.luma.services;
 
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.luma.models.MoodEntry;
 import com.example.luma.models.Psychologist;
 import com.example.luma.models.User;
-import com.example.luma.models.MoodEntry;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,15 +28,8 @@ public class DatabaseService {
     private static final String USERS_PATH = "users";
     private static final String Psychologist_PATH = "psychologist";
     private static final String MOOD_HISTORY_PATH = "mood_history";
-
-    public interface DatabaseCallback<T> {
-        void onCompleted(T object);
-        void onFailed(Exception e);
-    }
-
     private static DatabaseService instance;
     private final DatabaseReference databaseReference;
-
     private DatabaseService() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://luma-785c3-default-rtdb.europe-west1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference();
@@ -128,17 +122,31 @@ public class DatabaseService {
             }
         });
     }
-    // endregion
 
     // region User Section
-    public String generateUserId() { return generateNewId(USERS_PATH); }
-    public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) { writeData(USERS_PATH + "/" + user.getId(), user, callback); }
-    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) { getData(USERS_PATH + "/" + uid, User.class, callback); }
-    public void getUserList(@NotNull final DatabaseCallback<List<User>> callback) { getDataList(USERS_PATH, User.class, callback); }
-    public void deleteUser(@NotNull final String uid, @Nullable final DatabaseCallback<Void> callback) { deleteData(USERS_PATH + "/" + uid, callback); }
+    public String generateUserId() {
+        return generateNewId(USERS_PATH);
+    }
+    // endregion
+
+    public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(USERS_PATH + "/" + user.getId(), user, callback);
+    }
+
+    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
+        getData(USERS_PATH + "/" + uid, User.class, callback);
+    }
+
+    public void getUserList(@NotNull final DatabaseCallback<List<User>> callback) {
+        getDataList(USERS_PATH, User.class, callback);
+    }
+
+    public void deleteUser(@NotNull final String uid, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(USERS_PATH + "/" + uid, callback);
+    }
 
     public void getUserByEmail(String email, DatabaseCallback<User> databaseCallback) {
-        getUserList(new DatabaseCallback<List<User>>() {
+        getUserList(new DatabaseCallback<>() {
             @Override
             public void onCompleted(List<User> users) {
                 for (User user : users) {
@@ -158,7 +166,7 @@ public class DatabaseService {
     }
 
     public void checkIfEmailExists(String email, DatabaseCallback<Boolean> databaseCallback) {
-        getUserByEmail(email, new DatabaseCallback<User>() {
+        getUserByEmail(email, new DatabaseCallback<>() {
             @Override
             public void onCompleted(User user) {
                 databaseCallback.onCompleted(user != null);
@@ -172,7 +180,7 @@ public class DatabaseService {
     }
 
     public void getUserByEmailAndPassword(@NotNull final String email, @NotNull final String password, @NotNull final DatabaseCallback<User> callback) {
-        getUserList(new DatabaseCallback<List<User>>() {
+        getUserList(new DatabaseCallback<>() {
             @Override
             public void onCompleted(List<User> users) {
                 for (User user : users) {
@@ -183,49 +191,78 @@ public class DatabaseService {
                 }
                 callback.onCompleted(null);
             }
-            @Override public void onFailed(Exception e) { callback.onFailed(e); }
+
+            @Override
+            public void onFailed(Exception e) {
+                callback.onFailed(e);
+            }
         });
     }
 
     public void updateUser(@NotNull final String uid, UnaryOperator<User> operator, @Nullable final DatabaseCallback<Void> callback) {
-        runTransaction(USERS_PATH + "/" + uid, User.class, operator, new DatabaseCallback<User>() {
-            @Override public void onCompleted(User object) { if (callback != null) callback.onCompleted(null); }
-            @Override public void onFailed(Exception e) { if (callback != null) callback.onFailed(e); }
+        runTransaction(USERS_PATH + "/" + uid, User.class, operator, new DatabaseCallback<>() {
+            @Override
+            public void onCompleted(User object) {
+                if (callback != null) callback.onCompleted(null);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) callback.onFailed(e);
+            }
         });
+    }
+
+    // region Psychologist Section
+    public String generatePsychologistId() {
+        return generateNewId(Psychologist_PATH);
     }
     // endregion
 
-    // region Psychologist Section
-    public String generatePsychologistId() { return generateNewId(Psychologist_PATH); }
     public void createNewPsychologist(@NotNull final Psychologist psychologist, @Nullable final DatabaseCallback<Void> callback) {
         writeData(Psychologist_PATH + "/" + psychologist.getId(), psychologist, callback);
     }
+
     public void getPsychologist(@NotNull final String uid, @NotNull final DatabaseCallback<Psychologist> callback) {
         getData(Psychologist_PATH + "/" + uid, Psychologist.class, callback);
     }
+
     public void getPsychologistList(@NotNull final DatabaseCallback<List<Psychologist>> callback) {
         getDataList(Psychologist_PATH, Psychologist.class, callback);
     }
 
     public void updatePsychologist(@NotNull final Psychologist psychologist, @Nullable final DatabaseCallback<Void> callback) {
-        runTransaction(Psychologist_PATH + "/" + psychologist.getId(), Psychologist.class, current -> psychologist, new DatabaseCallback<Psychologist>() {
-            @Override public void onCompleted(Psychologist object) { if (callback != null) callback.onCompleted(null); }
-            @Override public void onFailed(Exception e) { if (callback != null) callback.onFailed(e); }
+        runTransaction(Psychologist_PATH + "/" + psychologist.getId(), Psychologist.class, current -> psychologist, new DatabaseCallback<>() {
+            @Override
+            public void onCompleted(Psychologist object) {
+                if (callback != null) callback.onCompleted(null);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) callback.onFailed(e);
+            }
         });
     }
 
     public void deletePsychologist(@NotNull final String uid, @Nullable final DatabaseCallback<Void> callback) {
         deleteData(Psychologist_PATH + "/" + uid, callback);
     }
-    // endregion
 
     // region Mood Tracker Section
     public void saveMoodEntry(@NotNull final MoodEntry entry, @Nullable final DatabaseCallback<Void> callback) {
         writeData(MOOD_HISTORY_PATH + "/" + entry.userId + "/" + entry.id, entry, callback);
     }
+    // endregion
 
     public void getMoodHistory(@NotNull final String userId, @NotNull final DatabaseCallback<List<MoodEntry>> callback) {
         getDataList(MOOD_HISTORY_PATH + "/" + userId, MoodEntry.class, callback);
+    }
+
+    public interface DatabaseCallback<T> {
+        void onCompleted(T object);
+
+        void onFailed(Exception e);
     }
     // endregion
 }

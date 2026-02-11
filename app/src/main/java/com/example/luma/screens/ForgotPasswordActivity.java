@@ -23,7 +23,6 @@ import java.util.function.UnaryOperator;
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etEmail, etNewPassword;
-    private Button btnUpdatePassword;
     private DatabaseService databaseService;
 
     @Override
@@ -45,7 +44,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         // Init UI
         etEmail = findViewById(R.id.et_email);
         etNewPassword = findViewById(R.id.et_new_password);
-        btnUpdatePassword = findViewById(R.id.btn_update_password);
+        Button btnUpdatePassword = findViewById(R.id.btn_update_password);
 
         btnUpdatePassword.setOnClickListener(this);
     }
@@ -75,7 +74,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         }
 
         // Get user by email
-        databaseService.getUserByEmail(email, new DatabaseService.DatabaseCallback<User>() {
+        databaseService.getUserByEmail(email, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(User user) {
 
@@ -93,14 +92,11 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 // Update password
                 user.setPassword(newPassword);
 
-                databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
-                    @Override
-                    public User apply(User u) {
-                        if(u == null) return null;
-                        u.setPassword(user.getPassword());
-                        return u;
-                    }
-                }, new DatabaseService.DatabaseCallback<Void>() {
+                databaseService.updateUser(user.getId(), u -> {
+                    if (u == null) return null;
+                    u.setPassword(user.getPassword());
+                    return u;
+                }, new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void result) {
                         Toast.makeText(ForgotPasswordActivity.this,

@@ -16,12 +16,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="מעקב מצב רוח"
-            android:textSize="28sp"
-            android:textColor="@color/black"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/font_suezone_regular"
             android:gravity="center"
-            android:layout_marginBottom="24dp"/>
+            android:text="מעקב מצב רוח"
+            android:textColor="@color/black"
+            android:textSize="28sp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -47,60 +47,60 @@
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="80dp"
-                        android:layout_weight="1"
                         android:layout_margin="2dp"
+                        android:layout_weight="1"
                         android:text="😢"
                         android:textSize="20sp"
                         app:cornerRadius="12dp"
-                        app:strokeColor="#005396"/>
+                        app:strokeColor="#005396" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnMood2"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="80dp"
-                        android:layout_weight="1"
                         android:layout_margin="2dp"
+                        android:layout_weight="1"
                         android:text="😟"
                         android:textSize="20sp"
                         app:cornerRadius="12dp"
-                        app:strokeColor="#005396"/>
+                        app:strokeColor="#005396" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnMood3"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="80dp"
-                        android:layout_weight="1"
                         android:layout_margin="2dp"
+                        android:layout_weight="1"
                         android:text="😐"
                         android:textSize="20sp"
                         app:cornerRadius="12dp"
-                        app:strokeColor="#005396"/>
+                        app:strokeColor="#005396" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnMood4"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="80dp"
-                        android:layout_weight="1"
                         android:layout_margin="2dp"
+                        android:layout_weight="1"
                         android:text="🙂"
                         android:textSize="20sp"
                         app:cornerRadius="12dp"
-                        app:strokeColor="#005396"/>
+                        app:strokeColor="#005396" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnMood5"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="80dp"
-                        android:layout_weight="1"
                         android:layout_margin="2dp"
+                        android:layout_weight="1"
                         android:text="😊"
                         android:textSize="20sp"
                         app:cornerRadius="12dp"
-                        app:strokeColor="#005396"/>
+                        app:strokeColor="#005396" />
                 </LinearLayout>
 
                 <EditText
@@ -108,19 +108,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginTop="16dp"
+                    android:autofillHints=""
+                    android:fontFamily="@font/font_secularone_regular"
                     android:gravity="top|right"
                     android:hint="מה עבר עליך היום?"
-                    android:padding="12dp"
-                    android:fontFamily="@font/font_secularone_regular"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:padding="12dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="12dp"
-                    android:text="שמור מעקב"
                     android:fontFamily="@font/font_secularone_regular"
+                    android:text="שמור מעקב"
                     app:backgroundTint="#005396"
                     app:cornerRadius="12dp" />
             </LinearLayout>
@@ -142,19 +143,53 @@
                     android:id="@+id/chartMood"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <TextView android:id="@+id/tvEmoji1Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😢 ×0" android:layout_margin="4dp" android:fontFamily="@font/font_secularone_regular"/>
-                    <TextView android:id="@+id/tvEmoji2Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😟 ×0" android:layout_margin="4dp" android:fontFamily="@font/font_secularone_regular"/>
-                    <TextView android:id="@+id/tvEmoji3Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😐 ×0" android:layout_margin="4dp" android:fontFamily="@font/font_secularone_regular"/>
-                    <TextView android:id="@+id/tvEmoji4Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🙂 ×0" android:layout_margin="4dp" android:fontFamily="@font/font_secularone_regular"/>
-                    <TextView android:id="@+id/tvEmoji5Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😊 ×0" android:layout_margin="4dp" android:fontFamily="@font/font_secularone_regular"/>
+                    <TextView
+                        android:id="@+id/tvEmoji1Count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:text="😢 ×0" />
+
+                    <TextView
+                        android:id="@+id/tvEmoji2Count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:text="😟 ×0" />
+
+                    <TextView
+                        android:id="@+id/tvEmoji3Count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:text="😐 ×0" />
+
+                    <TextView
+                        android:id="@+id/tvEmoji4Count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:text="🙂 ×0" />
+
+                    <TextView
+                        android:id="@+id/tvEmoji5Count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:text="😊 ×0" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

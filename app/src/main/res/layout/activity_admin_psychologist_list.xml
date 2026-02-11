@@ -2,15 +2,15 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_psychologist_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.adminPages.UsersListActivity"
-    android:id="@+id/admin_psychologist_list">
+    tools:context=".screens.adminPages.UsersListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,8 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="מספר הפסיכולוגים: 0"
                 android:fontFamily="@font/font_secularone_regular"
+                android:text="מספר הפסיכולוגים: 0"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp" />
 
@@ -54,7 +54,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:text="+"
-                android:textSize="33dp"
+                android:textSize="33sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -62,10 +62,10 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:layout_weight="1"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
@@ -77,45 +77,44 @@
                     android:id="@+id/rv_users_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
                     android:background="#5C6BC0"
                     android:clipToPadding="false"
+                    android:padding="8dp"
                     tools:listitem="@layout/item_psychologist" />
 
                 <LinearLayout
-                    android:id="@+id/empty_state"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@android:drawable/ic_menu_my_calendar"
+                        android:layout_marginBottom="16dp"
                         android:alpha="0.3"
-                        android:layout_marginBottom="16dp" />
+                        android:contentDescription="TODO"
+                        android:src="@android:drawable/ic_menu_my_calendar" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="No Users Found"
-                        android:textSize="18sp"
                         android:textColor="?attr/colorOnSurfaceVariant"
-                        android:layout_marginBottom="8dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Users will appear here"
-                        android:textSize="14sp"
-                        android:textColor="?attr/colorOnSurfaceVariant" />
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
                 <ProgressBar
-                    android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

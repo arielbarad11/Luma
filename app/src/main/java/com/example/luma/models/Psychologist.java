@@ -44,7 +44,7 @@ public class Psychologist {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -52,13 +52,14 @@ public class Psychologist {
         return city;
     }
 
-    public void setCity(String city){
+    public void setCity(String city) {
         this.city = city;
     }
 
     public int getSessionPrice() {
         return sessionPrice;
     }
+
     public void setSessionPrice(int sessionPrice) {
         this.sessionPrice = sessionPrice;
     }

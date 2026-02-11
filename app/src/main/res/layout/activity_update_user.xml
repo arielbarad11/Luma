@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tv_UpdateUser"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:background="#F8F9FA"
-    android:layoutDirection="rtl"
-    android:id="@+id/tv_UpdateUser">
+    android:fillViewport="true"
+    android:layoutDirection="rtl">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,51 +18,50 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
+            android:layout_marginBottom="24dp"
             app:cardBackgroundColor="@android:color/white"
-            android:layout_marginBottom="24dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:padding="24dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/iv_user_avatar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:background="#E0E0E0"
                     android:padding="2dp"
-                    app:strokeColor="#005396"
-                    app:strokeWidth="2dp"
-                    android:src="@android:drawable/ic_menu_myplaces"
                     android:scaleType="centerCrop"
-                    android:background="#E0E0E0"/>
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    app:strokeColor="#005396"
+                    app:strokeWidth="2dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="עדכון פרטי משתמש"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/font_suezone_regular"
-                    android:textSize="22sp"
+                    android:text="עדכון פרטי משתמש"
                     android:textColor="#333333"
-                    android:textStyle="bold"
-                    android:layout_marginTop="16dp"/>
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
                 <!-- מייל לחיץ -->
                 <TextView
                     android:id="@+id/tv_user_display_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="user@email.com"
-                    android:textSize="15sp"
-                    android:textColor="#005396"
-                    android:autoLink="email"
-                    android:textColorLink="#005396"
                     android:layout_marginTop="4dp"
-                    android:padding="4dp"/>
+                    android:autoLink="email"
+                    android:padding="4dp"
+                    android:text="user@email.com"
+                    android:textColor="#005396"
+                    android:textColorLink="#005396"
+                    android:textSize="15sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -71,9 +69,9 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardElevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,16 +84,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:hint="שם פרטי"
-                    app:startIconDrawable="@android:drawable/ic_menu_edit"
-                    android:layout_marginBottom="16dp">
+                    app:startIconDrawable="@android:drawable/ic_menu_edit">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_user_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:textAlignment="viewStart"/>
+                        android:textAlignment="viewStart" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- אימייל -->
@@ -103,16 +101,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:hint="אימייל"
-                    app:startIconDrawable="@android:drawable/sym_action_email"
-                    android:layout_marginBottom="16dp">
+                    app:startIconDrawable="@android:drawable/sym_action_email">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_user_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:textAlignment="viewStart"/>
+                        android:textAlignment="viewStart" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- סיסמה -->
@@ -129,7 +127,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:textAlignment="viewStart"/>
+                        android:textAlignment="viewStart" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -141,11 +139,11 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="32dp"
+            android:backgroundTint="#005396"
             android:text="שמור שינויים"
             android:textSize="18sp"
             android:textStyle="bold"
             app:cornerRadius="12dp"
-            android:backgroundTint="#005396"
             app:elevation="4dp" />
 
     </LinearLayout>

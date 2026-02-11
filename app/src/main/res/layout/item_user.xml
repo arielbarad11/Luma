@@ -6,25 +6,24 @@
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    android:id="@+id/item_user">
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
         android:background="#5C6BC0"
         android:gravity="center_vertical"
-        android:layoutDirection="rtl"> <!-- הוספתי כאן את הכיוון לימין -->
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:padding="16dp"> <!-- הוספתי כאן את הכיוון לימין -->
 
         <!-- ראשי תיבות - עכשיו יופיע בצד ימין -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="56dp"
             android:layout_height="56dp"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="28dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/white">
+            app:cardElevation="0dp">
 
             <TextView
                 android:id="@+id/tv_user_initials"
@@ -32,50 +31,51 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="עו"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textStyle="bold" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- פרטי משתמש - עכשיו יופיעו משמאל ללוגו -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="8dp"> <!-- החלפתי בין marginStart ל-End כדי שיהיה רווח מהלוגו בימין -->
+            android:layout_weight="1"
+            android:orientation="vertical"> <!-- החלפתי בין marginStart ל-End כדי שיהיה רווח מהלוגו בימין -->
 
             <TextView
                 android:id="@+id/tv_item_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="עומר פלג"
+                android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/white" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <!-- המעטפה תהיה מימין למייל -->
-                    <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="10dp"
-                        android:src="@android:drawable/ic_dialog_email"
-                        app:tint="#C2000000" />
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="TODO"
+                    android:src="@android:drawable/ic_dialog_email"
+                    app:tint="#C2000000" />
 
-                    <TextView
-                        android:id="@+id/tv_item_user_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="john.doe@example.com"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_item_user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="john.doe@example.com"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 

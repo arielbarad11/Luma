@@ -80,7 +80,7 @@ public class UsersListActivity extends BaseActivity {
 
             @Override
             public boolean showMakeAdminBtn(User user) {
-                return (!user.isAdmin()) ;
+                return (!user.isAdmin());
             }
         });
 
@@ -92,7 +92,7 @@ public class UsersListActivity extends BaseActivity {
         super.onResume();
 
         // טעינת משתמשים מה־DB
-        databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {
+        databaseService.getUserList(new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(List<User> users) {
                 userAdapter.setUserList(users);
@@ -137,15 +137,12 @@ public class UsersListActivity extends BaseActivity {
     // =======================
 
     private void makeAdmin(User user) {
-        databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
-                    @Override
-                    public User apply(User user) {
-                        if(user == null) return null;
-                        user.setAdmin(true);
-                        return user;
-                    }
-                },
-                new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.updateUser(user.getId(), user1 -> {
+            if (user1 == null) return null;
+            user1.setAdmin(true);
+            return user1;
+        },
+                new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void object) {
                         // ✅ עדכון מיידי של UI
@@ -165,15 +162,12 @@ public class UsersListActivity extends BaseActivity {
             Toast.makeText(this, "Can't remove admin from current user", Toast.LENGTH_SHORT).show();
             return;
         }
-        databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
-                    @Override
-                    public User apply(User user) {
-                        if(user == null) return null;
-                        user.setAdmin(false);
-                        return user;
-                    }
-                },
-                new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.updateUser(user.getId(), user1 -> {
+            if (user1 == null) return null;
+            user1.setAdmin(false);
+            return user1;
+        },
+                new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void object) {
                         // ✅ עדכון מיידי של UI
@@ -192,24 +186,19 @@ public class UsersListActivity extends BaseActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Delete user")
                 .setMessage("Are you sure you want to delete " + user.getFirstName() + "?")
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        databaseService.deleteUser(user.getId(),
-                                new DatabaseService.DatabaseCallback<Void>() {
-                                    @Override
-                                    public void onCompleted(Void object) {
-                                        // ✅ הסרה מיידית מהרשימה
-                                        userAdapter.removeUser(user);
-                                    }
+                .setPositiveButton("Delete", (dialog, which) -> databaseService.deleteUser(user.getId(),
+                        new DatabaseService.DatabaseCallback<>() {
+                            @Override
+                            public void onCompleted(Void object) {
+                                // ✅ הסרה מיידית מהרשימה
+                                userAdapter.removeUser(user);
+                            }
 
-                                    @Override
-                                    public void onFailed(Exception e) {
-                                        Log.e(TAG, "Delete user failed", e);
-                                    }
-                                });
-                    }
-                })
+                            @Override
+                            public void onFailed(Exception e) {
+                                Log.e(TAG, "Delete user failed", e);
+                            }
+                        }))
                 .setNegativeButton("Cancel", null)
                 .show();
     }

@@ -2,17 +2,18 @@ package com.example.luma.screens.simulators;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import com.example.luma.models.MoodEntry;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.example.luma.R;
+import com.example.luma.models.MoodEntry;
 import com.example.luma.models.User;
 import com.example.luma.screens.BaseActivity;
 import com.example.luma.services.DatabaseService;
@@ -23,25 +24,31 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 // יורש מ-BaseActivity כדי לקבל גישה ל-databaseService
 public class MoodTrackerActivity extends BaseActivity {
-
-    private Button btnMood1, btnMood2, btnMood3, btnMood4, btnMood5;
-    private EditText etNotes;
-    private Button btnSubmit;
-    private LineChart chartMood;
-    private TextView tvEmoji1Count, tvEmoji2Count, tvEmoji3Count, tvEmoji4Count, tvEmoji5Count;
-
-    private Integer selectedMood = null;
-    private List<MoodEntry> moodHistory = new ArrayList<>();
 
     // שימוש בצבעי המותג מה-Theme
     private final int colorPrimary = Color.parseColor("#005396"); // כחול Luma
     private final int colorAccent = Color.parseColor("#700053");  // סגול לסימון
     private final int colorBackground = Color.parseColor("#F7F3F0"); // צבע חול
+    private Button btnMood1, btnMood2, btnMood3, btnMood4, btnMood5;
+    private EditText etNotes;
+    private Button btnSubmit;
+    private LineChart chartMood;
+    private TextView tvEmoji1Count, tvEmoji2Count, tvEmoji3Count, tvEmoji4Count, tvEmoji5Count;
+    private Integer selectedMood = null;
+    private List<MoodEntry> moodHistory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +89,12 @@ public class MoodTrackerActivity extends BaseActivity {
     private void refreshData() {
         String userId = getCurrentUserId();
         // כאן את צריכה לוודא שיש לך פונקציה ב-DatabaseService שמושכת מעקבים
-        databaseService.getMoodHistory(userId, new DatabaseService.DatabaseCallback<List<MoodEntry>>() {
+        databaseService.getMoodHistory(userId, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(List<MoodEntry> entries) {
                 moodHistory = entries;
                 // מיון לפי תאריך כדי שהגרף ייראה נכון
-                Collections.sort(moodHistory, (o1, o2) -> o1.timestamp.compareTo(o2.timestamp));
+                moodHistory.sort(Comparator.comparing(o -> o.timestamp));
                 updateChart();
                 updateEmojiSummary();
             }
@@ -138,7 +145,7 @@ public class MoodTrackerActivity extends BaseActivity {
                     etNotes.getText().toString()
             );
 
-            databaseService.saveMoodEntry(entry, new DatabaseService.DatabaseCallback<Void>() {
+            databaseService.saveMoodEntry(entry, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Void result) {
                     Toast.makeText(MoodTrackerActivity.this, "נשמר בהצלחה", Toast.LENGTH_SHORT).show();
@@ -199,11 +206,11 @@ public class MoodTrackerActivity extends BaseActivity {
         int[] counts = new int[6];
         for (MoodEntry entry : moodHistory) counts[entry.moodValue]++;
 
-        tvEmoji1Count.setText("×" + counts[1]);
-        tvEmoji2Count.setText("×" + counts[2]);
-        tvEmoji3Count.setText("×" + counts[3]);
-        tvEmoji4Count.setText("×" + counts[4]);
-        tvEmoji5Count.setText("×" + counts[5]);
+        tvEmoji1Count.setText(MessageFormat.format("×{0}", counts[1]));
+        tvEmoji2Count.setText(MessageFormat.format("×{0}", counts[2]));
+        tvEmoji3Count.setText(MessageFormat.format("×{0}", counts[3]));
+        tvEmoji4Count.setText(MessageFormat.format("×{0}", counts[4]));
+        tvEmoji5Count.setText(MessageFormat.format("×{0}", counts[5]));
     }
 
     private String getCurrentUserId() {

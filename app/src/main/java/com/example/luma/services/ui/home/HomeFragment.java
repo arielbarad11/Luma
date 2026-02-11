@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.luma.R;
-// הוספת ייבוא ל-ViewModel - ודאי שהנתיב הזה נכון
-import com.example.luma.services.ui.home.HomeViewModel;
 
 public class HomeFragment extends Fragment {
 

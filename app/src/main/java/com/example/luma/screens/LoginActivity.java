@@ -65,8 +65,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Log.d(TAG, "onClick: Login button clicked");
 
             /// get the email and password entered by the user
-            String email = (etEmail.getText().toString()+"").trim();
-            String password = (etPassword.getText().toString()+"").trim();
+            String email = (etEmail.getText().toString()).trim();
+            String password = (etPassword.getText().toString()).trim();
 
             /// log the email and password
             Log.d(TAG, "onClick: Email: " + email);
@@ -87,8 +87,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             /// Navigate to Register Activity
             Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(registerIntent);
-        }
-        else if (v.getId() == tvForgotPassword.getId()) {
+        } else if (v.getId() == tvForgotPassword.getId()) {
             /// Navigate to Register Activity
             Intent forgotPasswordIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(forgotPasswordIntent);
@@ -97,6 +96,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     /// Method to check if the input is valid
     /// It checks if the email and password are valid
+    ///
     /// @see Validator#isEmailValid(String)
     /// @see Validator#isPasswordValid(String)
     private boolean checkInput(String email, String password) {
@@ -122,8 +122,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void loginUser(String email, String password) {
-        databaseService.getUserByEmailAndPassword(email, password, new DatabaseService.DatabaseCallback<User>() {
+        databaseService.getUserByEmailAndPassword(email, password, new DatabaseService.DatabaseCallback<>() {
             /// Callback method called when the operation is completed
+            ///
             /// @param user the user object that is logged in
             @Override
             public void onCompleted(User user) {
@@ -134,13 +135,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 /// if true - redirect to AdminActivity
                 /// if false - Redirect to main activity
                 Log.d("!!!!!!!!!!!!!!!!!!!!!", user.toString());
-                if(user.isAdmin()){
+                if (user.isAdmin()) {
                     Intent AdminIntent = new Intent(LoginActivity.this, AdminActivity.class);
                     /// Clear the back stack (clear history) and start the AdminActivity
                     AdminIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(AdminIntent);
-                }
-                else{
+                } else {
                     Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                     /// Clear the back stack (clear history) and start the MainActivity
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -15,7 +15,7 @@
         <item name="logo">@drawable/luma_logo</item>
         <item name="displayOptions">useLogo|showHome</item>
         <item name="android:logo">@drawable/luma_logo</item>
-        <item name="android:label"></item>
+        <item name="android:label" />
     </style>
 
     <style name="Theme.Luma" parent="Base.Theme.Luma" />
@@ -36,14 +36,5 @@
         <item name="android:statusBarColor">#005396</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
-
-    <style name="Theme.Luma.NoActionBar" parent="Base.Theme.Luma">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">#005396</item>
-    </style>
-
-    <style name="Theme.Luma.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.Luma.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

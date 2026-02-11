@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/landing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.LandingActivity"
-    android:id="@+id/landing">
+    tools:context=".screens.LandingActivity">
 
     <!-- רקע מלא של המסך -->
     <ImageView
-        android:id="@+id/bg_landing"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="TODO"
         android:scaleType="centerCrop"
         android:src="@drawable/landing_background"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- שכבת כהות עדינה מעל הרקע (לא חובה, אך נראה טוב יותר כמו בדוגמה) -->
 
@@ -29,7 +28,6 @@
     <!-- כפתור התחברות -->
 
     <View
-        android:id="@+id/bg_overlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#80000000"
@@ -45,6 +43,7 @@
         android:layout_width="344dp"
         android:layout_height="127dp"
         android:layout_marginTop="88dp"
+        android:contentDescription="TODO"
         android:src="@drawable/luma_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -57,8 +56,8 @@
         android:layout_height="52dp"
         android:layout_marginTop="268dp"
         android:backgroundTint="#59005396"
-        android:text="הרשמה"
         android:fontFamily="@font/font_secularone_regular"
+        android:text="הרשמה"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,8 +69,8 @@
         android:layout_height="52dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#59005396"
-        android:text="התחברות"
         android:fontFamily="@font/font_secularone_regular"
+        android:text="התחברות"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

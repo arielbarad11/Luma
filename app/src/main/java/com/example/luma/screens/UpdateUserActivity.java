@@ -27,7 +27,6 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
 
     private EditText etUserFirstName, etUserEmail, etUserPassword;
     private TextView tvUserDisplayEmail;
-    private Button btnUpdateProfile;
 
     private String selectedUid;
     private User selectedUser;
@@ -75,7 +74,7 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
         etUserEmail = findViewById(R.id.et_user_email);
         etUserPassword = findViewById(R.id.et_user_password);
         tvUserDisplayEmail = findViewById(R.id.tv_user_display_email);
-        btnUpdateProfile = findViewById(R.id.btn_edit_profile);
+        Button btnUpdateProfile = findViewById(R.id.btn_edit_profile);
 
         btnUpdateProfile.setOnClickListener(this);
 
@@ -90,7 +89,7 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
     }
 
     private void showUserProfile() {
-        databaseService.getUser(selectedUid, new DatabaseService.DatabaseCallback<User>() {
+        databaseService.getUser(selectedUid, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(User user) {
                 selectedUser = user;
@@ -142,16 +141,13 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
     }
 
     private void updateUserInDatabase(User user) {
-        databaseService.updateUser(user.getId(), new UnaryOperator<User>() {
-            @Override
-            public User apply(User u) {
-                if(u == null) return null;
-                u.setFirstName(user.getFirstName());
-                u.setEmail(user.getEmail());
-                u.setPassword(user.getPassword());
-                return u;
-            }
-        }, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.updateUser(user.getId(), u -> {
+            if (u == null) return null;
+            u.setFirstName(user.getFirstName());
+            u.setEmail(user.getEmail());
+            u.setPassword(user.getPassword());
+            return u;
+        }, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void result) {
                 Toast.makeText(UpdateUserActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();

@@ -17,19 +17,8 @@ import java.util.List;
 
 public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapter.ViewHolder> {
 
-    // =======================
-    // Listener ללחיצות
-    // =======================
-    public interface OnClickListener {
-        void onClick(Psychologist psychologist);
-        void onLongClick(Psychologist psychologist);
-        void onEmailCLick(Psychologist psychologist);
-
-    }
-
     private final List<Psychologist> psychologistList;
     private final OnClickListener onClickListener;
-
     public PsychologistAdapter(@Nullable final OnClickListener onClickListener) {
         this.psychologistList = new ArrayList<>();
         this.onClickListener = onClickListener;
@@ -70,12 +59,9 @@ public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapte
             }
             return true;
         });
-        holder.tvEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onClickListener != null) {
-                    onClickListener.onEmailCLick(psychologist);
-                }
+        holder.tvEmail.setOnClickListener(v -> {
+            if (onClickListener != null) {
+                onClickListener.onEmailCLick(psychologist);
             }
         });
     }
@@ -85,15 +71,15 @@ public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapte
         return psychologistList.size();
     }
 
-    // =======================
-    // ניהול רשימה
-    // =======================
-
     public void setList(List<Psychologist> psychologist) {
         psychologistList.clear();
         psychologistList.addAll(psychologist);
         notifyDataSetChanged();
     }
+
+    // =======================
+    // ניהול רשימה
+    // =======================
 
     public void add(Psychologist psychologist) {
         psychologistList.add(psychologist);
@@ -128,10 +114,25 @@ public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapte
     }
 
     // =======================
+    // Listener ללחיצות
+    // =======================
+    public interface OnClickListener {
+        void onClick(Psychologist psychologist);
+
+        void onLongClick(Psychologist psychologist);
+
+        void onEmailCLick(Psychologist psychologist);
+
+    }
+
+    // =======================
     // ViewHolder
     // =======================
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvEmail, tvCity, tvSessionPrice;
+        final TextView tvName;
+        final TextView tvEmail;
+        final TextView tvCity;
+        final TextView tvSessionPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

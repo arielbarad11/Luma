@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.luma.R;
@@ -19,7 +20,6 @@ public class MediaPlayerActivity extends AppCompatActivity {
     private TextView songTitle;
     private FloatingActionButton btnPlayPause;
     private List<RelaxSong> playlist;
-    private int currentIndex = 0;
     private boolean isPlaying = false;
 
     @Override
@@ -35,6 +35,7 @@ public class MediaPlayerActivity extends AppCompatActivity {
         initUI();
 
         if (!playlist.isEmpty()) {
+            int currentIndex = 0;
             loadSong(currentIndex);
         }
     }

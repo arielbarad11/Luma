@@ -5,10 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import com.example.luma.R; // ודאי שהייבוא הזה קיים
+
+import com.example.luma.R;
 
 public class GalleryFragment extends Fragment {
 

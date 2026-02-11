@@ -23,7 +23,6 @@ public class AdminActivity extends AppCompatActivity {
     Button toAdminPsychologistList;
 
     Button toMain;
-    private Button btnToExit;
 
 
     @Override
@@ -51,7 +50,7 @@ public class AdminActivity extends AppCompatActivity {
 
 
         // ===== init views =====
-        btnToExit = findViewById(R.id.btn_admin_to_exit);
+        Button btnToExit = findViewById(R.id.btn_admin_to_exit);
 
         // ===== listeners =====
         btnToExit.setOnClickListener(v ->
@@ -59,37 +58,28 @@ public class AdminActivity extends AppCompatActivity {
         );
 
 
-        toUsersList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AdminActivity.this, UsersListActivity.class);
-                startActivity(intent);
-            }
+        toUsersList.setOnClickListener(view -> {
+            Intent intent = new Intent(AdminActivity.this, UsersListActivity.class);
+            startActivity(intent);
         });
-        toAdminPsychologistList.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                Intent intent = new Intent(AdminActivity.this, AdminPsychologistListActivity.class);
-                 startActivity(intent);
-             }
+        toAdminPsychologistList.setOnClickListener(view -> {
+            Intent intent = new Intent(AdminActivity.this, AdminPsychologistListActivity.class);
+            startActivity(intent);
         });
-        toMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AdminActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        toMain.setOnClickListener(view -> {
+            Intent intent = new Intent(AdminActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
     }
 
-        private void redirectToLogin() {
-            SharedPreferencesUtil.signOutUser(this);
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        }
+    private void redirectToLogin() {
+        SharedPreferencesUtil.signOutUser(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
 
 
 }

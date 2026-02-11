@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainAdmin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainAdmin"
     android:fitsSystemWindows="true"
     tools:context=".screens.adminPages.AdminActivity">
 
@@ -34,9 +34,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/font_secularone_regular"
         android:text="ניהול משתמשים ותוכן"
         android:textColor="#BBDEFB"
-        android:fontFamily="@font/font_secularone_regular"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

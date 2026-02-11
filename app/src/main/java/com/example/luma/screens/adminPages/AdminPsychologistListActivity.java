@@ -1,6 +1,5 @@
 package com.example.luma.screens.adminPages;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -101,7 +100,7 @@ public class AdminPsychologistListActivity extends BaseActivity {
     }
 
     private void loadPsychologists() {
-        databaseService.getPsychologistList(new DatabaseService.DatabaseCallback<List<Psychologist>>() {
+        databaseService.getPsychologistList(new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(List<Psychologist> psychologists) {
                 psychologistAdapter.setList(psychologists);
@@ -156,7 +155,7 @@ public class AdminPsychologistListActivity extends BaseActivity {
                     String stPrice = etPrice.getText().toString();
                     psychologist.setSessionPrice(stPrice.isEmpty() ? 0 : Integer.parseInt(stPrice));
 
-                    databaseService.updatePsychologist(psychologist, new DatabaseService.DatabaseCallback<Void>() {
+                    databaseService.updatePsychologist(psychologist, new DatabaseService.DatabaseCallback<>() {
                         @Override
                         public void onCompleted(Void result) {
                             psychologistAdapter.update(psychologist);
@@ -177,19 +176,18 @@ public class AdminPsychologistListActivity extends BaseActivity {
         new AlertDialog.Builder(this)
                 .setTitle("מחיקת פסיכולוג")
                 .setMessage("האם אתה בטוח שברצונך למחוק את " + psychologist.getName() + "?")
-                .setPositiveButton("מחק", (dialog, which) -> {
-                    databaseService.deletePsychologist(psychologist.getId(), new DatabaseService.DatabaseCallback<Void>() {
-                        @Override
-                        public void onCompleted(Void object) {
-                            psychologistAdapter.remove(psychologist);
-                            updatePsychologistCount();
-                        }
-                        @Override
-                        public void onFailed(Exception e) {
-                            Log.e(TAG, "מחיקה נכשלה", e);
-                        }
-                    });
-                })
+                .setPositiveButton("מחק", (dialog, which) -> databaseService.deletePsychologist(psychologist.getId(), new DatabaseService.DatabaseCallback<>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        psychologistAdapter.remove(psychologist);
+                        updatePsychologistCount();
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.e(TAG, "מחיקה נכשלה", e);
+                    }
+                }))
                 .setNegativeButton("ביטול", null)
                 .show();
     }
@@ -235,12 +233,13 @@ public class AdminPsychologistListActivity extends BaseActivity {
     }
 
     private void addPsychologist(Psychologist psychologist) {
-        databaseService.createNewPsychologist(psychologist, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.createNewPsychologist(psychologist, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void v) {
                 psychologistAdapter.add(psychologist);
                 updatePsychologistCount();
             }
+
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "הוספה נכשלה", e);

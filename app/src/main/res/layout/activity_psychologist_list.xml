@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- הוספנו fitsSystemWindows כדי למנוע מהתוכן לעלות על השעה והסוללה -->
+<?xml version="1.0" encoding="utf-8"?><!-- הוספנו fitsSystemWindows כדי למנוע מהתוכן לעלות על השעה והסוללה -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".screens.PsychologistListActivity"
-    android:id="@+id/psychologist_list">
+    tools:context=".screens.PsychologistListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="@android:color/transparent"
-        app:elevation="0dp"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,8 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginBottom="8dp"
-                android:text="צור קשר עם הפסיכולוגים שלנו"
                 android:fontFamily="@font/font_suezone_regular"
+                android:text="צור קשר עם הפסיכולוגים שלנו"
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -45,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="מספר הפסיכולוגים שלנו: 0"
                 android:fontFamily="@font/font_secularone_regular"
+                android:text="מספר הפסיכולוגים שלנו: 0"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp" />
 
@@ -56,10 +54,10 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:layout_weight="1"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
@@ -72,8 +70,8 @@
                     android:id="@+id/rv_psychologist_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
                     android:clipToPadding="false"
+                    android:padding="8dp"
                     tools:listitem="@layout/item_psychologist" />
 
                 <!-- מצב רשימה ריקה -->
@@ -81,25 +79,26 @@
                     android:id="@+id/empty_state"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@android:drawable/ic_menu_my_calendar"
+                        android:layout_marginBottom="16dp"
                         android:alpha="0.3"
-                        android:layout_marginBottom="16dp" />
+                        android:contentDescription="TODO"
+                        android:src="@android:drawable/ic_menu_my_calendar" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="לא נמצאו פסיכולוגים זמינים"
+                        android:layout_marginBottom="8dp"
                         android:fontFamily="@font/font_secularone_regular"
-                        android:textSize="18sp"
+                        android:text="לא נמצאו פסיכולוגים זמינים"
                         android:textColor="?attr/colorOnSurfaceVariant"
-                        android:layout_marginBottom="8dp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 

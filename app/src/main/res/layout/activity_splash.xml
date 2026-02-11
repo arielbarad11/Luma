@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -13,13 +12,13 @@
         android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/splash_logo_app"
         android:contentDescription="@string/app_name"
-        app:layout_constraintVertical_chainStyle="packed"
+        android:src="@drawable/splash_logo_app"
         app:layout_constraintBottom_toTopOf="@+id/appName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <!-- App name -->
     <TextView
@@ -27,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="LUMA"
         android:fontFamily="@font/font_suezone_regular"
+        android:text="LUMA"
         android:textColor="#005396"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -43,8 +42,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Peace within your reach"
         android:fontFamily="@font/font_secularone_regular"
+        android:text="Peace within your reach"
         android:textColor="#555555"
         android:textSize="18sp"
         android:textStyle="normal"

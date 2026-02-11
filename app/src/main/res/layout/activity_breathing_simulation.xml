@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F3F0"
-    android:layoutDirection="rtl"
-    android:id="@+id/breathing_simulation">
+    android:layoutDirection="rtl">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -26,23 +25,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/circle_shape"
-                android:outlineProvider="background"
                 android:clipToOutline="true"
-                android:elevation="8dp" />
+                android:elevation="8dp"
+                android:outlineProvider="background" />
 
             <TextView
                 android:id="@+id/tv_instruction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="מוכנים?"
-                android:fontFamily="@font/font_secularone_regular"
-                android:textSize="26sp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
                 android:elevation="12dp"
+                android:fontFamily="@font/font_secularone_regular"
+                android:padding="20dp"
+                android:text="מוכנים?"
                 android:textAlignment="center"
-                android:padding="20dp" />
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:textStyle="bold" />
         </FrameLayout>
     </FrameLayout>
 
@@ -54,12 +53,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
-        android:text="התחל סשן"
-        android:fontFamily="@font/font_secularone_regular"
-        android:textSize="18sp"
-        app:cornerRadius="32dp"
         android:backgroundTint="#005396"
-        android:textColor="#FFFFFF" />
+        android:fontFamily="@font/font_secularone_regular"
+        android:text="התחל סשן"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:cornerRadius="32dp" />
 
     <!-- כפתור עצירה -->
     <com.google.android.material.button.MaterialButton
@@ -69,12 +68,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
-        android:text="עצור סשן"
-        android:fontFamily="@font/font_secularone_regular"
-        android:textSize="18sp"
-        app:cornerRadius="32dp"
         android:backgroundTint="#D32F2F"
+        android:fontFamily="@font/font_secularone_regular"
+        android:text="עצור סשן"
         android:textColor="#FFFFFF"
-        android:visibility="gone" />
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:cornerRadius="32dp" />
 
 </RelativeLayout>

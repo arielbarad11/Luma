@@ -31,19 +31,13 @@ public class LandingActivity extends BaseActivity {
         toRegister = findViewById(R.id.btn_landing_go_to_register);
         toLogin = findViewById(R.id.btn_landing_go_to_login);
 
-        toRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LandingActivity.this,RegisterActivity.class);
-                startActivity(intent);
-            }
+        toRegister.setOnClickListener(view -> {
+            Intent intent = new Intent(LandingActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
-        toLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LandingActivity.this,LoginActivity.class);
-                startActivity(intent);
-            }
+        toLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(LandingActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 }

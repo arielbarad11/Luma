@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.luma.R;
 import com.example.luma.adapters.PsychologistAdapter;
 import com.example.luma.models.Psychologist;
-import com.example.luma.screens.BaseActivity;
 import com.example.luma.services.DatabaseService;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class PsychologistListActivity extends BaseActivity {
 
     private PsychologistAdapter psychologistAdapter;
     private TextView tvPsychologistCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class PsychologistListActivity extends BaseActivity {
         super.onResume();
 
         databaseService.getPsychologistList(
-                new DatabaseService.DatabaseCallback<List<Psychologist>>() {
+                new DatabaseService.DatabaseCallback<>() {
 
                     @Override
                     public void onCompleted(List<Psychologist> psychologists) {

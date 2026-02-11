@@ -5,5 +5,4 @@ public class Goal {
     public String day;
 
 
-
 }

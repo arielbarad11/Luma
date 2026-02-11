@@ -11,11 +11,13 @@ import com.example.luma.R;
 import com.example.luma.models.User;
 import com.example.luma.screens.LoginActivity;
 
+import java.util.Objects;
+
 public class LogoutHelper {
     public static void logout(Context context) {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_exit);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(true);
 
         User user = SharedPreferencesUtil.getUser(context);
@@ -28,7 +30,7 @@ public class LogoutHelper {
 
         btnConfirm.setOnClickListener(v -> {
             String userEmail = "";
-            if (user.getEmail() != null) {
+            if (Objects.requireNonNull(user).getEmail() != null) {
                 userEmail = user.getEmail();
             }
 

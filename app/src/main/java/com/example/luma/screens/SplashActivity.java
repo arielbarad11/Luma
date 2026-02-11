@@ -62,7 +62,7 @@ public class SplashActivity extends BaseActivity {
         }
 
         Log.d(TAG, "Fetching user from database");
-        DatabaseService.getInstance().getUser(current.getId(), new DatabaseService.DatabaseCallback<User>() {
+        DatabaseService.getInstance().getUser(current.getId(), new DatabaseService.DatabaseCallback<>() {
 
             @Override
             public void onCompleted(User user) {
