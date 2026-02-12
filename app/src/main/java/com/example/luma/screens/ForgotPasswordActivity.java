@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
+import com.example.luma.screens.simulators.BreathingSimulationActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.Validator;
 
@@ -24,6 +26,8 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     private EditText etEmail, etNewPassword;
     private DatabaseService databaseService;
+
+    private ImageButton btnGoBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,10 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         etEmail = findViewById(R.id.et_email);
         etNewPassword = findViewById(R.id.et_new_password);
         Button btnUpdatePassword = findViewById(R.id.btn_update_password);
+        ImageButton btnGoBack = findViewById(R.id.imageButton_goBack);
 
+        // Set listeners
+        btnGoBack.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
         btnUpdatePassword.setOnClickListener(this);
     }
 
@@ -62,13 +69,13 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
         // Validations
         if (!Validator.isEmailValid(email)) {
-            etEmail.setError("Please enter a valid email");
+            etEmail.setError("בבקשה הזן אימייל תקין");
             etEmail.requestFocus();
             return;
         }
 
         if (!Validator.isPasswordValid(newPassword)) {
-            etNewPassword.setError("Password must be at least 6 characters");
+            etNewPassword.setError("הסיסמא חייבת להכיל מינימום 6 תווים");
             etNewPassword.requestFocus();
             return;
         }
@@ -80,10 +87,10 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
                 // If no user found
                 if (user == null) {
-                    etEmail.setError("Email not found");
+                    etEmail.setError("לא נמצא אימייל");
                     etEmail.requestFocus();
                     Toast.makeText(ForgotPasswordActivity.this,
-                            "No account found with this email",
+                            "לא נמצא משתמש עם האימייל הזה",
                             Toast.LENGTH_SHORT
                     ).show();
                     return;
@@ -100,7 +107,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                     @Override
                     public void onCompleted(Void result) {
                         Toast.makeText(ForgotPasswordActivity.this,
-                                "Password updated successfully!",
+                                "הסיסמא עודכנה בהצלחה!",
                                 Toast.LENGTH_SHORT
                         ).show();
                         Intent mainIntent = new Intent(ForgotPasswordActivity.this, MainActivity.class);
@@ -112,7 +119,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                     @Override
                     public void onFailed(Exception e) {
                         Toast.makeText(ForgotPasswordActivity.this,
-                                "Failed to update password. Try again.",
+                                "שינוי הסיסמא נכשל, נסה שוב",
                                 Toast.LENGTH_SHORT
                         ).show();
                     }
@@ -122,7 +129,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
             @Override
             public void onFailed(Exception e) {
                 Toast.makeText(ForgotPasswordActivity.this,
-                        "Error retrieving user",
+                        "שגיאה מאחזר יוזר",
                         Toast.LENGTH_SHORT
                 ).show();
             }

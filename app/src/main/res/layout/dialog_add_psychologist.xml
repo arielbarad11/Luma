@@ -1,52 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
 
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/et_psychologist_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:fontFamily="@font/font_secularone_regular"
+        android:hint="שם"
+        android:minHeight="48dp" />
 
-        <EditText
-            android:id="@+id/et_psychologist_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:fontFamily="@font/font_secularone_regular"
-            android:hint="שם" />
+    <EditText
+        android:id="@+id/et_psychologist_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_secularone_regular"
+        android:hint="אימייל"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp" />
 
-        <EditText
-            android:id="@+id/et_psychologist_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:fontFamily="@font/font_secularone_regular"
-            android:hint="אימייל" />
+    <EditText
+        android:id="@+id/et_psychologist_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_secularone_regular"
+        android:hint="עיר"
+        android:minHeight="48dp" />
 
-        <EditText
-            android:id="@+id/et_psychologist_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:fontFamily="@font/font_secularone_regular"
-            android:hint="עיר" />
+    <EditText
+        android:id="@+id/et_psychologist_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_secularone_regular"
+        android:hint="מחיר פגישה"
+        android:inputType="number"
+        android:minHeight="48dp" />
 
-        <EditText
-            android:id="@+id/et_psychologist_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:fontFamily="@font/font_secularone_regular"
-            android:hint="מחיר פגישה"
-            android:inputType="number" />
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

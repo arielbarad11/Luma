@@ -1,10 +1,10 @@
 <resources>
 
     <style name="Base.Theme.Luma" parent="Theme.Material3.DayNight">
-        <!-- צבע הרקע הכללי של כל האפליקציה (גוון חול חם ומרגיע) -->
+        <!-- צבע הרקע הכללי של כל האפליקציה -->
         <item name="android:windowBackground">#F7F3F0</item>
 
-        <!-- הגדרת צבע ה-StatusBar לכחול -->
+        <!-- הגדרת צבע ה-StatusBar -->
         <item name="android:statusBarColor">#005396</item>
         <item name="android:windowLightStatusBar">false</item>
 
@@ -25,16 +25,15 @@
         <item name="displayOptions">useLogo|showHome</item>
     </style>
 
-    <!-- עיצוב מותאם למסך הנחיתה (Splash) -->
-    <!-- שיניתי פה את ה-windowBackground חזרה לכחול (או לטורקיז המקורי שלך) -->
     <style name="Theme.Luma.Landing" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- אם את רוצה שהמסך פתיחה יהיה כולו כחול: -->
         <item name="android:windowBackground">#005396</item>
-
-        <!-- אם את רוצה להחזיר לטורקיז שהיה קודם, תשני ל-#0D009688 -->
-
         <item name="android:statusBarColor">#005396</item>
         <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- תיקון: הסרת האטריביוט השגוי שגרם לשגיאת קומפילציה -->
+    <style name="RtlDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="android:layoutDirection">rtl</item>
     </style>
 
 </resources>

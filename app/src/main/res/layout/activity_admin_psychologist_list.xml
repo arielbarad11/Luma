@@ -94,21 +94,20 @@
                         android:layout_height="100dp"
                         android:layout_marginBottom="16dp"
                         android:alpha="0.3"
-                        android:contentDescription="TODO"
                         android:src="@android:drawable/ic_menu_my_calendar" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="No Users Found"
+                        android:text="לא נמצאו פסיכולוגים"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Users will appear here"
+                        android:text="פסיכולוגים יופיעו פה"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="14sp" />
 

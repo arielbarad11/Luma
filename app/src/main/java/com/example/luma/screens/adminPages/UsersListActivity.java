@@ -112,18 +112,18 @@ public class UsersListActivity extends BaseActivity {
     private void showAdminActionsDialog(User user) {
 
         String[] options = user.isAdmin()
-                ? new String[]{"Remove admin", "Delete admin"}
-                : new String[]{"Make admin", "Delete user"};
+                ? new String[]{"הסרת הרשאת מנהל", "מחיקת המנהל"}
+                : new String[]{"הפוך למנהל", "מחיקת המשתמש"};
 
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle(user.getFirstName())
                 .setItems(options, (dialog, which) -> {
 
                     String choice = options[which];
 
-                    if (choice.equals("Make admin")) {
+                    if (choice.equals("הפוך למנהל")) {
                         makeAdmin(user);
-                    } else if (choice.equals("Remove admin")) {
+                    } else if (choice.equals("הסרת הרשאת מנהל")) {
                         removeAdmin(user);
                     } else {
                         confirmDeleteUser(user);
@@ -152,14 +152,14 @@ public class UsersListActivity extends BaseActivity {
 
                     @Override
                     public void onFailed(Exception e) {
-                        Log.e(TAG, "Make admin failed", e);
+                        Log.e(TAG, "הרשאת מנהל ליוזר ננכשלה", e);
                     }
                 });
     }
 
     private void removeAdmin(User user) {
         if (user.getId().equals(SharedPreferencesUtil.getUserId(this))) {
-            Toast.makeText(this, "Can't remove admin from current user", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "לא יכול להסיר את הרשאת המנהל של היוזר הזה", Toast.LENGTH_SHORT).show();
             return;
         }
         databaseService.updateUser(user.getId(), user1 -> {
@@ -177,16 +177,16 @@ public class UsersListActivity extends BaseActivity {
 
                     @Override
                     public void onFailed(Exception e) {
-                        Log.e(TAG, "Remove admin failed", e);
+                        Log.e(TAG, "הסרת המנהל נכשלה", e);
                     }
                 });
     }
 
     private void confirmDeleteUser(User user) {
-        new AlertDialog.Builder(this)
-                .setTitle("Delete user")
-                .setMessage("Are you sure you want to delete " + user.getFirstName() + "?")
-                .setPositiveButton("Delete", (dialog, which) -> databaseService.deleteUser(user.getId(),
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
+                .setTitle("מחק משתמש")
+                .setMessage("בטוח שאתה רוצה למחוק את " + user.getFirstName() + "?")
+                .setPositiveButton("מחק", (dialog, which) -> databaseService.deleteUser(user.getId(),
                         new DatabaseService.DatabaseCallback<>() {
                             @Override
                             public void onCompleted(Void object) {
@@ -196,10 +196,10 @@ public class UsersListActivity extends BaseActivity {
 
                             @Override
                             public void onFailed(Exception e) {
-                                Log.e(TAG, "Delete user failed", e);
+                                Log.e(TAG, "מחיקת המשתמש נכשלה", e);
                             }
                         }))
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton("ביטול", null)
                 .show();
     }
 }

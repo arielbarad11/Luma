@@ -109,14 +109,14 @@ public class AdminPsychologistListActivity extends BaseActivity {
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "Failed to load psychologists", e);
+                Log.e(TAG, "טעינת הפסיכולוגים נכשלה", e);
             }
         });
     }
 
     private void showAdminActionsDialog(Psychologist psychologist) {
         String[] options = {"ערוך פרטי פסיכולוג", "מחק פסיכולוג"};
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle(psychologist.getName())
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
@@ -145,7 +145,7 @@ public class AdminPsychologistListActivity extends BaseActivity {
         etCity.setText(psychologist.getCity());
         etPrice.setText(String.valueOf(psychologist.getSessionPrice()));
 
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle("ערוך פסיכולוג")
                 .setView(dialogView)
                 .setPositiveButton("עדכן", (dialog, which) -> {
@@ -173,7 +173,7 @@ public class AdminPsychologistListActivity extends BaseActivity {
     }
 
     private void confirmDeletePsychologist(Psychologist psychologist) {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle("מחיקת פסיכולוג")
                 .setMessage("האם אתה בטוח שברצונך למחוק את " + psychologist.getName() + "?")
                 .setPositiveButton("מחק", (dialog, which) -> databaseService.deletePsychologist(psychologist.getId(), new DatabaseService.DatabaseCallback<>() {
@@ -200,7 +200,7 @@ public class AdminPsychologistListActivity extends BaseActivity {
         EditText etCity = dialogView.findViewById(R.id.et_psychologist_city);
         EditText etPrice = dialogView.findViewById(R.id.et_psychologist_price);
 
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle("הוסף פסיכולוג")
                 .setView(dialogView)
                 .setPositiveButton("המשך", (dialog, which) -> {
@@ -224,7 +224,7 @@ public class AdminPsychologistListActivity extends BaseActivity {
                 "עיר: " + psychologist.getCity() + "\n" +
                 "מחיר: " + psychologist.getSessionPrice();
 
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle("אשר פרטים")
                 .setMessage(msg)
                 .setPositiveButton("הוסף", (dialog, which) -> addPsychologist(psychologist))
