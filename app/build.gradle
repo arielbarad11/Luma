@@ -55,4 +55,8 @@ dependencies {
     implementation libs.gson
 
     implementation libs.mpandroidchart
+    /*
+    ספריה בשביל התזכורות של המטרות
+    */
+    implementation 'com.google.code.gson:gson:2.10.1'
 }

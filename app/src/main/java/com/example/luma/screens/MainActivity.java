@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnToAdmin;
     private TextView tvHelloUser; //(tvHelloUser)-> משתנה לברכה האישית
-    private View tvAdminLine;
+    private View vAdminLine;
+    private View adminCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +55,13 @@ public class MainActivity extends AppCompatActivity {
         Button btnToUpdateUser = findViewById(R.id.tv_main_UpdateUser);
         Button btnToPsychologists = findViewById(R.id.btn_main_to_PsychologistList);
         Button btnToBreathingSimulation = findViewById(R.id.btn_main_to_BreathingSimulation);
+        Button btnToGoal = findViewById(R.id.btn_main_to_Goals);
         btnToAdmin = findViewById(R.id.btn_main_to_admin);
-        tvAdminLine = findViewById(R.id.adminLine);
+        vAdminLine = findViewById(R.id.adminLine);
+        adminCard = findViewById(R.id.adminCard);
+        
         Button btnToMoodTracker = findViewById(R.id.btn_main_to_MoodTracker);
+        Button btnToMusic = findViewById(R.id.btn_main_to_Music);
 
         // האזנה לכפתורים - מעברים בין מסכים
         btnToExit.setOnClickListener(v -> LogoutHelper.logout(MainActivity.this));
@@ -70,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         btnToAdmin.setOnClickListener(v -> startActivity(new Intent(this, AdminActivity.class)));
 
         btnToMoodTracker.setOnClickListener(v -> startActivity(new Intent(this, MoodTrackerActivity.class)));
+
+        btnToGoal.setOnClickListener(v -> startActivity(new Intent(this, GoalActivity.class)));
+        
+        if (btnToMusic != null) {
+            btnToMusic.setOnClickListener(v -> startActivity(new Intent(this, MediaPlayerActivity.class)));
+        }
 
         // בדיקת סטטוס משתמש ועדכון הרשאות
         checkUserStatus();
@@ -97,13 +108,9 @@ public class MainActivity extends AppCompatActivity {
                 updateGreeting(updatedUser.getFirstName());
 
                 // לוגיקת כפתור אדמין: מוצג רק אם המשתמש הוא מנהל
-                if (updatedUser.isAdmin()) {
-                    btnToAdmin.setVisibility(View.VISIBLE);
-                    tvAdminLine.setVisibility(View.VISIBLE);
-                } else {
-                    btnToAdmin.setVisibility(View.GONE);
-                    tvAdminLine.setVisibility(View.VISIBLE);
-                }
+                int visibility = updatedUser.isAdmin() ? View.VISIBLE : View.GONE;
+                if (adminCard != null) adminCard.setVisibility(visibility);
+                if (vAdminLine != null) vAdminLine.setVisibility(visibility);
             }
 
             @Override

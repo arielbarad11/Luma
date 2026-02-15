@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#AEE1CF"
         android:orientation="vertical">
 
         <!-- Header -->
@@ -27,6 +26,7 @@
                 android:paddingTop="30dp"
                 android:paddingRight="15dp"
                 android:text="משתמש חדש? הירשם"
+                android:fontFamily="@font/font_secularone_regular"
                 android:textAllCaps="true"
                 android:textColor="#005396"
                 android:textSize="18sp"
@@ -57,6 +57,7 @@
                 android:id="@+id/et_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
+                android:fontFamily="@font/font_secularone_regular"
                 android:backgroundTint="#0D009688" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,6 +74,7 @@
                 android:id="@+id/et_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
+                android:fontFamily="@font/font_secularone_regular"
                 android:backgroundTint="#0D009688" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +86,8 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
             android:backgroundTint="#59005396"
-            android:text="התחבר" />
+            android:text="התחבר"
+            android:fontFamily="@font/font_secularone_regular"/>
 
         <!-- Forgot Password -->
         <TextView
@@ -97,6 +100,7 @@
             android:paddingTop="24dp"
             android:paddingRight="15dp"
             android:text="שכחתי סיסמא"
+            android:fontFamily="@font/font_secularone_regular"
             android:textAllCaps="true"
             android:textColor="#005396"
             android:textSize="18sp"
