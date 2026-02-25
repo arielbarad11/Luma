@@ -7,45 +7,55 @@
     android:layoutDirection="rtl">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/breathing_container"
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:layout_centerInParent="true"
         android:clipChildren="false"
         android:clipToPadding="false">
 
-        <!-- המיכל הוגדל ל-250dp לפרופורציה טובה יותר -->
-        <FrameLayout
-            android:id="@+id/breathing_container"
+        <View
+            android:id="@+id/breathing_circle"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_gravity="center"
-            android:clipChildren="false">
+            android:background="@drawable/circle_shape"
+            android:elevation="8dp" />
 
-            <View
-                android:id="@+id/breathing_circle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/circle_shape"
-                android:clipToOutline="true"
-                android:elevation="8dp"
-                android:outlineProvider="background" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="12dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_instruction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:elevation="12dp"
                 android:fontFamily="@font/font_secularone_regular"
-                android:padding="20dp"
                 android:text="מוכנים?"
+                android:maxWidth="200dp"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="26sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
-        </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_secularone_regular"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="40sp"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </FrameLayout>
 
-    <!-- כפתור התחלה -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_start_breathing"
         android:layout_width="220dp"
@@ -54,13 +64,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
         android:backgroundTint="#005396"
-        android:fontFamily="@font/font_secularone_regular"
         android:text="התחל סשן"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:fontFamily="@font/font_secularone_regular"
         app:cornerRadius="32dp" />
 
-    <!-- כפתור עצירה -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_stop_breathing"
         android:layout_width="220dp"
@@ -69,10 +76,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
         android:backgroundTint="#D32F2F"
-        android:fontFamily="@font/font_secularone_regular"
         android:text="עצור סשן"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:fontFamily="@font/font_secularone_regular"
         android:visibility="gone"
         app:cornerRadius="32dp" />
 
