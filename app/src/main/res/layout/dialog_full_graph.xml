@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/dialog_fullscreen_chart.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F3F0"
+    android:padding="16dp">
+
+    <!-- כפתור סגירה – שמאל -->
+
+    <!-- כותרת – ימין -->
+
+    <ImageButton
+        android:id="@+id/btnCloseChart"
+        android:layout_width="31dp"
+        android:layout_height="25dp"
+        app:srcCompat="@android:drawable/btn_dialog"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/tvFullscreenTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="היסטוריית מצב רוח"
+        android:fontFamily="@font/font_secularone_regular"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#005396"
+        android:textAlignment="viewEnd"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnCloseChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- גרף מסך מלא עם גלילה -->
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/fullscreenChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvFullscreenTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
