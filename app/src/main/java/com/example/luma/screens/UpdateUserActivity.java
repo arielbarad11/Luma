@@ -20,9 +20,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
+import com.example.luma.screens.dialogs.ProfileImageDialog;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
+import com.google.android.material.button.MaterialButton;
 
 public class UpdateUserActivity extends BaseActivity implements View.OnClickListener {
 
@@ -118,7 +120,43 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
             btnUpdateProfile.setOnClickListener(this);
         }
 
+        // ===== כפתור תמונת פרופיל =====
+        MaterialButton btnChangeImage = findViewById(R.id.btn_change_image);
+        if (btnChangeImage != null) {
+            btnChangeImage.setOnClickListener(v -> openProfileImageDialog());
+        }
+
         showUserProfile();
+    }
+
+    private void openProfileImageDialog() {
+        boolean hasImage = selectedUser != null
+                && selectedUser.getProfileImage() != null
+                && !selectedUser.getProfileImage().isEmpty();
+
+        new ProfileImageDialog(this, hasImage, new ProfileImageDialog.ImagePickerListener() {
+            @Override
+            public void onCamera() {
+                cameraLauncher.launch(null);
+            }
+
+            @Override
+            public void onGallery() {
+                photoPickerLauncher.launch(
+                        new PickVisualMediaRequest.Builder()
+                                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                                .build()
+                );
+            }
+
+            @Override
+            public void onDelete() {
+                if (selectedUser != null) {
+                    selectedUser.setProfileImage(null);
+                }
+                Toast.makeText(UpdateUserActivity.this, "התמונה נמחקה", Toast.LENGTH_SHORT).show();
+            }
+        }).show();
     }
 
     @Override
