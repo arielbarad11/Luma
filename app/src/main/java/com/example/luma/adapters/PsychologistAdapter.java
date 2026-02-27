@@ -19,6 +19,7 @@ public class PsychologistAdapter extends RecyclerView.Adapter<PsychologistAdapte
 
     private final List<Psychologist> psychologistList;
     private final OnClickListener onClickListener;
+
     public PsychologistAdapter(@Nullable final OnClickListener onClickListener) {
         this.psychologistList = new ArrayList<>();
         this.onClickListener = onClickListener;

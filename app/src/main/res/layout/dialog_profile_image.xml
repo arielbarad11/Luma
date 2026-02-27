@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurface"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/font_suezone_regular"
+            android:gravity="center"
+            android:text="אפשרויות"
+            android:textColor="@color/black"
+            android:textSize="35sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_profileImageDialog_camera"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:backgroundTint="#1A237E"
+                android:fontFamily="@font/font_secularone_regular"
+                android:minWidth="150sp"
+                android:text="צלם תמונה"
+                android:textSize="22sp" />
+
+            <Button
+                android:id="@+id/btn_profileImageDialog_gallery"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:backgroundTint="#1A237E"
+                android:fontFamily="@font/font_secularone_regular"
+                android:minWidth="150sp"
+                android:text="בחר מהגלריה"
+                android:textSize="22sp" />
+
+            <Button
+                android:id="@+id/btn_profileImageDialog_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/font_secularone_regular"
+                android:minWidth="150sp"
+                android:text="מחיקת תמונה"
+                android:textSize="22sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_profileImageDialog_cancel"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="#1A237E"
+                android:fontFamily="@font/font_secularone_regular"
+                android:minWidth="150sp"
+                android:text="ביטול"
+                android:textSize="22sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

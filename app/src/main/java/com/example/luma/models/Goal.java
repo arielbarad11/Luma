@@ -13,7 +13,7 @@ public class Goal {
     public Goal() {
         // קונסטרקטור ריק בשביל Firebase
     }
-    
+
     public Goal(String id, String title, List<String> days, int hour, int minute) {
         this.id = id;
         this.title = title;

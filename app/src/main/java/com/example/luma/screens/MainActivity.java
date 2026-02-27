@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btnToAdmin = findViewById(R.id.btn_main_to_admin);
         vAdminLine = findViewById(R.id.adminLine);
         adminCard = findViewById(R.id.adminCard);
-        
+
         Button btnToMoodTracker = findViewById(R.id.btn_main_to_MoodTracker);
         Button btnToMusic = findViewById(R.id.btn_main_to_Music);
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         btnToMoodTracker.setOnClickListener(v -> startActivity(new Intent(this, MoodTrackerActivity.class)));
 
         btnToGoal.setOnClickListener(v -> startActivity(new Intent(this, GoalActivity.class)));
-        
+
         if (btnToMusic != null) {
             btnToMusic.setOnClickListener(v -> startActivity(new Intent(this, MediaPlayerActivity.class)));
         }

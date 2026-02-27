@@ -16,11 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
-import com.example.luma.screens.simulators.BreathingSimulationActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.Validator;
-
-import java.util.function.UnaryOperator;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -28,7 +28,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;

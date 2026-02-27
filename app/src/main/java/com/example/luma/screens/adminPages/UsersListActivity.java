@@ -1,6 +1,5 @@
 package com.example.luma.screens.adminPages;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 
 import java.util.List;
-import java.util.function.UnaryOperator;
 
 public class UsersListActivity extends BaseActivity {
 
@@ -138,10 +136,10 @@ public class UsersListActivity extends BaseActivity {
 
     private void makeAdmin(User user) {
         databaseService.updateUser(user.getId(), user1 -> {
-            if (user1 == null) return null;
-            user1.setAdmin(true);
-            return user1;
-        },
+                    if (user1 == null) return null;
+                    user1.setAdmin(true);
+                    return user1;
+                },
                 new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void object) {
@@ -163,10 +161,10 @@ public class UsersListActivity extends BaseActivity {
             return;
         }
         databaseService.updateUser(user.getId(), user1 -> {
-            if (user1 == null) return null;
-            user1.setAdmin(false);
-            return user1;
-        },
+                    if (user1 == null) return null;
+                    user1.setAdmin(false);
+                    return user1;
+                },
                 new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void object) {

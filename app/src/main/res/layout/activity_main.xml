@@ -43,12 +43,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:elevation="4dp"
         android:fontFamily="@font/font_suezone_regular"
         android:text="תפריט ראשי"
         android:textColor="@color/white"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/decorIcon" />
@@ -58,11 +58,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
+        android:elevation="4dp"
         android:fontFamily="@font/font_suezone_regular"
         android:text="טוען..."
         android:textColor="#E0F2FE"
         android:textSize="20sp"
-        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeTitle" />
@@ -81,10 +81,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layoutDirection="rtl"
             android:orientation="vertical"
             android:padding="24dp"
-            android:paddingTop="32dp"
-            android:layoutDirection="rtl">
+            android:paddingTop="32dp">
 
             <!-- כפתור אדמין (מוסתר כברירת מחדל) -->
             <com.google.android.material.card.MaterialCardView
@@ -100,9 +100,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
                     android:orientation="vertical"
-                    android:padding="4dp"
-                    android:layoutDirection="rtl">
+                    android:padding="4dp">
 
                     <Button
                         android:id="@+id/btn_main_to_admin"
@@ -141,42 +141,42 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#1A237E"
-                    android:padding="20dp"
-                    android:layoutDirection="rtl">
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="😊"
-                        android:textSize="32sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="8dp"
-                        android:layout_gravity="right" />
+                        android:text="😊"
+                        android:textSize="32sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="מעקב מצב רוח"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/font_secularone_regular"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="4dp"
-                        android:layout_gravity="right" />
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:gravity="right"
+                        android:text="מעקב מצב רוח"
+                        android:textColor="@color/white"
+                        android:textDirection="rtl"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="עקוב אחר הרגשות שלך לאורך זמן"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="#E0F2FE"
-                        android:textSize="13sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="12dp"
-                        android:layout_gravity="right" />
+                        android:gravity="right"
+                        android:text="עקוב אחר הרגשות שלך לאורך זמן"
+                        android:textColor="#E0F2FE"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/btn_main_to_MoodTracker"
@@ -205,42 +205,42 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#1A237E"
-                    android:padding="20dp"
-                    android:layoutDirection="rtl">
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🌬️"
-                        android:textSize="32sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="8dp"
-                        android:layout_gravity="right" />
+                        android:text="🌬️"
+                        android:textSize="32sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="סימולציית נשימה"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/font_secularone_regular"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="4dp"
-                        android:layout_gravity="right" />
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:gravity="right"
+                        android:text="סימולציית נשימה"
+                        android:textColor="@color/white"
+                        android:textDirection="rtl"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="תרגילי נשימה להרגעה ורוגע"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="#E0F2FE"
-                        android:textSize="13sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="12dp"
-                        android:layout_gravity="right" />
+                        android:gravity="right"
+                        android:text="תרגילי נשימה להרגעה ורוגע"
+                        android:textColor="#E0F2FE"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/btn_main_to_BreathingSimulation"
@@ -269,42 +269,42 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#1A237E"
-                    android:padding="20dp"
-                    android:layoutDirection="rtl">
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🎵"
-                        android:textSize="32sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="8dp"
-                        android:layout_gravity="right" />
+                        android:text="🎵"
+                        android:textSize="32sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="מוסיקה מרגיעה"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/font_secularone_regular"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="4dp"
-                        android:layout_gravity="right" />
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:gravity="right"
+                        android:text="מוסיקה מרגיעה"
+                        android:textColor="@color/white"
+                        android:textDirection="rtl"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="האזן למוסיקה שתרגיע את הנפש"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="#E0F2FE"
-                        android:textSize="13sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="12dp"
-                        android:layout_gravity="right" />
+                        android:gravity="right"
+                        android:text="האזן למוסיקה שתרגיע את הנפש"
+                        android:textColor="#E0F2FE"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/btn_main_to_Music"
@@ -333,42 +333,42 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#1A237E"
-                    android:padding="20dp"
-                    android:layoutDirection="rtl">
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="👨‍⚕️"
-                        android:textSize="32sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="8dp"
-                        android:layout_gravity="right" />
+                        android:text="👨‍⚕️"
+                        android:textSize="32sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="רשימת פסיכולוגים"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/font_secularone_regular"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="4dp"
-                        android:layout_gravity="right" />
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:gravity="right"
+                        android:text="רשימת פסיכולוגים"
+                        android:textColor="@color/white"
+                        android:textDirection="rtl"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="מצא את המטפל המתאים לך"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="#E0F2FE"
-                        android:textSize="13sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="12dp"
-                        android:layout_gravity="right" />
+                        android:gravity="right"
+                        android:text="מצא את המטפל המתאים לך"
+                        android:textColor="#E0F2FE"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/btn_main_to_PsychologistList"
@@ -397,42 +397,42 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#1A237E"
-                    android:padding="20dp"
-                    android:layoutDirection="rtl">
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🎯"
-                        android:textSize="32sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="8dp"
-                        android:layout_gravity="right" />
+                        android:text="🎯"
+                        android:textSize="32sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="מטרות יומיות"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/font_secularone_regular"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="4dp"
-                        android:layout_gravity="right" />
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:gravity="right"
+                        android:text="מטרות יומיות"
+                        android:textColor="@color/white"
+                        android:textDirection="rtl"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="הגדר והשג את המטרות שלך"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="#E0F2FE"
-                        android:textSize="13sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="12dp"
-                        android:layout_gravity="right" />
+                        android:gravity="right"
+                        android:text="הגדר והשג את המטרות שלך"
+                        android:textColor="#E0F2FE"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/btn_main_to_Goals"
@@ -461,42 +461,42 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#1A237E"
-                    android:padding="20dp"
-                    android:layoutDirection="rtl">
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="👤"
-                        android:textSize="32sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="8dp"
-                        android:layout_gravity="right" />
+                        android:text="👤"
+                        android:textSize="32sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="עדכון פרטי משתמש"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/font_secularone_regular"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="4dp"
-                        android:layout_gravity="right" />
+                        android:fontFamily="@font/font_secularone_regular"
+                        android:gravity="right"
+                        android:text="עדכון פרטי משתמש"
+                        android:textColor="@color/white"
+                        android:textDirection="rtl"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="עדכן את הפרופיל והגדרות שלך"
-                        android:textDirection="rtl"
-                        android:gravity="right"
-                        android:textColor="#E0F2FE"
-                        android:textSize="13sp"
+                        android:layout_gravity="right"
                         android:layout_marginBottom="12dp"
-                        android:layout_gravity="right" />
+                        android:gravity="right"
+                        android:text="עדכן את הפרופיל והגדרות שלך"
+                        android:textColor="#E0F2FE"
+                        android:textDirection="rtl"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/tv_main_UpdateUser"
@@ -535,23 +535,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:layoutDirection="ltr">
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
                         android:text="🚪"
-                        android:textSize="24sp"
-                        android:layout_marginEnd="12dp" />
+                        android:textSize="24sp" />
 
                     <Button
                         android:id="@+id/btn_main_to_exit"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="52dp"
+                        android:layout_weight="1"
                         android:backgroundTint="#6B7280"
                         android:fontFamily="@font/font_secularone_regular"
                         android:text="התנתק מהמערכת"

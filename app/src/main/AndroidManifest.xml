@@ -17,6 +17,7 @@
         <activity
             android:name=".screens.MediaPlayerActivity"
             android:exported="false" />
+
         <activity
             android:name=".screens.simulators.MoodTrackerActivity"
             android:exported="false" />
@@ -66,8 +67,8 @@
 
         <receiver
             android:name=".models.AlarmReceiver"
-            android:exported="false"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

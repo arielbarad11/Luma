@@ -31,9 +31,13 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
-    <!-- תיקון: הסרת האטריביוט השגוי שגרם לשגיאת קומפילציה -->
     <style name="RtlDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
         <item name="android:layoutDirection">rtl</item>
+    </style>
+
+    <!-- סטייל לתמונת פרופיל עגולה -->
+    <style name="CircleImage" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

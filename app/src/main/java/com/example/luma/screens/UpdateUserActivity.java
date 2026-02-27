@@ -1,5 +1,7 @@
 package com.example.luma.screens;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,8 +23,6 @@ import com.example.luma.models.User;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
-
-import java.util.function.UnaryOperator;
 
 public class UpdateUserActivity extends BaseActivity implements View.OnClickListener {
 
@@ -33,26 +36,61 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
     private User currentUser;
     private boolean isCurrentUser = false;
 
+    private ActivityResultLauncher<Void> cameraLauncher;
+    private ActivityResultLauncher<PickVisualMediaRequest> photoPickerLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_update_user);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.tv_UpdateUser), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // ===== Edge to Edge Padding =====
+        View mainLayout = findViewById(R.id.tv_UpdateUser);
+        if (mainLayout != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(mainLayout, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
+        }
 
-        // ===== current user =====
+        // ===== Launchers init =====
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicturePreview(),
+                bitmap -> {
+                    if (bitmap != null) {
+                        handleImageBitmap(bitmap);
+                    }
+                }
+        );
+
+        photoPickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.PickVisualMedia(),
+                uri -> {
+                    if (uri != null) {
+                        try {
+                            Bitmap bitmap = BitmapFactory.decodeStream(
+                                    getContentResolver().openInputStream(uri)
+                            );
+                            if (bitmap != null) {
+                                handleImageBitmap(bitmap);
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(this, "שגיאה בטעינת התמונה", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
+
+        // ===== current user check =====
         currentUser = SharedPreferencesUtil.getUser(this);
         if (currentUser == null) {
             finish();
             return;
         }
 
-        // ===== selected user =====
+        // ===== selected user check =====
         selectedUid = getIntent().getStringExtra("USER_UID");
         if (selectedUid == null) {
             selectedUid = currentUser.getId();
@@ -60,7 +98,7 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
 
         isCurrentUser = selectedUid.equals(currentUser.getId());
 
-        // ===== authorization =====
+        // ===== authorization check =====
         if (!isCurrentUser && !currentUser.isAdmin()) {
             Toast.makeText(this, "אין לך הרשאה לצפות בפרופיל זה", Toast.LENGTH_SHORT).show();
             finish();
@@ -76,7 +114,9 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
         tvUserDisplayEmail = findViewById(R.id.tv_user_display_email);
         Button btnUpdateProfile = findViewById(R.id.btn_edit_profile);
 
-        btnUpdateProfile.setOnClickListener(this);
+        if (btnUpdateProfile != null) {
+            btnUpdateProfile.setOnClickListener(this);
+        }
 
         showUserProfile();
     }
@@ -89,17 +129,20 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
     }
 
     private void showUserProfile() {
-        databaseService.getUser(selectedUid, new DatabaseService.DatabaseCallback<>() {
+        databaseService.getUser(selectedUid, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
+                if (user == null) return;
                 selectedUser = user;
 
                 etUserFirstName.setText(user.getFirstName());
                 etUserEmail.setText(user.getEmail());
                 etUserPassword.setText(user.getPassword());
-
                 tvUserDisplayEmail.setText(user.getEmail());
 
+                // שדות נעולים אם זה לא המשתמש עצמו
+                etUserEmail.setEnabled(isCurrentUser);
+                etUserPassword.setEnabled(isCurrentUser);
             }
 
             @Override
@@ -107,10 +150,6 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
                 Log.e(TAG, "Failed to load user", e);
             }
         });
-
-        // שדות נעולים אם זה לא המשתמש עצמו
-        etUserEmail.setEnabled(isCurrentUser);
-        etUserPassword.setEnabled(isCurrentUser);
     }
 
     private void updateUserProfile() {
@@ -127,7 +166,6 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
             return;
         }
 
-        // ===== authorization check =====
         if (!isCurrentUser && !currentUser.isAdmin()) {
             Toast.makeText(this, "אין לך הרשאה לעדכן משתמש זה", Toast.LENGTH_SHORT).show();
             return;
@@ -147,7 +185,7 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
             u.setEmail(user.getEmail());
             u.setPassword(user.getPassword());
             return u;
-        }, new DatabaseService.DatabaseCallback<>() {
+        }, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void result) {
                 Toast.makeText(UpdateUserActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
@@ -163,17 +201,22 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
 
     private boolean isValid(String firstName, String email, String password) {
         if (!Validator.isNameValid(firstName)) {
-            etUserFirstName.setError("First name is required");
+            etUserFirstName.setError("שם לא תקין");
             return false;
         }
         if (!Validator.isEmailValid(email)) {
-            etUserEmail.setError("Email is required");
+            etUserEmail.setError("אימייל לא תקין");
             return false;
         }
         if (!Validator.isPasswordValid(password)) {
-            etUserPassword.setError("Password is required");
+            etUserPassword.setError("סיסמה לא תקינה");
             return false;
         }
         return true;
+    }
+
+    private void handleImageBitmap(Bitmap bitmap) {
+        // כאן תוסיפי את הלוגיקה של מה לעשות עם התמונה (למשל להציג ב-ImageView או להעלות לשרת)
+        Toast.makeText(this, "התמונה התקבלה", Toast.LENGTH_SHORT).show();
     }
 }

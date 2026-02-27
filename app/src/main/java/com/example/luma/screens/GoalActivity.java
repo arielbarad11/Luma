@@ -14,16 +14,19 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import com.example.luma.R;
-import com.example.luma.models.Goal;
 import com.example.luma.models.AlarmReceiver;
+import com.example.luma.models.Goal;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -105,7 +108,8 @@ public class GoalActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("LumaData", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefs.getString("goals_list", null);
-        Type type = new TypeToken<ArrayList<Goal>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Goal>>() {
+        }.getType();
         List<Goal> goalList = gson.fromJson(json, type);
         if (goalList == null) goalList = new ArrayList<>();
         goalList.add(goal);
@@ -145,14 +149,22 @@ public class GoalActivity extends AppCompatActivity {
 
     private int dayToNumber(String day) {
         switch (day) {
-            case "ראשון": return Calendar.SUNDAY;
-            case "שני": return Calendar.MONDAY;
-            case "שלישי": return Calendar.TUESDAY;
-            case "רביעי": return Calendar.WEDNESDAY;
-            case "חמישי": return Calendar.THURSDAY;
-            case "שישי": return Calendar.FRIDAY;
-            case "שבת": return Calendar.SATURDAY;
-            default: return Calendar.SUNDAY;
+            case "ראשון":
+                return Calendar.SUNDAY;
+            case "שני":
+                return Calendar.MONDAY;
+            case "שלישי":
+                return Calendar.TUESDAY;
+            case "רביעי":
+                return Calendar.WEDNESDAY;
+            case "חמישי":
+                return Calendar.THURSDAY;
+            case "שישי":
+                return Calendar.FRIDAY;
+            case "שבת":
+                return Calendar.SATURDAY;
+            default:
+                return Calendar.SUNDAY;
         }
     }
 

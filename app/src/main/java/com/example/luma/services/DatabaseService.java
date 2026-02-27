@@ -30,6 +30,7 @@ public class DatabaseService {
     private static final String MOOD_HISTORY_PATH = "mood_history";
     private static DatabaseService instance;
     private final DatabaseReference databaseReference;
+
     private DatabaseService() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://luma-785c3-default-rtdb.europe-west1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference();

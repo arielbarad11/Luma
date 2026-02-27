@@ -9,30 +9,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:layoutDirection="rtl">
+        android:padding="24dp">
 
         <!-- Header Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="הוסף מטרה חדשה"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#1A237E"
-            android:fontFamily="@font/font_secularone_regular"
             android:layout_marginBottom="8dp"
-            android:layoutDirection="rtl"/>
+            android:fontFamily="@font/font_secularone_regular"
+            android:layoutDirection="rtl"
+            android:text="הוסף מטרה חדשה"
+            android:textColor="#1A237E"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="הגדר תזכורת יומית להשגת היעדים שלך"
-            android:textSize="14sp"
-            android:textColor="#64748B"
             android:layout_marginBottom="32dp"
-            android:layoutDirection="rtl"/>
+            android:layoutDirection="rtl"
+            android:text="הגדר תזכורת יומית להשגת היעדים שלך"
+            android:textColor="#64748B"
+            android:textSize="14sp" />
 
         <!-- Title Input Card -->
         <com.google.android.material.card.MaterialCardView
@@ -46,47 +46,47 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:layoutDirection="rtl">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📌 שם המטרה"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#1E293B"
                     android:layout_marginBottom="12dp"
-                    android:layoutDirection="rtl"/>
+                    android:layoutDirection="rtl"
+                    android:text="📌 שם המטרה"
+                    android:textColor="#1E293B"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="לדוגמה: אימון בוקר, קריאה"
-                    app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="#F1F5F9"
+                    app:boxBackgroundMode="filled"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxStrokeColor="#3B82F6"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="2dp"
-                    app:boxStrokeColor="#3B82F6"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:hintTextColor="#64748B"
                     app:startIconDrawable="@android:drawable/ic_menu_edit"
-                    app:startIconTint="#3B82F6"
-                    app:hintTextColor="#64748B">
+                    app:startIconTint="#3B82F6">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="#1E293B"
-                        android:textDirection="rtl"
                         android:gravity="right"
                         android:inputType="text"
-                        android:maxLines="1"/>
+                        android:maxLines="1"
+                        android:textColor="#1E293B"
+                        android:textDirection="rtl"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,28 +106,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:layoutDirection="rtl">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="⏰ זמן התזכורת"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#1E293B"
                     android:layout_marginBottom="16dp"
-                    android:layoutDirection="rtl"/>
+                    android:layoutDirection="rtl"
+                    android:text="⏰ זמן התזכורת"
+                    android:textColor="#1E293B"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TimePicker
                     android:id="@+id/timePicker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:timePickerMode="spinner"
                     android:background="#F8FAFC"
+                    android:layoutDirection="ltr"
                     android:padding="12dp"
-                    android:layoutDirection="ltr"/>
+                    android:timePickerMode="spinner" />
 
             </LinearLayout>
 
@@ -145,73 +145,73 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:layoutDirection="rtl">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📅 בחר ימים"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#1E293B"
-                    android:fontFamily="@font/font_secularone_regular"
                     android:layout_marginBottom="16dp"
-                    android:layoutDirection="rtl"/>
+                    android:fontFamily="@font/font_secularone_regular"
+                    android:layoutDirection="rtl"
+                    android:text="📅 בחר ימים"
+                    android:textColor="#1E293B"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- First Row of Days -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp"
                     android:gravity="center"
                     android:layoutDirection="rtl"
-                    android:layout_marginBottom="12dp">
+                    android:orientation="horizontal">
 
                     <CheckBox
                         android:id="@+id/checkSun"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:text="ראשון"
-                        android:textSize="14sp"
-                        android:textColor="#1E293B"
-                        android:buttonTint="#3B82F6"
                         android:background="@android:drawable/btn_default"
                         android:backgroundTint="#EFF6FF"
+                        android:buttonTint="#3B82F6"
                         android:gravity="center"
-                        android:layout_marginEnd="6dp"
-                        android:layoutDirection="rtl"/>
+                        android:layoutDirection="rtl"
+                        android:text="ראשון"
+                        android:textColor="#1E293B"
+                        android:textSize="14sp" />
 
                     <CheckBox
                         android:id="@+id/checkMon"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:text="שני"
-                        android:textSize="14sp"
-                        android:textColor="#1E293B"
-                        android:buttonTint="#3B82F6"
                         android:background="@android:drawable/btn_default"
                         android:backgroundTint="#EFF6FF"
+                        android:buttonTint="#3B82F6"
                         android:gravity="center"
-                        android:layout_marginEnd="6dp"
-                        android:layoutDirection="rtl"/>
+                        android:layoutDirection="rtl"
+                        android:text="שני"
+                        android:textColor="#1E293B"
+                        android:textSize="14sp" />
 
                     <CheckBox
                         android:id="@+id/checkTue"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="שלישי"
-                        android:textSize="14sp"
-                        android:textColor="#1E293B"
-                        android:buttonTint="#3B82F6"
                         android:background="@android:drawable/btn_default"
                         android:backgroundTint="#EFF6FF"
+                        android:buttonTint="#3B82F6"
                         android:gravity="center"
-                        android:layoutDirection="rtl"/>
+                        android:layoutDirection="rtl"
+                        android:text="שלישי"
+                        android:textColor="#1E293B"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -219,54 +219,54 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp"
                     android:gravity="center"
                     android:layoutDirection="rtl"
-                    android:layout_marginBottom="12dp">
+                    android:orientation="horizontal">
 
                     <CheckBox
                         android:id="@+id/checkWed"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:text="רביעי"
-                        android:textSize="14sp"
-                        android:textColor="#1E293B"
-                        android:buttonTint="#3B82F6"
                         android:background="@android:drawable/btn_default"
                         android:backgroundTint="#EFF6FF"
+                        android:buttonTint="#3B82F6"
                         android:gravity="center"
-                        android:layout_marginEnd="6dp"
-                        android:layoutDirection="rtl"/>
+                        android:layoutDirection="rtl"
+                        android:text="רביעי"
+                        android:textColor="#1E293B"
+                        android:textSize="14sp" />
 
                     <CheckBox
                         android:id="@+id/checkThu"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:text="חמישי"
-                        android:textSize="14sp"
-                        android:textColor="#1E293B"
-                        android:buttonTint="#3B82F6"
                         android:background="@android:drawable/btn_default"
                         android:backgroundTint="#EFF6FF"
+                        android:buttonTint="#3B82F6"
                         android:gravity="center"
-                        android:layout_marginEnd="6dp"
-                        android:layoutDirection="rtl"/>
+                        android:layoutDirection="rtl"
+                        android:text="חמישי"
+                        android:textColor="#1E293B"
+                        android:textSize="14sp" />
 
                     <CheckBox
                         android:id="@+id/checkFri"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="שישי"
-                        android:textSize="14sp"
-                        android:textColor="#1E293B"
-                        android:buttonTint="#3B82F6"
                         android:background="@android:drawable/btn_default"
                         android:backgroundTint="#EFF6FF"
+                        android:buttonTint="#3B82F6"
                         android:gravity="center"
-                        android:layoutDirection="rtl"/>
+                        android:layoutDirection="rtl"
+                        android:text="שישי"
+                        android:textColor="#1E293B"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -274,34 +274,34 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:layoutDirection="rtl">
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal">
 
                     <CheckBox
                         android:id="@+id/checkSat"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="שבת"
-                        android:textSize="14sp"
-                        android:textColor="#1E293B"
-                        android:buttonTint="#3B82F6"
                         android:background="@android:drawable/btn_default"
                         android:backgroundTint="#EFF6FF"
+                        android:buttonTint="#3B82F6"
                         android:gravity="center"
-                        android:layoutDirection="rtl"/>
+                        android:layoutDirection="rtl"
+                        android:text="שבת"
+                        android:textColor="#1E293B"
+                        android:textSize="14sp" />
 
                     <!-- Empty spaces for alignment -->
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="48dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="48dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                 </LinearLayout>
 
@@ -314,32 +314,32 @@
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#3B82F6"
+            android:fontFamily="@font/font_secularone_regular"
+            android:layoutDirection="rtl"
+            android:paddingVertical="14dp"
             android:text="💾 שמור מטרה"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/font_secularone_regular"
-            android:backgroundTint="#3B82F6"
             app:cornerRadius="16dp"
             app:elevation="4dp"
             app:icon="@android:drawable/ic_menu_save"
-            app:iconTint="#FFFFFF"
             app:iconGravity="textStart"
-            android:paddingVertical="14dp"
-            android:layout_marginBottom="16dp"
-            android:layoutDirection="rtl"/>
+            app:iconTint="#FFFFFF" />
 
         <!-- Additional Info Text -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="💡 תזכורת: המערכת תשלח לך התראות בזמנים שהגדרת"
-            android:textSize="12sp"
-            android:textColor="#64748B"
-            android:gravity="center"
             android:layout_gravity="center_horizontal"
+            android:drawablePadding="8dp"
+            android:gravity="center"
             android:layoutDirection="rtl"
-            android:drawablePadding="8dp"/>
+            android:text="💡 תזכורת: המערכת תשלח לך התראות בזמנים שהגדרת"
+            android:textColor="#64748B"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
