@@ -307,7 +307,7 @@ public class MoodTrackerActivity extends BaseActivity {
 
         Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_fullscreen_chart);
+        dialog.setContentView(R.layout.dialog_full_graph);
 
         // חשוב: ודאי שב-XML יש LineChart עם id fullscreenChart ו-Button עם id btnCloseChart
         LineChart fullChart = dialog.findViewById(R.id.fullscreenChart);
