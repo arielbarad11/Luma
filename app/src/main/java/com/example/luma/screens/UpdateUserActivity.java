@@ -20,11 +20,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.luma.R;
 import com.example.luma.models.User;
+import com.example.luma.screens.dialogs.FullImageDialog;
 import com.example.luma.screens.dialogs.ProfileImageDialog;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 
 public class UpdateUserActivity extends BaseActivity implements View.OnClickListener {
 
@@ -32,6 +34,7 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
 
     private EditText etUserFirstName, etUserEmail, etUserPassword;
     private TextView tvUserDisplayEmail;
+    private ShapeableImageView imgUserProfile;
 
     private String selectedUid;
     private User selectedUser;
@@ -114,13 +117,23 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
         etUserEmail = findViewById(R.id.et_user_email);
         etUserPassword = findViewById(R.id.et_user_password);
         tvUserDisplayEmail = findViewById(R.id.tv_user_display_email);
+        imgUserProfile = findViewById(R.id.img_user_profile);
         Button btnUpdateProfile = findViewById(R.id.btn_edit_profile);
 
         if (btnUpdateProfile != null) {
             btnUpdateProfile.setOnClickListener(this);
         }
 
-        // ===== כפתור תמונת פרופיל =====
+        // ===== לחיצה על התמונה – הצגה בגדול =====
+        if (imgUserProfile != null) {
+            imgUserProfile.setOnClickListener(v -> {
+                if (imgUserProfile.getDrawable() != null) {
+                    new FullImageDialog(UpdateUserActivity.this, imgUserProfile.getDrawable()).show();
+                }
+            });
+        }
+
+        // ===== כפתור עריכת תמונת פרופיל =====
         MaterialButton btnChangeImage = findViewById(R.id.btn_change_image);
         if (btnChangeImage != null) {
             btnChangeImage.setOnClickListener(v -> openProfileImageDialog());
@@ -154,6 +167,7 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
                 if (selectedUser != null) {
                     selectedUser.setProfileImage(null);
                 }
+                imgUserProfile.setImageResource(android.R.drawable.ic_menu_myplaces);
                 Toast.makeText(UpdateUserActivity.this, "התמונה נמחקה", Toast.LENGTH_SHORT).show();
             }
         }).show();
@@ -254,7 +268,9 @@ public class UpdateUserActivity extends BaseActivity implements View.OnClickList
     }
 
     private void handleImageBitmap(Bitmap bitmap) {
-        // כאן תוסיפי את הלוגיקה של מה לעשות עם התמונה (למשל להציג ב-ImageView או להעלות לשרת)
+        if (imgUserProfile != null) {
+            imgUserProfile.setImageBitmap(bitmap);
+        }
         Toast.makeText(this, "התמונה התקבלה", Toast.LENGTH_SHORT).show();
     }
 }
