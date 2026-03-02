@@ -61,7 +61,7 @@ public class PsychologistListActivity extends BaseActivity {
         rvPsychologists.setLayoutManager(new LinearLayoutManager(this));
 
         // ── כפתור חזור ──
-        ImageButton btnBack = findViewById(R.id.btn_back_psychologist);
+        ImageButton btnBack = findViewById(R.id.btn_back_psychologist_to_main);
         if (btnBack != null) {
             btnBack.setOnClickListener(v -> finish());
         }

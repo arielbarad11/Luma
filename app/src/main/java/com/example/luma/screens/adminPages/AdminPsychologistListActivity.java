@@ -6,11 +6,16 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +34,10 @@ import com.example.luma.models.User;
 import com.example.luma.screens.BaseActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
+import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class AdminPsychologistListActivity extends BaseActivity {
@@ -38,6 +46,12 @@ public class AdminPsychologistListActivity extends BaseActivity {
 
     private PsychologistAdapter psychologistAdapter;
     private TextView tvPsychologistCount;
+    private TextView tvSort;
+    private LinearLayout emptyState;
+    private ProgressBar progressBar;
+
+    private List<Psychologist> fullList = new ArrayList<>();
+    private boolean sortedAsc = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,24 +75,27 @@ public class AdminPsychologistListActivity extends BaseActivity {
             return;
         }
 
-        RecyclerView psychologistList = findViewById(R.id.rv_admin_psychologist_list);
+        // ── Views ──
         tvPsychologistCount = findViewById(R.id.tv_item_psychologist_count);
+        tvSort              = findViewById(R.id.tv_sort_by_price);
+        emptyState          = findViewById(R.id.ll_empty_state);
+        progressBar         = findViewById(R.id.pb_loading);
 
+        RecyclerView psychologistList = findViewById(R.id.rv_admin_psychologist_list);
         if (psychologistList != null) {
             psychologistList.setLayoutManager(new LinearLayoutManager(this));
         }
 
+        // ── Adapter ──
         psychologistAdapter = new PsychologistAdapter(
                 new PsychologistAdapter.OnClickListener() {
                     @Override
                     public void onClick(Psychologist psychologist) {
-                        // לחיצה רגילה - הצגת הדיאלוג המעוצב
                         showUserViewDialog(psychologist);
                     }
 
                     @Override
                     public void onLongClick(Psychologist psychologist) {
-                        // לחיצה ארוכה - תפריט ניהול
                         showAdminActionsDialog(psychologist);
                     }
 
@@ -93,24 +110,53 @@ public class AdminPsychologistListActivity extends BaseActivity {
             psychologistList.setAdapter(psychologistAdapter);
         }
 
+        // ── כפתור חזור ──
+        ImageButton btnBack = findViewById(R.id.btn_back_psychologist_to_mainAdmin);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
+
+        // ── הוספת פסיכולוג ──
         TextView tvAddPsychologist = findViewById(R.id.tv_add_item_psychologist);
         if (tvAddPsychologist != null) {
             tvAddPsychologist.setOnClickListener(v -> showAddPsychologistDialog());
         }
+
+        // ── חיפוש לפי שם / עיר ──
+        TextInputEditText etSearch = findViewById(R.id.et_search_psychologist);
+        if (etSearch != null) {
+            etSearch.addTextChangedListener(new TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+                @Override public void afterTextChanged(Editable e) {}
+                @Override
+                public void onTextChanged(CharSequence s, int a, int b, int c) {
+                    filterList(s.toString());
+                }
+            });
+        }
+
+        // ── מיון לפי מחיר ──
+        if (tvSort != null) {
+            tvSort.setOnClickListener(v -> {
+                sortedAsc = !sortedAsc;
+                tvSort.setText(sortedAsc ? "מחיר ↑" : "מחיר ↓");
+                sortList();
+            });
+        }
     }
 
+    // =======================
     // הצגת הדיאלוג המעוצב (תצוגת משתמש)
+    // =======================
     private void showUserViewDialog(Psychologist psychologist) {
         Dialog dialog = new Dialog(this);
-        // וודאי ששם הקובץ XML הזה נכון:
         dialog.setContentView(R.layout.dialog_contact_psychologist);
 
-        TextView tvName = dialog.findViewById(R.id.tv_dialog_psychologist_name);
-        Button btnClose = dialog.findViewById(R.id.btn_dialog_close);
+        TextView tvName     = dialog.findViewById(R.id.tv_dialog_psychologist_name);
+        Button btnClose     = dialog.findViewById(R.id.btn_dialog_close);
         Button btnSendEmail = dialog.findViewById(R.id.btn_dialog_send_email);
 
         if (tvName != null) tvName.setText(psychologist.getName());
-
         if (btnClose != null) btnClose.setOnClickListener(v -> dialog.dismiss());
         if (btnSendEmail != null) {
             btnSendEmail.setOnClickListener(v -> {
@@ -126,14 +172,16 @@ public class AdminPsychologistListActivity extends BaseActivity {
         dialog.show();
     }
 
-    // עדכון דיאלוג ניהול
+    // =======================
+    // דיאלוג ניהול (לחיצה ארוכה)
+    // =======================
     private void showAdminActionsDialog(Psychologist psychologist) {
         String[] options = {"צפה בכרטיסייה (תצוגת משתמש)", "ערוך פרטי פסיכולוג", "מחק פסיכולוג"};
         new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle(psychologist.getName())
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
-                        showUserViewDialog(psychologist); // תוקן השם כאן
+                        showUserViewDialog(psychologist);
                     } else if (which == 1) {
                         editPsychologist(psychologist);
                     } else {
@@ -149,27 +197,70 @@ public class AdminPsychologistListActivity extends BaseActivity {
         loadPsychologists();
     }
 
+    // =======================
+    // טעינה מ-DB
+    // =======================
     private void loadPsychologists() {
+        showLoading(true);
         databaseService.getPsychologistList(new DatabaseService.DatabaseCallback<List<Psychologist>>() {
             @Override
             public void onCompleted(List<Psychologist> psychologists) {
+                showLoading(false);
+                fullList = new ArrayList<>(psychologists);
                 psychologistAdapter.setList(psychologists);
                 updatePsychologistCount();
+                updateEmptyState();
             }
 
             @Override
             public void onFailed(Exception e) {
+                showLoading(false);
                 Log.e(TAG, "טעינת הפסיכולוגים נכשלה", e);
+                Toast.makeText(AdminPsychologistListActivity.this, "שגיאה בטעינת הרשימה", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    // =======================
+    // חיפוש לפי שם / עיר
+    // =======================
+    private void filterList(String query) {
+        if (query.isEmpty()) {
+            psychologistAdapter.setList(fullList);
+        } else {
+            List<Psychologist> filtered = new ArrayList<>();
+            String lower = query.toLowerCase();
+            for (Psychologist p : fullList) {
+                boolean nameMatch = p.getName() != null && p.getName().toLowerCase().contains(lower);
+                boolean cityMatch = p.getCity() != null && p.getCity().toLowerCase().contains(lower);
+                if (nameMatch || cityMatch) filtered.add(p);
+            }
+            psychologistAdapter.setList(filtered);
+        }
+        updatePsychologistCount();
+        updateEmptyState();
+    }
+
+    // =======================
+    // מיון לפי מחיר
+    // =======================
+    private void sortList() {
+        List<Psychologist> sorted = new ArrayList<>(fullList);
+        sorted.sort(sortedAsc
+                ? Comparator.comparingInt(Psychologist::getSessionPrice)
+                : Comparator.comparingInt(Psychologist::getSessionPrice).reversed());
+        psychologistAdapter.setList(sorted);
+    }
+
+    // =======================
+    // עריכת פסיכולוג
+    // =======================
     private void editPsychologist(Psychologist psychologist) {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_psychologist, null);
 
-        EditText etName = dialogView.findViewById(R.id.et_psychologist_name);
+        EditText etName  = dialogView.findViewById(R.id.et_psychologist_name);
         EditText etEmail = dialogView.findViewById(R.id.et_psychologist_email);
-        EditText etCity = dialogView.findViewById(R.id.et_psychologist_city);
+        EditText etCity  = dialogView.findViewById(R.id.et_psychologist_city);
         EditText etPrice = dialogView.findViewById(R.id.et_psychologist_price);
 
         etName.setText(psychologist.getName());
@@ -190,6 +281,10 @@ public class AdminPsychologistListActivity extends BaseActivity {
                     databaseService.updatePsychologist(psychologist, new DatabaseService.DatabaseCallback<Void>() {
                         @Override
                         public void onCompleted(Void result) {
+                            // עדכון ב-fullList גם כן כדי שהחיפוש/המיון יעבדו נכון
+                            int index = fullList.indexOf(psychologist);
+                            if (index != -1) fullList.set(index, psychologist);
+
                             psychologistAdapter.update(psychologist);
                             Toast.makeText(AdminPsychologistListActivity.this, "הנתונים עודכנו", Toast.LENGTH_SHORT).show();
                         }
@@ -201,29 +296,38 @@ public class AdminPsychologistListActivity extends BaseActivity {
                 .show();
     }
 
+    // =======================
+    // מחיקת פסיכולוג
+    // =======================
     private void confirmDeletePsychologist(Psychologist psychologist) {
         new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle("מחיקת פסיכולוג")
                 .setMessage("האם אתה בטוח שברצונך למחוק את " + psychologist.getName() + "?")
-                .setPositiveButton("מחק", (dialog, which) -> databaseService.deletePsychologist(psychologist.getId(), new DatabaseService.DatabaseCallback<Void>() {
-                    @Override
-                    public void onCompleted(Void object) {
-                        psychologistAdapter.remove(psychologist);
-                        updatePsychologistCount();
-                    }
-                    @Override
-                    public void onFailed(Exception e) { Log.e(TAG, "מחיקה נכשלה", e); }
-                }))
+                .setPositiveButton("מחק", (dialog, which) ->
+                        databaseService.deletePsychologist(psychologist.getId(), new DatabaseService.DatabaseCallback<Void>() {
+                            @Override
+                            public void onCompleted(Void object) {
+                                fullList.remove(psychologist);
+                                psychologistAdapter.remove(psychologist);
+                                updatePsychologistCount();
+                                updateEmptyState();
+                            }
+                            @Override
+                            public void onFailed(Exception e) { Log.e(TAG, "מחיקה נכשלה", e); }
+                        }))
                 .setNegativeButton("ביטול", null)
                 .show();
     }
 
+    // =======================
+    // הוספת פסיכולוג
+    // =======================
     private void showAddPsychologistDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_psychologist, null);
 
-        EditText etName = dialogView.findViewById(R.id.et_psychologist_name);
+        EditText etName  = dialogView.findViewById(R.id.et_psychologist_name);
         EditText etEmail = dialogView.findViewById(R.id.et_psychologist_email);
-        EditText etCity = dialogView.findViewById(R.id.et_psychologist_city);
+        EditText etCity  = dialogView.findViewById(R.id.et_psychologist_city);
         EditText etPrice = dialogView.findViewById(R.id.et_psychologist_price);
 
         new AlertDialog.Builder(this, R.style.RtlDialogTheme)
@@ -262,19 +366,38 @@ public class AdminPsychologistListActivity extends BaseActivity {
         databaseService.createNewPsychologist(psychologist, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void v) {
+                fullList.add(psychologist);
                 psychologistAdapter.add(psychologist);
                 updatePsychologistCount();
+                updateEmptyState();
             }
             @Override
             public void onFailed(Exception e) { Log.e(TAG, "הוספה נכשלה", e); }
         });
     }
 
+    // =======================
+    // עדכון UI
+    // =======================
     private void updatePsychologistCount() {
+        if (tvPsychologistCount == null) return;
         int count = psychologistAdapter.getItemCount();
         tvPsychologistCount.setText("מספר הפסיכולוגים: " + count);
     }
 
+    private void updateEmptyState() {
+        if (emptyState == null) return;
+        emptyState.setVisibility(psychologistAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+    }
+
+    private void showLoading(boolean show) {
+        if (progressBar == null) return;
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    // =======================
+    // שליחת מייל
+    // =======================
     private void sendEmail(Psychologist psychologist) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));

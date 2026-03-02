@@ -9,35 +9,31 @@
     android:background="#F7F3F0"
     android:padding="16dp">
 
-    <!-- כפתור סגירה – שמאל -->
-
-    <!-- כותרת – ימין -->
-
-    <ImageButton
-        android:id="@+id/btnCloseChart"
-        android:layout_width="31dp"
-        android:layout_height="25dp"
-        app:srcCompat="@android:drawable/btn_dialog"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
-
+    <!-- גרף מסך מלא עם גלילה -->
     <TextView
         android:id="@+id/tvFullscreenTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="היסטוריית מצב רוח"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/font_secularone_regular"
+        android:text="היסטוריית מצב רוח"
+        android:textColor="#005396"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#005396"
-        android:textAlignment="viewEnd"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnCloseChart"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp" />
+        app:layout_constraintEnd_toStartOf="@+id/btnCloseChart"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- גרף מסך מלא עם גלילה -->
+    <ImageButton
+        android:id="@+id/btnCloseChart"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/icons8_x_20"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        tools:layout_editor_absoluteX="337dp"
+        tools:layout_editor_absoluteY="16dp" />
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/fullscreenChart"
         android:layout_width="0dp"

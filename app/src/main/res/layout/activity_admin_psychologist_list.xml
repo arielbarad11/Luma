@@ -30,11 +30,11 @@
 
                 <!-- כפתור חזור -->
                 <ImageButton
-                    android:id="@+id/btn_back_psychologist"
+                    android:id="@+id/btn_back_psychologist_to_mainAdmin"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginEnd="8dp"
-                    android:src="@android:drawable/ic_media_previous"
+                    app:srcCompat="?attr/homeAsUpIndicator"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="חזור" />
 
@@ -84,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="מחיר ↑"
+                    android:fontFamily="@font/font_secularone_regular"
                     android:textColor="#5C6BC0"
                     android:textSize="13sp"
                     android:textStyle="bold"
@@ -109,7 +110,8 @@
                     android:gravity="right"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:fontFamily="@font/font_secularone_regular"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -132,8 +134,8 @@
                     android:id="@+id/rv_admin_psychologist_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:clipToPadding="false"
                     android:background="#5C6BC0"
+                    android:clipToPadding="false"
                     android:padding="8dp"
                     tools:listitem="@layout/item_psychologist" />
 

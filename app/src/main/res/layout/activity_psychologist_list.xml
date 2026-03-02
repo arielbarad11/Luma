@@ -42,11 +42,11 @@
 
                 <!-- כפתור חזור – קורא ל-finish() ב-Activity -->
                 <ImageButton
-                    android:id="@+id/btn_back_psychologist_to_mainAdmin"
+                    android:id="@+id/btn_back_psychologist_to_main"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginEnd="8dp"
-                    android:src="@android:drawable/ic_media_previous"
+                    app:srcCompat="?attr/homeAsUpIndicator"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="חזור" />
 

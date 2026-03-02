@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
-            android:name=".screens.dialogs.ContactPsychologistDialog"
-            android:exported="false" />
-        <activity
             android:name=".screens.GoalActivity"
             android:exported="false" />
         <activity
