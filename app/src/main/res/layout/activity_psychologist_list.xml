@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:layoutDirection="rtl"
     tools:context=".screens.PsychologistListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -18,32 +20,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layoutDirection="rtl"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- כותרת + כפתור חזור + מונה -->
+        <!-- ───────────────────────────────────────────
+             אזור הכותרת: כפתור חזור + שם המסך + מונה
+             ─────────────────────────────────────────── -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- שורה עליונה: כפתור חזור + כותרת -->
+            <!-- שורה 1: כפתור חזור + כותרת -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layoutDirection="rtl"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="6dp">
 
+                <!-- כפתור חזור – קורא ל-finish() ב-Activity -->
                 <ImageButton
-                    android:id="@+id/btn_back_psychologist"
+                    android:id="@+id/btn_back_psychologist_to_mainAdmin"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
                     android:src="@android:drawable/ic_media_previous"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="חזור"
-                    android:layout_marginEnd="8dp" />
+                    android:contentDescription="חזור" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -54,19 +59,19 @@
                     android:textColor="?attr/colorOnBackground"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    android:gravity="end" />
+                    android:gravity="start" />
 
             </LinearLayout>
 
-            <!-- שורה שנייה: מונה + מיון -->
+            <!-- שורה 2: מונה פסיכולוגים + כפתור מיון לפי מחיר -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layoutDirection="rtl"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="12dp">
 
+                <!-- מונה – מתעדכן דינמית מהקוד -->
                 <TextView
                     android:id="@+id/tv_item_psychologist_count"
                     android:layout_width="0dp"
@@ -75,10 +80,9 @@
                     android:fontFamily="@font/font_secularone_regular"
                     android:text="מספר הפסיכולוגים שלנו: 0"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="14sp"
-                    android:gravity="end" />
+                    android:textSize="14sp" />
 
-                <!-- כפתור מיון לפי מחיר -->
+                <!-- כפתור מיון – כל לחיצה מחליפה בין עולה/יורד -->
                 <TextView
                     android:id="@+id/tv_sort_by_price"
                     android:layout_width="wrap_content"
@@ -88,34 +92,39 @@
                     android:textSize="13sp"
                     android:textStyle="bold"
                     android:paddingStart="12dp"
-                    android:paddingEnd="0dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp" />
 
             </LinearLayout>
 
-            <!-- שדה חיפוש -->
+            <!-- שורה 3: שדה חיפוש – מסנן את הרשימה בזמן אמת -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="חפש לפי שם או עיר..."
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                app:startIconDrawable="@android:drawable/ic_menu_search">
+                android:layoutDirection="rtl"
+                app:endIconDrawable="@android:drawable/ic_menu_search"
+                app:endIconMode="custom">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_search_psychologist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:gravity="right"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:maxLines="1" />
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <!-- כרטיס המכיל את הרשימה -->
+        <!-- ───────────────────────────────────────────
+             כרטיס שמכיל את רשימת הפסיכולוגים,
+             מצב ריק ואינדיקטור טעינה
+             ─────────────────────────────────────────── -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -130,16 +139,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!-- הרשימה עצמה -->
+                <!-- הרשימה – RecyclerView עם PsychologistAdapter -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_psychologist_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
                     android:padding="8dp"
+                    android:background="#5C6BC0"
                     tools:listitem="@layout/item_psychologist" />
 
-                <!-- מצב רשימה ריקה -->
+                <!-- מוצג כשהרשימה ריקה (אחרי טעינה) -->
                 <LinearLayout
                     android:id="@+id/empty_state"
                     android:layout_width="match_parent"
@@ -159,7 +169,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:fontFamily="@font/font_secularone_regular"
                         android:text="לא נמצאו פסיכולוגים זמינים"
                         android:textColor="?attr/colorOnSurfaceVariant"
@@ -167,7 +176,7 @@
 
                 </LinearLayout>
 
-                <!-- אינדיקטור טעינה -->
+                <!-- מוצג בזמן טעינת הנתונים מ-Firebase -->
                 <ProgressBar
                     android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,12 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luma">
         <activity
+            android:name=".screens.dialogs.ContactPsychologistDialog"
+            android:exported="false" />
+        <activity
             android:name=".screens.GoalActivity"
             android:exported="false" />
         <activity
             android:name=".screens.MediaPlayerActivity"
             android:exported="false" />
-
         <activity
             android:name=".screens.simulators.MoodTrackerActivity"
             android:exported="false" />
