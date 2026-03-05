@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Header Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:layoutDirection="rtl"
-                    android:text="📌 שם המטרה"
+                    android:text="שם המטרה"
                     android:textColor="#1E293B"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -115,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:layoutDirection="rtl"
-                    android:text="⏰ זמן התזכורת"
+                    android:text="זמן התזכורת"
                     android:textColor="#1E293B"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -155,12 +154,11 @@
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/font_secularone_regular"
                     android:layoutDirection="rtl"
-                    android:text="📅 בחר ימים"
+                    android:text="בחר ימים"
                     android:textColor="#1E293B"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <!-- First Row of Days -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -215,7 +213,6 @@
 
                 </LinearLayout>
 
-                <!-- Second Row of Days -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -270,7 +267,6 @@
 
                 </LinearLayout>
 
-                <!-- Third Row - Saturday -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -292,7 +288,6 @@
                         android:textColor="#1E293B"
                         android:textSize="14sp" />
 
-                    <!-- Empty spaces for alignment -->
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="48dp"
@@ -309,7 +304,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Save Button with Gradient -->
+        <!-- Save Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
@@ -319,7 +314,7 @@
             android:fontFamily="@font/font_secularone_regular"
             android:layoutDirection="rtl"
             android:paddingVertical="14dp"
-            android:text="💾 שמור מטרה"
+            android:text="שמור מטרה"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -329,17 +324,64 @@
             app:iconGravity="textStart"
             app:iconTint="#FFFFFF" />
 
-        <!-- Additional Info Text -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:drawablePadding="8dp"
             android:gravity="center"
             android:layoutDirection="rtl"
-            android:text="💡 תזכורת: המערכת תשלח לך התראות בזמנים שהגדרת"
+            android:text="תזכורת: המערכת תשלח לך התראות בזמנים שהגדרת"
             android:textColor="#64748B"
             android:textSize="12sp" />
+
+        <!-- Existing Goals Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/font_secularone_regular"
+                    android:text="התראות קיימות"
+                    android:textColor="#1E293B"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/goalsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/tvEmptyGoals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="אין התראות עדיין"
+                    android:textColor="#94A3B8"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 

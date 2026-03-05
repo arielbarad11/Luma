@@ -22,6 +22,7 @@ import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /// Activity for registering the user
 /// This activity is used to register the user
@@ -144,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String uid = databaseService.generateUserId();
 
         /// create a new user object
-        User user = new User(uid, fName, email, password, age, new ArrayList<>(), new ArrayList<>(), false);
+        User user = new User(uid, fName, email, password, age, new HashMap<>(), new HashMap<>(), false);
         Log.d(TAG, "registerUser: Registering user... : " + user);
         databaseService.checkIfEmailExists(email, new DatabaseService.DatabaseCallback<>() {
             @Override

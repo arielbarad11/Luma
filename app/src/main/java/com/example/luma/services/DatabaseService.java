@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.luma.models.Goal;
 import com.example.luma.models.MoodEntry;
 import com.example.luma.models.Psychologist;
 import com.example.luma.models.User;
@@ -28,6 +29,8 @@ public class DatabaseService {
     private static final String USERS_PATH = "users";
     private static final String Psychologist_PATH = "psychologist";
     private static final String MOOD_HISTORY_PATH = "mood_history";
+
+    private static final String GOALS_PATH = "goals";
     private static DatabaseService instance;
     private final DatabaseReference databaseReference;
 
@@ -266,4 +269,18 @@ public class DatabaseService {
         void onFailed(Exception e);
     }
     // endregion
+
+    // region Goals Section
+    public void saveGoal(@NotNull final String userId, @NotNull final Goal goal, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(USERS_PATH + "/" + userId + "/" + GOALS_PATH + "/" + goal.getId(), goal, callback);
+    }
+
+    public void getGoals(@NotNull final String userId, @NotNull final DatabaseCallback<List<Goal>> callback) {
+        getDataList(USERS_PATH + "/" + userId + "/" + GOALS_PATH, Goal.class, callback);
+    }
+
+    public void deleteGoal(@NotNull final String userId, @NotNull final String goalId, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(USERS_PATH + "/" + userId + "/" + GOALS_PATH + "/" + goalId, callback);
+    }
+// endregion
 }
