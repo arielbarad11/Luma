@@ -22,17 +22,13 @@ import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-/// Activity for registering the user
-/// This activity is used to register the user
-/// It contains fields for the user to enter their information
-/// It also contains a button to register the user
-/// When the user is registered, they are redirected to the main activity
+/**
+ * RegisterActivity - מסך הרשמת משתמש חדש למערכת.
+ */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "RegisterActivity";
-    DatabaseService databaseService;
     private EditText etEmail, etPassword, etFName, etAge;
     private Button btnRegister;
     private TextView tvLogin;
@@ -42,14 +38,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
+        
+        // הגדרת ריווחים אוטומטיים
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.register), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        databaseService = DatabaseService.getInstance();
-        /// get the views
+        // אתחול רכיבי ה-UI
         etEmail = findViewById(R.id.et_register_email);
         etPassword = findViewById(R.id.et_register_password);
         etFName = findViewById(R.id.et_register_first_name);
@@ -57,8 +54,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btnRegister = findViewById(R.id.btn_register_register);
         tvLogin = findViewById(R.id.tv_register_login);
 
-
-        /// set the click listener
         btnRegister.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
     }
@@ -66,9 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.getId() == btnRegister.getId()) {
-            Log.d(TAG, "onClick: Register button clicked");
-
-            /// get the input from the user
+            // לחיצה על כפתור הרשמה - איסוף ואימות נתונים
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
             String fName = etFName.getText().toString();
@@ -76,122 +69,79 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             try {
                 age = Integer.parseInt(etAge.getText().toString());
             } catch (NumberFormatException e) {
-                etAge.setError("Age invalid");
-                /// set focus to password field
-                etAge.requestFocus();
+                etAge.setError("גיל לא תקין");
                 return;
             }
 
+            if (!checkInput(email, password)) return;
 
-            /// log the input
-            Log.d(TAG, "onClick: Email: " + email);
-            Log.d(TAG, "onClick: Password: " + password);
-            Log.d(TAG, "onClick: First Name: " + fName);
-
-
-            /// Validate input
-            Log.d(TAG, "onClick: Validating input...");
-            if (!checkInput(email, password)) {
-                /// stop if input is invalid
-                return;
-            }
-
-            Log.d(TAG, "onClick: Registering user...");
-
-            /// Register user
             registerUser(email, password, fName, age);
-        }  // במקרה של לחיצה על טקסט "התחברות" (tvLogin)
-        else if (v.getId() == tvLogin.getId()) {
-            Log.d(TAG, "onClick: Login text clicked");
-
-            // חזרה למסך ההתחברות (LoginActivity)
-            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(loginIntent);  // התחלת פעילות התחברות
+        } else if (v.getId() == tvLogin.getId()) {
+            // חזרה למסך התחברות
+            finish();
         }
     }
 
-    /// Check if the input is valid
-    ///
-    /// @return true if the input is valid, false otherwise
-    /// @see Validator
+    /**
+     * בדיקת תקינות הקלט (אימייל תקין וסיסמה).
+     */
     private boolean checkInput(String email, String password) {
-
         if (!Validator.isEmailValid(email)) {
-            Log.e(TAG, "checkInput: Invalid email address");
-            /// show error message to user
-            etEmail.setError("Invalid email address");
-            /// set focus to email field
-            etEmail.requestFocus();
+            etEmail.setError("אימייל לא תקין");
             return false;
         }
-
         if (!Validator.isPasswordValid(password)) {
-            Log.e(TAG, "checkInput: Password must be at least 6 characters long");
-            /// show error message to user
-            etPassword.setError("Password must be at least 6 characters long");
-            /// set focus to password field
-            etPassword.requestFocus();
+            etPassword.setError("סיסמה חייבת להיות לפחות 6 תווים");
             return false;
         }
-
-        Log.d(TAG, "checkInput: Input is valid");
         return true;
     }
 
-    /// Register the user
+    /**
+     * תהליך יצירת המשתמש החדש.
+     */
     private void registerUser(String email, String password, String fName, int age) {
-        Log.d(TAG, "registerUser: Registering user...");
+        // 1. יצירת מזהה ייחודי (UID) מה-DatabaseService
+        String uid = DatabaseService.getInstance().generateUserId();
 
-        String uid = databaseService.generateUserId();
-
-        /// create a new user object
-        User user = new User(uid, fName, email, password, age, new HashMap<>(), new HashMap<>(), false);
-        Log.d(TAG, "registerUser: Registering user... : " + user);
-        databaseService.checkIfEmailExists(email, new DatabaseService.DatabaseCallback<>() {
+        // 2. יצירת אובייקט משתמש חדש עם רשימות ריקות למטרות וזמני משבר (ArrayList)
+        User user = new User(uid, fName, email, password, age, new ArrayList<>(), new ArrayList<>(), false);
+        
+        // 3. בדיקה אם האימייל כבר קיים במערכת לפני היצירה
+        DatabaseService.getInstance().checkIfEmailExists(email, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override
             public void onCompleted(Boolean exists) {
                 if (exists) {
-                    Log.e(TAG, "onCompleted: Email already exists");
-                    /// show error message to user
-                    Toast.makeText(RegisterActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "האימייל כבר קיים במערכת", Toast.LENGTH_SHORT).show();
                 } else {
-                    /// proceed to create the user
-                    Log.e(TAG, "onCompleted: proceed to create the user");
+                    // האימייל פנוי - נמשיך ליצירת המשתמש
                     createUserInDatabase(user);
                 }
             }
-
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "onFailed: Failed to check if email exists", e);
-                /// show error message to user
-                Toast.makeText(RegisterActivity.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "שגיאה בבדיקת אימייל", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * שמירת המשתמש ב-Firebase.
+     */
     private void createUserInDatabase(User user) {
-        databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<>() {
+        DatabaseService.getInstance().createNewUser(user, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                Log.d(TAG, "createUserInDatabase: User created successfully");
-                /// save the user to shared preferences
+                // שמירה הצליחה - נשמור מקומית ונעבור למסך הראשי
                 SharedPreferencesUtil.saveUser(RegisterActivity.this, user);
-                Log.d(TAG, "createUserInDatabase: Redirecting to MainActivity");
-                /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
                 Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
-                /// clear the back stack (clear history) and start the MainActivity
                 mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(mainIntent);
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "createUserInDatabase: Failed to create user", e);
-                /// show error message to user
-                Toast.makeText(RegisterActivity.this, "Failed to register user", Toast.LENGTH_SHORT).show();
-                /// sign out the user if failed to register
-                SharedPreferencesUtil.signOutUser(RegisterActivity.this);
+                Toast.makeText(RegisterActivity.this, "הרשמה נכשלה, נסה שוב", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -5,47 +5,80 @@
     android:id="@+id/users_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F7F3F0"
     tools:context=".screens.adminPages.UsersListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btn_back_users"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_revert"
+                android:contentDescription="חזור" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_suezone_regular"
+                android:text="ניהול משתמשים"
+                android:textColor="#005396"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:paddingTop="80dp">
 
-        <LinearLayout
+        <!-- שורת חיפוש -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:hint="חפש לפי שם או אימייל..."
+            app:startIconDrawable="@android:drawable/ic_menu_search">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_search_user"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/font_suezone_regular"
-                android:text="ניהול משתמשים"
-                android:textColor="?attr/colorOnBackground"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/tv_user_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:fontFamily="@font/font_secularone_regular"
-                android:text="מספר המשתמשים שלנו: 0"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_user_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/font_secularone_regular"
+            android:text="מספר המשתמשים שלנו: 0"
+            android:textColor="#005396"
+            android:textSize="14sp" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -65,43 +98,9 @@
                     android:id="@+id/rv_users_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#5C6BC0"
                     android:clipToPadding="false"
                     android:padding="8dp"
                     tools:listitem="@layout/item_user" />
-
-                <LinearLayout
-                    android:id="@+id/empty_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="16dp"
-                        android:alpha="0.3"
-                        android:contentDescription="TODO"
-                        android:src="@android:drawable/ic_menu_my_calendar" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="No Users Found"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Users will appear here"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
 
                 <ProgressBar
                     android:id="@+id/progress_bar"
@@ -111,9 +110,7 @@
                     android:visibility="gone" />
 
             </FrameLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

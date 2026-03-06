@@ -23,23 +23,24 @@ import com.example.luma.utils.SharedPreferencesUtil;
 
 import java.util.Calendar;
 
+/**
+ * MainActivity - המסך הראשי של האפליקציה למשתמש מחובר.
+ * מציג תפריט ניווט לכל הפונקציות המרכזיות (מטרות, מעקב מצב רוח, נשימות וכו').
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button btnToAdmin;
-    private TextView tvHelloUser; //(tvHelloUser)-> משתנה לברכה האישית
+    private TextView tvHelloUser; 
     private View vAdminLine;
     private View adminCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // מאפשר פריסה על כל המסך (EdgeToEdge)
         EdgeToEdge.enable(this);
-
         setContentView(R.layout.activity_main);
 
-        // תיקון החפיפה: מוסיף Padding אוטומטי כדי שהתוכן לא יחפוף עם השעה והסוללה (System Bars)
+        // הגדרת Padding למניעת חפיפה עם ה-System Bars (שעה, סוללה וכו')
         View mainView = findViewById(R.id.main);
         if (mainView != null) {
             ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // אתחול רכיבים
+        // אתחול רכיבי הממשק
         tvHelloUser = findViewById(R.id.helloUser);
         Button btnToExit = findViewById(R.id.btn_main_to_exit);
         Button btnToUpdateUser = findViewById(R.id.tv_main_UpdateUser);
@@ -59,33 +60,29 @@ public class MainActivity extends AppCompatActivity {
         btnToAdmin = findViewById(R.id.btn_main_to_admin);
         vAdminLine = findViewById(R.id.adminLine);
         adminCard = findViewById(R.id.adminCard);
-
         Button btnToMoodTracker = findViewById(R.id.btn_main_to_MoodTracker);
         Button btnToMusic = findViewById(R.id.btn_main_to_Music);
 
-        // האזנה לכפתורים - מעברים בין מסכים
+        // הגדרת מאזינים למעבר בין מסכים
         btnToExit.setOnClickListener(v -> LogoutHelper.logout(MainActivity.this));
-
         btnToUpdateUser.setOnClickListener(v -> startActivity(new Intent(this, UpdateUserActivity.class)));
-
         btnToPsychologists.setOnClickListener(v -> startActivity(new Intent(this, PsychologistListActivity.class)));
-
         btnToBreathingSimulation.setOnClickListener(v -> startActivity(new Intent(this, BreathingSimulationActivity.class)));
-
         btnToAdmin.setOnClickListener(v -> startActivity(new Intent(this, AdminActivity.class)));
-
         btnToMoodTracker.setOnClickListener(v -> startActivity(new Intent(this, MoodTrackerActivity.class)));
-
         btnToGoal.setOnClickListener(v -> startActivity(new Intent(this, GoalActivity.class)));
-
+        
         if (btnToMusic != null) {
             btnToMusic.setOnClickListener(v -> startActivity(new Intent(this, MediaPlayerActivity.class)));
         }
 
-        // בדיקת סטטוס משתמש ועדכון הרשאות
+        // בדיקת סטטוס המשתמש מול השרת ועדכון התצוגה בהתאם
         checkUserStatus();
     }
 
+    /**
+     * פונקציה המאמתת את נתוני המשתמש מול ה-Firebase ומעדכנת את המסך.
+     */
     private void checkUserStatus() {
         String userId = SharedPreferencesUtil.getUserId(this);
         if (userId == null) {
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        DatabaseService.getInstance().getUser(userId, new DatabaseService.DatabaseCallback<>() {
+        DatabaseService.getInstance().getUser(userId, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User updatedUser) {
                 if (updatedUser == null) {
@@ -101,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                // שמירת המשתמש המעודכן
+                // עדכון המידע השמור מקומית
                 SharedPreferencesUtil.saveUser(MainActivity.this, updatedUser);
 
-                // עדכון הברכה האישית
+                // הצגת ברכה אישית (בוקר טוב/ערב טוב + שם המשתמש)
                 updateGreeting(updatedUser.getFirstName());
 
-                // לוגיקת כפתור אדמין: מוצג רק אם המשתמש הוא מנהל
+                // הצגת כפתור "ניהול" רק אם המשתמש הוא אדמין
                 int visibility = updatedUser.isAdmin() ? View.VISIBLE : View.GONE;
                 if (adminCard != null) adminCard.setVisibility(visibility);
                 if (vAdminLine != null) vAdminLine.setVisibility(visibility);
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * פונקציה המעדכנת את ה-TextView בברכה מתאימה לפי השעה ביום
+     * פונקציה המייצרת ברכה משתנה לפי השעה ביום (UX - חווית משתמש טובה יותר).
      */
     private void updateGreeting(String firstName) {
         if (tvHelloUser == null) return;
@@ -130,19 +127,17 @@ public class MainActivity extends AppCompatActivity {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         String greeting;
 
-        if (hour >= 5 && hour < 12) {
-            greeting = "בוקר טוב, ";
-        } else if (hour >= 12 && hour < 18) {
-            greeting = "צהריים טובים, ";
-        } else if (hour >= 18 && hour < 23) {
-            greeting = "ערב טוב, ";
-        } else {
-            greeting = "לילה טוב, ";
-        }
+        if (hour >= 5 && hour < 12) greeting = "בוקר טוב, ";
+        else if (hour >= 12 && hour < 18) greeting = "צהריים טובים, ";
+        else if (hour >= 18 && hour < 23) greeting = "ערב טוב, ";
+        else greeting = "לילה טוב, ";
 
         tvHelloUser.setText(String.format("%s%s", greeting, firstName));
     }
 
+    /**
+     * ניתוק המשתמש והפניה למסך התחברות במקרה של שגיאה או חוסר הרשאות.
+     */
     private void redirectToLogin() {
         SharedPreferencesUtil.signOutUser(this);
         Intent intent = new Intent(this, LoginActivity.class);

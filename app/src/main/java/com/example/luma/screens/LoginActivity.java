@@ -20,11 +20,9 @@ import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
 
-/// Activity for logging in the user
-/// This activity is used to log in the user
-/// It contains fields for the user to enter their email and password
-/// It also contains a button to log in the user
-/// When the user is logged in, they are redirected to the main activity
+/**
+ * LoginActivity - מסך התחברות למערכת.
+ */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
@@ -33,27 +31,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button btnLogin;
     private TextView tvRegister, tvForgotPassword;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        /// set the layout for the activity
         setContentView(R.layout.activity_login);
+        
+        // הגדרת ריווחים אוטומטיים למניעת חפיפה עם שולי המסך
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        /// get the views
+        // אתחול רכיבי ה-UI מה-XML
         etEmail = findViewById(R.id.et_login_email);
         etPassword = findViewById(R.id.et_login_password);
         btnLogin = findViewById(R.id.btn_login_login);
         tvRegister = findViewById(R.id.tv_login_register);
         tvForgotPassword = findViewById(R.id.tv_login_forgotPassword);
 
-        /// set the click listener
+        // הגדרת מאזינים ללחיצות
         btnLogin.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         tvForgotPassword.setOnClickListener(this);
@@ -62,101 +60,71 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v.getId() == btnLogin.getId()) {
-            Log.d(TAG, "onClick: Login button clicked");
-
-            /// get the email and password entered by the user
+            // לחיצה על התחברות - איסוף נתונים וביצוע וולידציה
             String email = (etEmail.getText().toString()).trim();
             String password = (etPassword.getText().toString()).trim();
 
-            /// log the email and password
-            Log.d(TAG, "onClick: Email: " + email);
-            Log.d(TAG, "onClick: Password: " + password);
+            if (!checkInput(email, password)) return;
 
-            Log.d(TAG, "onClick: Validating input...");
-            /// Validate input
-            if (!checkInput(email, password)) {
-                /// stop if input is invalid
-                return;
-            }
-
-            Log.d(TAG, "onClick: Logging in user...");
-
-            /// Login user
             loginUser(email, password);
         } else if (v.getId() == tvRegister.getId()) {
-            /// Navigate to Register Activity
-            Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(registerIntent);
+            // מעבר למסך הרשמה
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         } else if (v.getId() == tvForgotPassword.getId()) {
-            /// Navigate to Register Activity
-            Intent forgotPasswordIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-            startActivity(forgotPasswordIntent);
+            // מעבר למסך שחזור סיסמה
+            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
         }
     }
 
-    /// Method to check if the input is valid
-    /// It checks if the email and password are valid
-    ///
-    /// @see Validator#isEmailValid(String)
-    /// @see Validator#isPasswordValid(String)
+    /**
+     * בדיקת תקינות הקלט (אימייל תקין וסיסמה באורך המינימלי).
+     */
     private boolean checkInput(String email, String password) {
         if (!Validator.isEmailValid(email)) {
-            Log.e(TAG, "checkInput: Invalid email address");
-            /// show error message to user
-            etEmail.setError("Invalid email address");
-            /// set focus to email field
+            etEmail.setError("כתובת אימייל לא תקינה");
             etEmail.requestFocus();
             return false;
         }
-
         if (!Validator.isPasswordValid(password)) {
-            Log.e(TAG, "checkInput: Invalid password");
-            /// show error message to user
-            etPassword.setError("Password must be at least 6 characters long");
-            /// set focus to password field
+            etPassword.setError("סיסמה חייבת להכיל לפחות 6 תווים");
             etPassword.requestFocus();
             return false;
         }
-
         return true;
     }
 
+    /**
+     * פונקציה המבצעת את ההתחברות מול ה-Database.
+     */
     private void loginUser(String email, String password) {
-        databaseService.getUserByEmailAndPassword(email, password, new DatabaseService.DatabaseCallback<>() {
-            /// Callback method called when the operation is completed
-            ///
-            /// @param user the user object that is logged in
+        // פנייה לשירות מסד הנתונים כדי למצוא משתמש עם אימייל וסיסמה תואמים
+        DatabaseService.getInstance().getUserByEmailAndPassword(email, password, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
-                Log.d(TAG, "onCompleted: User logged in: " + user.toString());
-                /// save the user data to shared preferences
+                // המשתמש נמצא בהצלחה
+                Log.d(TAG, "User logged in: " + user.getFirstName());
+                
+                // 1. שמירת המשתמש באופן מקומי ב-SharedPreferences (כדי שלא יצטרך להתחבר כל פעם מחדש)
                 SharedPreferencesUtil.saveUser(LoginActivity.this, user);
-                ///  checking "isAdmin"
-                /// if true - redirect to AdminActivity
-                /// if false - Redirect to main activity
-                Log.d("!!!!!!!!!!!!!!!!!!!!!", user.toString());
+                
+                // 2. ניתוב המשתמש לפי הרשאות - מנהל או משתמש רגיל
+                Intent nextIntent;
                 if (user.isAdmin()) {
-                    Intent AdminIntent = new Intent(LoginActivity.this, AdminActivity.class);
-                    /// Clear the back stack (clear history) and start the AdminActivity
-                    AdminIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(AdminIntent);
+                    nextIntent = new Intent(LoginActivity.this, AdminActivity.class);
                 } else {
-                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    /// Clear the back stack (clear history) and start the MainActivity
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(mainIntent);
+                    nextIntent = new Intent(LoginActivity.this, MainActivity.class);
                 }
-
+                
+                // ניקוי היסטוריית המסכים ומעבר למסך הבא
+                nextIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(nextIntent);
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "onFailed: Failed to retrieve user data", e);
-                /// Show error message to user
-                etPassword.setError("Invalid email or password");
+                // התחברות נכשלה - הצגת שגיאה למשתמש
+                etPassword.setError("אימייל או סיסמה שגויים");
                 etPassword.requestFocus();
-                /// Sign out the user if failed to retrieve user data
-                /// This is to prevent the user from being logged in again
                 SharedPreferencesUtil.signOutUser(LoginActivity.this);
             }
         });
