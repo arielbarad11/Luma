@@ -1,0 +1,650 @@
+@startuml
+class com.example.luma.screens.RegisterActivity {
+- {static} String TAG
+- EditText etEmail
+- Button btnRegister
+- TextView tvLogin
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String)
+- void registerUser(String,String,String,int)
+- void createUserInDatabase(User)
+}
+
+
+class com.example.luma.screens.ui.slideshow.SlideshowFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class com.example.luma.models.RelaxSong {
+- String title
+- int audioResourceId
+- int imageResourceId
++ String getTitle()
++ int getAudioResourceId()
++ int getImageResourceId()
+}
+
+
+class com.example.luma.screens.BaseActivity {
+# DatabaseService databaseService
+# void onCreate(Bundle)
+}
+
+
+class com.example.luma.models.Psychologist {
+~ String id
+~ String email
+~ String name
+~ String city
+~ int sessionPrice
++ String getId()
++ void setId(String)
++ String getEmail()
++ void setEmail(String)
++ String getName()
++ void setName(String)
++ String getCity()
++ void setCity(String)
++ int getSessionPrice()
++ void setSessionPrice(int)
++ String toString()
+}
+
+
+class com.example.luma.screens.ui.home.HomeViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class com.example.luma.screens.ui.gallery.GalleryFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class com.example.luma.screens.GoalActivity {
+- TextInputEditText editTitle
+- TimePicker timePicker
+- CheckBox checkSun
+- MaterialButton btnSave
+- LinearLayout goalsContainer
+- TextView tvEmptyGoals
+- List<Goal> currentGoalsList
+- Goal editingGoal
+# void onCreate(Bundle)
+- void checkNotificationPermission()
+- void initViews()
+- void loadExistingGoals()
+- void addGoalCard(Goal)
+- void fillFormForEdit(Goal)
+- void confirmDelete(Goal)
+- void deleteGoal(Goal)
+- void validateAndSave()
+- void proceedToSave(String,List<String>,int,int)
+- List<String> getSelectedDays()
+- void showExactAlarmPermissionDialog()
+- void resetForm()
+- void createNotificationChannel()
+}
+
+
+class com.example.luma.screens.UpdateUserActivity {
+- {static} String TAG
+- EditText etUserFirstName
+- TextView tvUserDisplayEmail
+- ShapeableImageView imgUserProfile
+- String selectedUid
+- User selectedUser
+- User currentUser
+- boolean isCurrentUser
+- ActivityResultLauncher<Void> cameraLauncher
+- ActivityResultLauncher<PickVisualMediaRequest> photoPickerLauncher
+# void onCreate(Bundle)
+- void openProfileImageDialog()
++ void onClick(View)
+- void showUserProfile()
+- void updateUserProfile()
+- void updateUserInDatabase(User)
+- boolean isValid(String,String,String)
+- void handleImageBitmap(Bitmap)
+}
+
+
+class com.example.luma.models.MoodEntry {
++ String id
++ Date timestamp
++ int moodValue
+}
+
+class com.example.luma.utils.Validator {
++ {static} boolean isEmailValid(String)
++ {static} boolean isPasswordValid(String)
++ {static} boolean isPhoneValid(String)
++ {static} boolean isNameValid(String)
+}
+
+class com.example.luma.models.AlarmReceiver {
+- {static} String TAG
++ void onReceive(Context,Intent)
+}
+
+
+class com.example.luma.services.DatabaseService {
+- {static} String TAG
+- {static} String USERS_PATH
+- {static} String Psychologist_PATH
+- {static} String MOOD_HISTORY_PATH
+- {static} String GOALS_PATH
+- {static} DatabaseService instance
+- DatabaseReference databaseReference
++ {static} DatabaseService getInstance()
+- void writeData(String,Object,DatabaseCallback<Void>)
+- void deleteData(String,DatabaseCallback<Void>)
+- DatabaseReference readData(String)
+- void getData(String,Class<T>,DatabaseCallback<T>)
+- void getDataList(String,Class<T>,DatabaseCallback<List<T>>)
+- String generateNewId(String)
+- void runTransaction(String,Class<T>,UnaryOperator<T>,DatabaseCallback<T>)
++ String generateUserId()
++ void createNewUser(User,DatabaseCallback<Void>)
++ void getUser(String,DatabaseCallback<User>)
++ void getUsersList(DatabaseCallback<List<User>>)
++ void getUserByEmail(String,DatabaseCallback<User>)
++ void checkIfEmailExists(String,DatabaseCallback<Boolean>)
++ void getUserByEmailAndPassword(String,String,DatabaseCallback<User>)
++ void updateUser(String,UnaryOperator<User>,DatabaseCallback<Void>)
++ String generatePsychologistId()
++ void createNewPsychologist(Psychologist,DatabaseCallback<Void>)
++ void getPsychologistList(DatabaseCallback<List<Psychologist>>)
++ void updatePsychologist(Psychologist,DatabaseCallback<Void>)
++ void deletePsychologist(String,DatabaseCallback<Void>)
++ void saveMoodEntry(MoodEntry,DatabaseCallback<Void>)
++ void getMoodHistory(String,DatabaseCallback<List<MoodEntry>>)
++ void saveGoal(String,Goal,DatabaseCallback<Void>)
++ void getGoals(String,DatabaseCallback<List<Goal>>)
++ void deleteGoal(String,String,DatabaseCallback<Void>)
+}
+
+
+interface com.example.luma.services.DatabaseService$DatabaseCallback {
+~ void onCompleted(T)
+~ void onFailed(Exception)
+}
+
+class com.example.luma.services.ui.gallery.GalleryViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class com.example.luma.screens.adminPages.UsersListActivity {
+- UserAdapter userAdapter
+- TextView tvUserCount
+- ProgressBar progressBar
+- List<User> fullList
+# void onCreate(Bundle)
+- void loadUsers()
+- void filterList(String)
+}
+
+
+class com.example.luma.models.User {
++ String id
++ String firstName
++ String email
++ String password
++ int age
++ ArrayList<Goal> goals
++ ArrayList<String> crisisTime
++ boolean admin
++ String profileImage
++ String getId()
++ void setId(String)
++ String getFirstName()
++ void setFirstName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPassword()
++ void setPassword(String)
++ int getAge()
++ void setAge(int)
++ boolean isAdmin()
++ void setAdmin(boolean)
++ ArrayList<Goal> getGoals()
++ void setGoals(ArrayList<Goal>)
++ ArrayList<String> getCrisisTime()
++ void setCrisisTime(ArrayList<String>)
++ String getProfileImage()
++ void setProfileImage(String)
+}
+
+
+class com.example.luma.services.ui.slideshow.SlideshowFragment {
+- FragmentSlideshowBinding binding
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onDestroyView()
+}
+
+
+class com.example.luma.screens.ui.home.HomeFragment {
+- FragmentHomeBinding binding
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onDestroyView()
+}
+
+
+class com.example.luma.adapters.UserAdapter {
+- List<User> userList
+- OnUserClickListener onUserClickListener
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setUserList(List<User>)
++ void addUser(User)
++ void updateUser(User)
++ void removeUser(User)
+}
+
+
+interface com.example.luma.adapters.UserAdapter$OnUserClickListener {
+~ void onUserClick(User)
+~ void onLongUserClick(User)
+~ boolean showAdminChip(User)
+~ boolean showRemoveAdminBtn(User)
+~ boolean showMakeAdminBtn(User)
+}
+
+class com.example.luma.adapters.UserAdapter$ViewHolder {
+~ TextView tvName
+~ TextView tvEmail
+~ TextView tvInitials
+~ Chip chipRole
+}
+
+class com.example.luma.utils.SharedPreferencesUtil {
+- {static} String PREF_NAME
+- {static} void saveString(Context,String,String)
+- {static} String getString(Context,String,String)
+- {static} void saveInt(Context,String,int)
+- {static} int getInt(Context,String,int)
++ {static} void clear(Context)
+- {static} void remove(Context,String)
+- {static} boolean contains(Context,String)
+- {static} void saveObject(Context,String,T)
+- {static} T getObject(Context,String,Class<T>)
++ {static} void saveUser(Context,User)
++ {static} User getUser(Context)
++ {static} void signOutUser(Context)
++ {static} boolean isUserLoggedIn(Context)
++ {static} String getUserId(Context)
+}
+
+
+class com.example.luma.utils.ImageUtil {
+- {static} String BASE64_PREFIX
++ {static} String convertTo64Base(ImageView)
++ {static} Bitmap convertToBitmap(String)
++ {static} void loadImage(String,ImageView)
+}
+
+
+class com.example.luma.screens.dialogs.ProfileImageDialog {
+- Context context
+- boolean hasImage
+- ImagePickerListener listener
++ void show()
+}
+
+
+interface com.example.luma.screens.dialogs.ProfileImageDialog$ImagePickerListener {
+~ void onCamera()
+~ void onGallery()
+~ void onDelete()
+}
+
+class com.example.luma.screens.dialogs.FullImageDialog {
+- Context context
+- Drawable imageDrawable
++ void show()
+}
+
+
+class com.example.luma.adapters.PsychologistAdapter {
+- List<Psychologist> psychologistList
+- OnClickListener onClickListener
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setList(List<Psychologist>)
++ void add(Psychologist)
++ void update(Psychologist)
++ void remove(Psychologist)
+}
+
+
+interface com.example.luma.adapters.PsychologistAdapter$OnClickListener {
+~ void onClick(Psychologist)
+~ void onLongClick(Psychologist)
+~ void onEmailCLick(Psychologist)
+}
+
+class com.example.luma.adapters.PsychologistAdapter$ViewHolder {
+~ TextView tvName
+~ TextView tvEmail
+~ TextView tvCity
+~ TextView tvSessionPrice
+}
+
+class com.example.luma.screens.adminPages.AdminPsychologistListActivity {
+- {static} String TAG
+- PsychologistAdapter psychologistAdapter
+- TextView tvPsychologistCount
+- TextView tvSort
+- LinearLayout emptyState
+- ProgressBar progressBar
+- List<Psychologist> fullList
+- boolean sortedAsc
+# void onCreate(Bundle)
+- void loadPsychologists()
+- void showAdminActionsDialog(Psychologist)
+- void editPsychologist(Psychologist)
+- void confirmDeletePsychologist(Psychologist)
+- void showAddPsychologistDialog()
+- void showConfirmAddPsychologistDialog(Psychologist)
+- void addPsychologist(Psychologist)
+- void filterList(String)
+- void sortList()
+- void updateUIState()
+- void showLoading(boolean)
+- void showUserViewDialog(Psychologist)
+- void sendEmail(Psychologist)
+}
+
+
+class com.example.luma.utils.NotificationHelper {
+- {static} String TAG
++ {static} void scheduleGoalNotifications(Context,Goal)
++ {static} void cancelGoalNotifications(Context,Goal)
+- {static} int dayToCalendarDay(String)
+}
+
+
+class com.example.luma.screens.ui.slideshow.SlideshowViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class com.example.luma.screens.adminPages.AdminActivity {
+- Button toUsersList
+- Button toAdminPsychologistList
+- Button toMain
+# void onCreate(Bundle)
+- void redirectToLogin()
+}
+
+
+class com.example.luma.screens.ui.gallery.GalleryViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class com.example.luma.screens.ForgotPasswordActivity {
+- EditText etEmail
+- DatabaseService databaseService
+# void onCreate(Bundle)
++ void onClick(View)
+- void updatePassword()
+}
+
+
+class com.example.luma.services.ui.home.HomeViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class com.example.luma.services.ui.home.HomeFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class com.example.luma.services.ui.gallery.GalleryFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class com.example.luma.screens.simulators.MoodTrackerActivity {
+- int colorPrimary
+- int colorAccent
+- int colorBackground
+- Button btnMood1
+- EditText etNotes
+- Button btnSubmit
+- LineChart chartMood
+- TextView tvEmoji1Count
+- Integer selectedMood
+- List<MoodEntry> moodHistory
+# void onCreate(Bundle)
+- void initViews()
+- void refreshData()
+- void updateInputAreaForToday()
+- boolean hasSubmittedToday()
+- void setupMoodButtons()
+- void updateMoodButtonsUI()
+- void setupSubmitButton()
+- void resetInputFields()
+- void updateChart()
+- void configureChart(LineChart,List<MoodEntry>)
+- void setupChartClickListener()
+- void openFullscreenChart()
+- void updateEmojiSummary()
+- String getCurrentUserId()
+}
+
+
+class com.example.luma.screens.SplashActivity {
+- {static} String TAG
+# void onCreate(Bundle)
+- void checkUserAndNavigate()
+- void navigateToActivity(Class<?>)
+}
+
+
+class com.example.luma.utils.LogoutHelper {
++ {static} void logout(Context)
+}
+
+class com.example.luma.models.CrisisTime {
++ {static} List<CrisisOption> getDefaultOptions()
++ {static} List<CrisisOption> getSelectedOptions(List<CrisisOption>)
+}
+
+class com.example.luma.models.CrisisTime$CrisisOption {
+- String id
+- String label
+- String emoji
+- String category
+- boolean selected
++ String getId()
++ String getLabel()
++ String getEmoji()
++ String getCategory()
++ boolean isSelected()
++ void setSelected(boolean)
++ void toggle()
+}
+
+
+class com.example.luma.screens.MainActivity {
+- Button btnToAdmin
+- TextView tvHelloUser
+- View vAdminLine
+- View adminCard
+# void onCreate(Bundle)
+- void checkUserStatus()
+- void updateGreeting(String)
+- void redirectToLogin()
+}
+
+
+class com.example.luma.screens.MediaPlayerActivity {
+- MediaPlayer mediaPlayer
+- ImageView albumArt
+- TextView songTitle
+- FloatingActionButton btnPlayPause
+- List<RelaxSong> playlist
+- boolean isPlaying
+# void onCreate(Bundle)
+- void initUI()
+- void loadSong(int)
+- void togglePlayPause()
+# void onDestroy()
+}
+
+
+class com.example.luma.models.Goal {
+- String id
+- String title
+- ArrayList<String> days
+- int hour
+- int minute
+- boolean isActive
++ String getId()
++ void setId(String)
++ String getTitle()
++ void setTitle(String)
++ ArrayList<String> getDays()
++ void setDays(ArrayList<String>)
++ int getHour()
++ void setHour(int)
++ int getMinute()
++ void setMinute(int)
++ boolean isActive()
++ void setActive(boolean)
++ String getFormattedTime()
+}
+
+
+class com.example.luma.services.ui.slideshow.SlideshowViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class com.example.luma.screens.simulators.BreathingSimulationActivity {
+- int COLOR_DEEP_BLUE
+- int COLOR_LIGHT_BLUE
+- View breathingCircle
+- View breathingContainer
+- TextView tvInstruction
+- TextView tvTimer
+- MaterialButton btnStart
+- boolean isRunning
+- AnimatorSet fullCycle
+- CountDownTimer currentTimer
+# void onCreate(Bundle)
+- void startExercise()
+- void stopExercise()
+- void startCountDown(long)
+- void playPulseEffect()
+- void startBreathingExercise()
+- void updateCircleColor(int)
+# void onDestroy()
+}
+
+
+class com.example.luma.screens.LandingActivity {
+~ Button toRegister
+~ Button toLogin
+# void onCreate(Bundle)
+}
+
+
+class com.example.luma.models.BootReceiver {
+- {static} String TAG
++ void onReceive(Context,Intent)
+}
+
+
+class com.example.luma.screens.LoginActivity {
+- {static} String TAG
+- EditText etEmail
+- Button btnLogin
+- TextView tvRegister
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String)
+- void loginUser(String,String)
+}
+
+
+class com.example.luma.screens.PsychologistListActivity {
+- {static} String TAG
+- PsychologistAdapter psychologistAdapter
+- TextView tvPsychologistCount
+- TextView tvSort
+- LinearLayout emptyState
+- ProgressBar progressBar
+- List<Psychologist> fullList
+- boolean sortedAsc
+# void onCreate(Bundle)
+# void onResume()
+- void loadPsychologists()
+- void showPsychologistDialog(Psychologist)
+- void filterList(String)
+- void sortList()
+- void updatePsychologistCount()
+- void updateEmptyState()
+- void showLoading(boolean)
+- void sendEmail(Psychologist)
+}
+
+
+
+
+com.example.luma.screens.OnClickListener <|.. com.example.luma.screens.RegisterActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.RegisterActivity
+androidx.fragment.app.Fragment <|-- com.example.luma.screens.ui.slideshow.SlideshowFragment
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.BaseActivity
+androidx.lifecycle.ViewModel <|-- com.example.luma.screens.ui.home.HomeViewModel
+androidx.fragment.app.Fragment <|-- com.example.luma.screens.ui.gallery.GalleryFragment
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.GoalActivity
+com.example.luma.screens.OnClickListener <|.. com.example.luma.screens.UpdateUserActivity
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.UpdateUserActivity
+android.content.BroadcastReceiver <|-- com.example.luma.models.AlarmReceiver
+com.example.luma.services.DatabaseService +.. com.example.luma.services.DatabaseService$DatabaseCallback
+androidx.lifecycle.ViewModel <|-- com.example.luma.services.ui.gallery.GalleryViewModel
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.adminPages.UsersListActivity
+androidx.fragment.app.Fragment <|-- com.example.luma.services.ui.slideshow.SlideshowFragment
+androidx.fragment.app.Fragment <|-- com.example.luma.screens.ui.home.HomeFragment
+com.example.luma.adapters.Adapter <|-- com.example.luma.adapters.UserAdapter
+com.example.luma.adapters.UserAdapter +.. com.example.luma.adapters.UserAdapter$OnUserClickListener
+com.example.luma.adapters.UserAdapter +.. com.example.luma.adapters.UserAdapter$ViewHolder
+com.example.luma.adapters.ViewHolder <|-- com.example.luma.adapters.UserAdapter$ViewHolder
+com.example.luma.screens.dialogs.ProfileImageDialog +.. com.example.luma.screens.dialogs.ProfileImageDialog$ImagePickerListener
+com.example.luma.adapters.Adapter <|-- com.example.luma.adapters.PsychologistAdapter
+com.example.luma.adapters.PsychologistAdapter +.. com.example.luma.adapters.PsychologistAdapter$OnClickListener
+com.example.luma.adapters.PsychologistAdapter +.. com.example.luma.adapters.PsychologistAdapter$ViewHolder
+com.example.luma.adapters.ViewHolder <|-- com.example.luma.adapters.PsychologistAdapter$ViewHolder
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.adminPages.AdminPsychologistListActivity
+androidx.lifecycle.ViewModel <|-- com.example.luma.screens.ui.slideshow.SlideshowViewModel
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.adminPages.AdminActivity
+androidx.lifecycle.ViewModel <|-- com.example.luma.screens.ui.gallery.GalleryViewModel
+com.example.luma.screens.OnClickListener <|.. com.example.luma.screens.ForgotPasswordActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.ForgotPasswordActivity
+androidx.lifecycle.ViewModel <|-- com.example.luma.services.ui.home.HomeViewModel
+androidx.fragment.app.Fragment <|-- com.example.luma.services.ui.home.HomeFragment
+androidx.fragment.app.Fragment <|-- com.example.luma.services.ui.gallery.GalleryFragment
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.simulators.MoodTrackerActivity
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.SplashActivity
+com.example.luma.models.CrisisTime +.. com.example.luma.models.CrisisTime$CrisisOption
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.MediaPlayerActivity
+androidx.lifecycle.ViewModel <|-- com.example.luma.services.ui.slideshow.SlideshowViewModel
+androidx.appcompat.app.AppCompatActivity <|-- com.example.luma.screens.simulators.BreathingSimulationActivity
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.LandingActivity
+android.content.BroadcastReceiver <|-- com.example.luma.models.BootReceiver
+com.example.luma.screens.OnClickListener <|.. com.example.luma.screens.LoginActivity
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.LoginActivity
+com.example.luma.screens.BaseActivity <|-- com.example.luma.screens.PsychologistListActivity
+@enduml
