@@ -1,0 +1,648 @@
+@startuml
+class RegisterActivity {
+- {static} String TAG
+- EditText etEmail
+- Button btnRegister
+- TextView tvLogin
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String)
+- void registerUser(String,String,String,int)
+- void createUserInDatabase(User)
+}
+
+
+class SlideshowFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class RelaxSong {
+- String title
+- int audioResourceId
+- int imageResourceId
++ String getTitle()
++ int getAudioResourceId()
++ int getImageResourceId()
+}
+
+
+class BaseActivity {
+# DatabaseService databaseService
+# void onCreate(Bundle)
+}
+
+
+class Psychologist {
+~ String id
+~ String email
+~ String name
+~ String city
+~ int sessionPrice
++ String getId()
++ void setId(String)
++ String getEmail()
++ void setEmail(String)
++ String getName()
++ void setName(String)
++ String getCity()
++ void setCity(String)
++ int getSessionPrice()
++ void setSessionPrice(int)
++ String toString()
+}
+
+
+class HomeViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class GalleryFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class GoalActivity {
+- TextInputEditText editTitle
+- TimePicker timePicker
+- CheckBox checkSun
+- MaterialButton btnSave
+- LinearLayout goalsContainer
+- TextView tvEmptyGoals
+- List<Goal> currentGoalsList
+- Goal editingGoal
+# void onCreate(Bundle)
+- void checkNotificationPermission()
+- void initViews()
+- void loadExistingGoals()
+- void addGoalCard(Goal)
+- void fillFormForEdit(Goal)
+- void confirmDelete(Goal)
+- void deleteGoal(Goal)
+- void validateAndSave()
+- void proceedToSave(String,List<String>,int,int)
+- List<String> getSelectedDays()
+- void showExactAlarmPermissionDialog()
+- void resetForm()
+- void createNotificationChannel()
+}
+
+
+class UpdateUserActivity {
+- {static} String TAG
+- EditText etUserFirstName
+- TextView tvUserDisplayEmail
+- ShapeableImageView imgUserProfile
+- String selectedUid
+- User selectedUser
+- User currentUser
+- boolean isCurrentUser
+- ActivityResultLauncher<Void> cameraLauncher
+- ActivityResultLauncher<PickVisualMediaRequest> photoPickerLauncher
+# void onCreate(Bundle)
+- void openProfileImageDialog()
++ void onClick(View)
+- void showUserProfile()
+- void updateUserProfile()
+- void updateUserInDatabase(User)
+- boolean isValid(String,String,String)
+- void handleImageBitmap(Bitmap)
+}
+
+
+class MoodEntry {
++ String id
++ Date timestamp
++ int moodValue
+}
+
+class Validator {
++ {static} boolean isEmailValid(String)
++ {static} boolean isPasswordValid(String)
++ {static} boolean isPhoneValid(String)
++ {static} boolean isNameValid(String)
+}
+
+class AlarmReceiver {
+- {static} String TAG
++ void onReceive(Context,Intent)
+}
+
+
+class DatabaseService {
+- {static} String TAG
+- {static} String USERS_PATH
+- {static} String Psychologist_PATH
+- {static} String MOOD_HISTORY_PATH
+- {static} String GOALS_PATH
+- {static} DatabaseService instance
+- DatabaseReference databaseReference
++ {static} DatabaseService getInstance()
+- void writeData(String,Object,DatabaseCallback<Void>)
+- void deleteData(String,DatabaseCallback<Void>)
+- DatabaseReference readData(String)
+- void getData(String,Class<T>,DatabaseCallback<T>)
+- void getDataList(String,Class<T>,DatabaseCallback<List<T>>)
+- String generateNewId(String)
+- void runTransaction(String,Class<T>,UnaryOperator<T>,DatabaseCallback<T>)
++ String generateUserId()
++ void createNewUser(User,DatabaseCallback<Void>)
++ void getUser(String,DatabaseCallback<User>)
++ void getUsersList(DatabaseCallback<List<User>>)
++ void getUserByEmail(String,DatabaseCallback<User>)
++ void checkIfEmailExists(String,DatabaseCallback<Boolean>)
++ void getUserByEmailAndPassword(String,String,DatabaseCallback<User>)
++ void updateUser(String,UnaryOperator<User>,DatabaseCallback<Void>)
++ String generatePsychologistId()
++ void createNewPsychologist(Psychologist,DatabaseCallback<Void>)
++ void getPsychologistList(DatabaseCallback<List<Psychologist>>)
++ void updatePsychologist(Psychologist,DatabaseCallback<Void>)
++ void deletePsychologist(String,DatabaseCallback<Void>)
++ void saveMoodEntry(MoodEntry,DatabaseCallback<Void>)
++ void getMoodHistory(String,DatabaseCallback<List<MoodEntry>>)
++ void saveGoal(String,Goal,DatabaseCallback<Void>)
++ void getGoals(String,DatabaseCallback<List<Goal>>)
++ void deleteGoal(String,String,DatabaseCallback<Void>)
+}
+
+
+interface DatabaseService$DatabaseCallback {
+~ void onCompleted(T)
+~ void onFailed(Exception)
+}
+
+class GalleryViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class UsersListActivity {
+- UserAdapter userAdapter
+- TextView tvUserCount
+- ProgressBar progressBar
+- List<User> fullList
+# void onCreate(Bundle)
+- void loadUsers()
+- void filterList(String)
+}
+
+
+class User {
++ String id
++ String firstName
++ String email
++ String password
++ int age
++ HashMap<String,Goal> goals
++ ArrayList<String> crisisTime
++ boolean admin
++ String profileImage
++ String getId()
++ void setId(String)
++ String getFirstName()
++ void setFirstName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPassword()
++ void setPassword(String)
++ int getAge()
++ void setAge(int)
++ boolean isAdmin()
++ void setAdmin(boolean)
++ HashMap<String,Goal> getGoals()
++ void setGoals(HashMap<String,Goal>)
++ ArrayList<String> getCrisisTime()
++ void setCrisisTime(ArrayList<String>)
++ String getProfileImage()
++ void setProfileImage(String)
+}
+
+
+class SlideshowFragment {
+- FragmentSlideshowBinding binding
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onDestroyView()
+}
+
+
+class HomeFragment {
+- FragmentHomeBinding binding
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onDestroyView()
+}
+
+
+class UserAdapter {
+- List<User> userList
+- OnUserClickListener onUserClickListener
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setUserList(List<User>)
++ void addUser(User)
++ void updateUser(User)
++ void removeUser(User)
+}
+
+
+interface UserAdapter$OnUserClickListener {
+~ void onUserClick(User)
+~ void onLongUserClick(User)
+~ boolean showAdminChip(User)
+~ boolean showRemoveAdminBtn(User)
+~ boolean showMakeAdminBtn(User)
+}
+
+class UserAdapter$ViewHolder {
+~ TextView tvName
+~ TextView tvEmail
+~ TextView tvInitials
+~ Chip chipRole
+}
+
+class SharedPreferencesUtil {
+- {static} String PREF_NAME
+- {static} void saveString(Context,String,String)
+- {static} String getString(Context,String,String)
++ {static} void clear(Context)
+- {static} void remove(Context,String)
+- {static} boolean contains(Context,String)
+- {static} void saveObject(Context,String,T)
+- {static} T getObject(Context,String,Class<T>)
++ {static} void saveUser(Context,User)
++ {static} User getUser(Context)
++ {static} void signOutUser(Context)
++ {static} boolean isUserLoggedIn(Context)
++ {static} String getUserId(Context)
+}
+
+
+class ImageUtil {
+- {static} String BASE64_PREFIX
++ {static} String convertTo64Base(ImageView)
++ {static} Bitmap convertToBitmap(String)
++ {static} void loadImage(String,ImageView)
+}
+
+
+class ProfileImageDialog {
+- Context context
+- boolean hasImage
+- ImagePickerListener listener
++ void show()
+}
+
+
+interface ProfileImageDialog$ImagePickerListener {
+~ void onCamera()
+~ void onGallery()
+~ void onDelete()
+}
+
+class FullImageDialog {
+- Context context
+- Drawable imageDrawable
++ void show()
+}
+
+
+class PsychologistAdapter {
+- List<Psychologist> psychologistList
+- OnClickListener onClickListener
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setList(List<Psychologist>)
++ void add(Psychologist)
++ void update(Psychologist)
++ void remove(Psychologist)
+}
+
+
+interface PsychologistAdapter$OnClickListener {
+~ void onClick(Psychologist)
+~ void onLongClick(Psychologist)
+~ void onEmailCLick(Psychologist)
+}
+
+class PsychologistAdapter$ViewHolder {
+~ TextView tvName
+~ TextView tvEmail
+~ TextView tvCity
+~ TextView tvSessionPrice
+}
+
+class AdminPsychologistListActivity {
+- {static} String TAG
+- PsychologistAdapter psychologistAdapter
+- TextView tvPsychologistCount
+- TextView tvSort
+- LinearLayout emptyState
+- ProgressBar progressBar
+- List<Psychologist> fullList
+- boolean sortedAsc
+# void onCreate(Bundle)
+- void loadPsychologists()
+- void showAdminActionsDialog(Psychologist)
+- void editPsychologist(Psychologist)
+- void confirmDeletePsychologist(Psychologist)
+- void showAddPsychologistDialog()
+- void showConfirmAddPsychologistDialog(Psychologist)
+- void addPsychologist(Psychologist)
+- void filterList(String)
+- void sortList()
+- void updateUIState()
+- void showLoading(boolean)
+- void showUserViewDialog(Psychologist)
+- void sendEmail(Psychologist)
+}
+
+
+class NotificationHelper {
+- {static} String TAG
++ {static} void scheduleGoalNotifications(Context,Goal)
++ {static} void cancelGoalNotifications(Context,Goal)
+- {static} int dayToCalendarDay(String)
+}
+
+
+class SlideshowViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class AdminActivity {
+- Button toUsersList
+- Button toAdminPsychologistList
+- Button toMain
+# void onCreate(Bundle)
+- void redirectToLogin()
+}
+
+
+class GalleryViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class ForgotPasswordActivity {
+- EditText etEmail
+- DatabaseService databaseService
+# void onCreate(Bundle)
++ void onClick(View)
+- void updatePassword()
+}
+
+
+class HomeViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class HomeFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class GalleryFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class MoodTrackerActivity {
+- int colorPrimary
+- int colorAccent
+- int colorBackground
+- Button btnMood1
+- EditText etNotes
+- Button btnSubmit
+- LineChart chartMood
+- TextView tvEmoji1Count
+- Integer selectedMood
+- List<MoodEntry> moodHistory
+# void onCreate(Bundle)
+- void initViews()
+- void refreshData()
+- void updateInputAreaForToday()
+- boolean hasSubmittedToday()
+- void setupMoodButtons()
+- void updateMoodButtonsUI()
+- void setupSubmitButton()
+- void resetInputFields()
+- void updateChart()
+- void configureChart(LineChart,List<MoodEntry>)
+- void setupChartClickListener()
+- void openFullscreenChart()
+- void updateEmojiSummary()
+- String getCurrentUserId()
+}
+
+
+class SplashActivity {
+- {static} String TAG
+# void onCreate(Bundle)
+- void checkUserAndNavigate()
+- void navigateToActivity(Class<?>)
+}
+
+
+class LogoutHelper {
++ {static} void logout(Context)
+}
+
+class CrisisTime {
++ {static} List<CrisisOption> getDefaultOptions()
++ {static} List<CrisisOption> getSelectedOptions(List<CrisisOption>)
+}
+
+class CrisisTime$CrisisOption {
+- String id
+- String label
+- String emoji
+- String category
+- boolean selected
++ String getId()
++ String getLabel()
++ String getEmoji()
++ String getCategory()
++ boolean isSelected()
++ void setSelected(boolean)
++ void toggle()
+}
+
+
+class MainActivity {
+- Button btnToAdmin
+- TextView tvHelloUser
+- View vAdminLine
+- View adminCard
+# void onCreate(Bundle)
+- void checkUserStatus()
+- void updateGreeting(String)
+- void redirectToLogin()
+}
+
+
+class MediaPlayerActivity {
+- MediaPlayer mediaPlayer
+- ImageView albumArt
+- TextView songTitle
+- FloatingActionButton btnPlayPause
+- List<RelaxSong> playlist
+- boolean isPlaying
+# void onCreate(Bundle)
+- void initUI()
+- void loadSong(int)
+- void togglePlayPause()
+# void onDestroy()
+}
+
+
+class Goal {
+- String id
+- String title
+- ArrayList<String> days
+- int hour
+- int minute
+- boolean isActive
++ String getId()
++ void setId(String)
++ String getTitle()
++ void setTitle(String)
++ ArrayList<String> getDays()
++ void setDays(ArrayList<String>)
++ int getHour()
++ void setHour(int)
++ int getMinute()
++ void setMinute(int)
++ boolean isActive()
++ void setActive(boolean)
++ String getFormattedTime()
+}
+
+
+class SlideshowViewModel {
+- MutableLiveData<String> mText
++ LiveData<String> getText()
+}
+
+
+class BreathingSimulationActivity {
+- int COLOR_DEEP_BLUE
+- int COLOR_LIGHT_BLUE
+- View breathingCircle
+- View breathingContainer
+- TextView tvInstruction
+- TextView tvTimer
+- MaterialButton btnStart
+- boolean isRunning
+- AnimatorSet fullCycle
+- CountDownTimer currentTimer
+# void onCreate(Bundle)
+- void startExercise()
+- void stopExercise()
+- void startCountDown(long)
+- void playPulseEffect()
+- void startBreathingExercise()
+- void updateCircleColor(int)
+# void onDestroy()
+}
+
+
+class LandingActivity {
+~ Button toRegister
+~ Button toLogin
+# void onCreate(Bundle)
+}
+
+
+class BootReceiver {
+- {static} String TAG
++ void onReceive(Context,Intent)
+}
+
+
+class LoginActivity {
+- {static} String TAG
+- EditText etEmail
+- Button btnLogin
+- TextView tvRegister
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String)
+- void loginUser(String,String)
+}
+
+
+class PsychologistListActivity {
+- {static} String TAG
+- PsychologistAdapter psychologistAdapter
+- TextView tvPsychologistCount
+- TextView tvSort
+- LinearLayout emptyState
+- ProgressBar progressBar
+- List<Psychologist> fullList
+- boolean sortedAsc
+# void onCreate(Bundle)
+# void onResume()
+- void loadPsychologists()
+- void showPsychologistDialog(Psychologist)
+- void filterList(String)
+- void sortList()
+- void updatePsychologistCount()
+- void updateEmptyState()
+- void showLoading(boolean)
+- void sendEmail(Psychologist)
+}
+
+
+
+
+OnClickListener <|.. RegisterActivity
+AppCompatActivity <|-- RegisterActivity
+Fragment <|-- SlideshowFragment
+AppCompatActivity <|-- BaseActivity
+ViewModel <|-- HomeViewModel
+Fragment <|-- GalleryFragment
+AppCompatActivity <|-- GoalActivity
+OnClickListener <|.. UpdateUserActivity
+BaseActivity <|-- UpdateUserActivity
+BroadcastReceiver <|-- AlarmReceiver
+DatabaseService +.. DatabaseService$DatabaseCallback
+ViewModel <|-- GalleryViewModel
+BaseActivity <|-- UsersListActivity
+Fragment <|-- SlideshowFragment
+Fragment <|-- HomeFragment
+Adapter <|-- UserAdapter
+UserAdapter +.. UserAdapter$OnUserClickListener
+UserAdapter +.. UserAdapter$ViewHolder
+ViewHolder <|-- UserAdapter$ViewHolder
+ProfileImageDialog +.. ProfileImageDialog$ImagePickerListener
+Adapter <|-- PsychologistAdapter
+PsychologistAdapter +.. PsychologistAdapter$OnClickListener
+PsychologistAdapter +.. PsychologistAdapter$ViewHolder
+ViewHolder <|-- PsychologistAdapter$ViewHolder
+BaseActivity <|-- AdminPsychologistListActivity
+ViewModel <|-- SlideshowViewModel
+AppCompatActivity <|-- AdminActivity
+ViewModel <|-- GalleryViewModel
+OnClickListener <|.. ForgotPasswordActivity
+AppCompatActivity <|-- ForgotPasswordActivity
+ViewModel <|-- HomeViewModel
+Fragment <|-- HomeFragment
+Fragment <|-- GalleryFragment
+BaseActivity <|-- MoodTrackerActivity
+BaseActivity <|-- SplashActivity
+CrisisTime +.. CrisisTime$CrisisOption
+AppCompatActivity <|-- MainActivity
+AppCompatActivity <|-- MediaPlayerActivity
+ViewModel <|-- SlideshowViewModel
+AppCompatActivity <|-- BreathingSimulationActivity
+BaseActivity <|-- LandingActivity
+BroadcastReceiver <|-- BootReceiver
+OnClickListener <|.. LoginActivity
+BaseActivity <|-- LoginActivity
+BaseActivity <|-- PsychologistListActivity
+@enduml

@@ -22,6 +22,7 @@ import com.example.luma.utils.SharedPreferencesUtil;
 import com.example.luma.utils.Validator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * RegisterActivity - מסך הרשמת משתמש חדש למערכת.
@@ -70,10 +71,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 age = Integer.parseInt(etAge.getText().toString());
             } catch (NumberFormatException e) {
                 etAge.setError("גיל לא תקין");
+                etAge.requestFocus();
+                Log.d("RegisterActivity", "NumberFormatException");
                 return;
             }
 
-            if (!checkInput(email, password)) return;
+            if (!checkInput(email, password)){
+                Log.d("RegisterActivity", "checkInput returned false");
+                return;
+            }
 
             registerUser(email, password, fName, age);
         } else if (v.getId() == tvLogin.getId()) {
@@ -105,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String uid = DatabaseService.getInstance().generateUserId();
 
         // 2. יצירת אובייקט משתמש חדש עם רשימות ריקות למטרות וזמני משבר (ArrayList)
-        User user = new User(uid, fName, email, password, age, new ArrayList<>(), new ArrayList<>(), false);
+        User user = new User(uid, fName, email, password, age, new HashMap<>(), new ArrayList<>(), false);
         
         // 3. בדיקה אם האימייל כבר קיים במערכת לפני היצירה
         DatabaseService.getInstance().checkIfEmailExists(email, new DatabaseService.DatabaseCallback<Boolean>() {

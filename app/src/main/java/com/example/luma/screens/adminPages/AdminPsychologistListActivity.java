@@ -32,6 +32,8 @@ import com.example.luma.adapters.PsychologistAdapter;
 import com.example.luma.models.Psychologist;
 import com.example.luma.models.User;
 import com.example.luma.screens.BaseActivity;
+import com.example.luma.screens.LandingActivity;
+import com.example.luma.screens.LoginActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.google.android.material.textfield.TextInputEditText;
@@ -77,7 +79,7 @@ public class AdminPsychologistListActivity extends BaseActivity {
         // אבטחה: וידוא שהמשתמש הוא אכן אדמין
         User currentUser = SharedPreferencesUtil.getUser(this);
         if (currentUser == null || !currentUser.isAdmin()) {
-            finish();
+            directToLanding();
             return;
         }
 
@@ -344,5 +346,16 @@ public class AdminPsychologistListActivity extends BaseActivity {
         intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{p.getEmail()});
         try { startActivity(Intent.createChooser(intent, "שלח אימייל...")); } catch (Exception ex) {}
+    }
+
+    /**
+     * ניתוק והפניה למסך הנחיתה במקרה של אי הרשאה.
+     */
+    private void directToLanding() {
+        SharedPreferencesUtil.signOutUser(this);
+        Intent intent = new Intent(this, LandingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

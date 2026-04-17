@@ -2,6 +2,7 @@ package com.example.luma.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @IgnoreExtraProperties
@@ -11,26 +12,26 @@ public class User {
     public String email;
     public String password;
     public int age;
-    public ArrayList<Goal> goals;
+    public HashMap<String, Goal> goals;
     public ArrayList<String> crisisTime;
     public boolean admin;
     public String profileImage;
 
     // קונסטרקטור ריק חובה עבור Firebase
     public User() {
-        this.goals = new ArrayList<>();
+        this.goals = new HashMap<>();
         this.crisisTime = new ArrayList<>();
     }
 
     // קונסטרקטור מלא
-    public User(String id, String firstName, String email, String password, int age, 
-                ArrayList<Goal> goals, ArrayList<String> crisisTime, boolean admin) {
+    public User(String id, String firstName, String email, String password, int age,
+                HashMap<String, Goal> goals, ArrayList<String> crisisTime, boolean admin) {
         this.id = id;
         this.firstName = firstName;
         this.email = email;
         this.password = password;
         this.age = age;
-        this.goals = goals != null ? goals : new ArrayList<>();
+        this.goals = goals != null ? goals : new HashMap<>();
         this.crisisTime = crisisTime != null ? crisisTime : new ArrayList<>();
         this.admin = admin;
     }
@@ -49,8 +50,8 @@ public class User {
     public boolean isAdmin() { return admin; }
     public void setAdmin(boolean admin) { this.admin = admin; }
     
-    public ArrayList<Goal> getGoals() { return goals; }
-    public void setGoals(ArrayList<Goal> goals) { this.goals = goals; }
+    public HashMap<String, Goal> getGoals() { return goals; }
+    public void setGoals(HashMap<String, Goal> goals) { this.goals = goals; }
     public ArrayList<String> getCrisisTime() { return crisisTime; }
     public void setCrisisTime(ArrayList<String> crisisTime) { this.crisisTime = crisisTime; }
 

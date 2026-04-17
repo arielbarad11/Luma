@@ -88,7 +88,7 @@
                     android:id="@+id/et_register_first_name"
                     android:layout_width="match_parent"
                     android:layout_height="58dp"
-                    android:backgroundTint="#0D009688"
+                    android:backgroundTint="#DEEFEBEB"
                     android:fontFamily="@font/font_secularone_regular" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +109,7 @@
                     android:id="@+id/et_register_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="#0D009688"
+                    android:backgroundTint="#DEEFEBEB"
                     android:fontFamily="@font/font_secularone_regular"
                     android:inputType="textEmailAddress" />
 
@@ -134,7 +134,7 @@
                     android:id="@+id/et_register_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="#0D009688"
+                    android:backgroundTint="#DEEFEBEB"
                     android:fontFamily="@font/font_secularone_regular" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -157,7 +157,7 @@
                     android:id="@+id/et_register_age"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="#0D009688"
+                    android:backgroundTint="#DEEFEBEB"
                     android:fontFamily="@font/font_secularone_regular"
                     android:inputType="number" />
 

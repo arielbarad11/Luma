@@ -20,8 +20,10 @@ import com.example.luma.R;
 import com.example.luma.adapters.UserAdapter;
 import com.example.luma.models.User;
 import com.example.luma.screens.BaseActivity;
+import com.example.luma.screens.LandingActivity;
 import com.example.luma.screens.UpdateUserActivity;
 import com.example.luma.services.DatabaseService;
+import com.example.luma.utils.SharedPreferencesUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -52,6 +54,13 @@ public class UsersListActivity extends BaseActivity {
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
                 return insets;
             });
+        }
+
+        // אבטחה: וידוא שהמשתמש הוא אכן אדמין
+        User currentUser = SharedPreferencesUtil.getUser(this);
+        if (currentUser == null || !currentUser.isAdmin()) {
+            directToLanding();
+            return;
         }
 
         // אתחול רכיבי הממשק מה-XML
@@ -168,5 +177,16 @@ public class UsersListActivity extends BaseActivity {
         if (tvUserCount != null) {
             tvUserCount.setText("מספר המשתמשים שלנו: " + userAdapter.getItemCount());
         }
+    }
+
+    /**
+     * ניתוק והפניה למסך הנחיתה במקרה של אי הרשאה.
+     */
+    private void directToLanding() {
+        SharedPreferencesUtil.signOutUser(this);
+        Intent intent = new Intent(this, LandingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
