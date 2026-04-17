@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -34,6 +36,9 @@ import java.util.List;
  * מציג את כל המשתמשים הרשומים ב-Firebase ומאפשר חיפוש ועריכה שלהם.
  */
 public class UsersListActivity extends BaseActivity {
+
+    private static final String TAG = "UsersListActivity";
+
 
     private UserAdapter userAdapter;
     private TextView tvUserCount;
@@ -90,7 +95,7 @@ public class UsersListActivity extends BaseActivity {
 
             @Override
             public void onLongUserClick(User user) {
-                // לחיצה ארוכה - ניתן להוסיף כאן פעולות נוספות
+                showAdminActionsDialog(user);
             }
 
             @Override
@@ -189,4 +194,97 @@ public class UsersListActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
+
+
+    private void showAdminActionsDialog(User user) {
+
+        String[] options = user.isAdmin()
+                ? new String[]{"הסרת הרשאת מנהל", "מחיקת המנהל"}
+                : new String[]{"הפוך למנהל", "מחיקת המשתמש"};
+
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
+                .setTitle(user.getFirstName())
+                .setItems(options, (dialog, which) -> {
+
+                    String choice = options[which];
+
+                    if (choice.equals("הפוך למנהל")) {
+                        makeAdmin(user);
+                    } else if (choice.equals("הסרת הרשאת מנהל")) {
+                        removeAdmin(user);
+                    } else {
+                        confirmDeleteUser(user);
+                    }
+                })
+                .show();
+    }
+
+
+    private void makeAdmin(User user) {
+        databaseService.updateUser(user.getId(), user1 -> {
+                    if (user1 == null) return null;
+                    user1.setAdmin(true);
+                    return user1;
+                },
+                new DatabaseService.DatabaseCallback<>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        // ✅ עדכון מיידי של UI
+                        user.setAdmin(true);
+                        userAdapter.updateUser(user);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.e(TAG, "הרשאת מנהל ליוזר ננכשלה", e);
+                    }
+                });
+    }
+
+    private void removeAdmin(User user) {
+        if (user.getId().equals(SharedPreferencesUtil.getUserId(this))) {
+            Toast.makeText(this, "לא יכול להסיר את הרשאת המנהל של היוזר הזה", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        databaseService.updateUser(user.getId(), user1 -> {
+                    if (user1 == null) return null;
+                    user1.setAdmin(false);
+                    return user1;
+                },
+                new DatabaseService.DatabaseCallback<>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        // ✅ עדכון מיידי של UI
+                        user.setAdmin(false);
+                        userAdapter.updateUser(user);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.e(TAG, "הסרת המנהל נכשלה", e);
+                    }
+                });
+    }
+
+    private void confirmDeleteUser(User user) {
+        new AlertDialog.Builder(this, R.style.RtlDialogTheme)
+                .setTitle("מחק משתמש")
+                .setMessage("בטוח שאתה רוצה למחוק את " + user.getFirstName() + "?")
+                .setPositiveButton("מחק", (dialog, which) -> databaseService.deleteUser(user.getId(),
+                        new DatabaseService.DatabaseCallback<>() {
+                            @Override
+                            public void onCompleted(Void object) {
+                                // ✅ הסרה מיידית מהרשימה
+                                userAdapter.removeUser(user);
+                            }
+
+                            @Override
+                            public void onFailed(Exception e) {
+                                Log.e(TAG, "מחיקת המשתמש נכשלה", e);
+                            }
+                        }))
+                .setNegativeButton("ביטול", null)
+                .show();
+    }
+
 }

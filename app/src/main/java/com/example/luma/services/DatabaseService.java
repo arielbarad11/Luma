@@ -173,6 +173,10 @@ public class DatabaseService {
         getDataList(USERS_PATH, User.class, callback);
     }
 
+    public void deleteUser(@NotNull final String uid, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(USERS_PATH + "/" + uid, callback);
+    }
+
     /**
      * חיפוש משתמש לפי כתובת אימייל.
      */
