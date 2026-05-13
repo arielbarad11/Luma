@@ -18,9 +18,6 @@
             android:name=".screens.YourEmergencyPlanActivity"
             android:exported="false" />
         <activity
-            android:name=".screens.AppInfoActivity"
-            android:exported="false" />
-        <activity
             android:name=".screens.GoalActivity"
             android:exported="false" />
         <activity

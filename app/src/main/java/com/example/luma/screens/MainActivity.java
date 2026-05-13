@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         btnToAdmin.setOnClickListener(v -> startActivity(new Intent(this, AdminActivity.class)));
         btnToMoodTracker.setOnClickListener(v -> startActivity(new Intent(this, MoodTrackerActivity.class)));
         btnToGoal.setOnClickListener(v -> startActivity(new Intent(this, GoalActivity.class)));
-        btnToAppInfo.setOnClickListener(v -> startActivity(new Intent(this, AppInfoActivity.class)));
+        btnToAppInfo.setOnClickListener(v -> showAppInfoDialog());
         btnToYourEmergencyPlan.setOnClickListener(v -> startActivity(new Intent(this, YourEmergencyPlanActivity.class)));
 
         if (btnToMusic != null) {
@@ -148,5 +148,19 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+
+    /**
+     * פונקציה לפתיחת דיאלוג (מידע ותמיכה)
+     */
+    private void showAppInfoDialog() {
+        // יצירת ה-View מה-XML
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_about_app, null);
+
+        // בניית הדיאלוג בעזרת Material Design
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setView(dialogView)
+                .setPositiveButton("סגור", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
