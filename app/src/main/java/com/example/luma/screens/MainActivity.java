@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         adminCard = findViewById(R.id.adminCard);
         Button btnToMoodTracker = findViewById(R.id.btn_main_to_MoodTracker);
         Button btnToMusic = findViewById(R.id.btn_main_to_Music);
+        Button btnToAppInfo = findViewById(R.id.tv_main_to_appInfo);
+        Button btnToYourEmergencyPlan = findViewById(R.id.btn_main_to_YourEmergencyPlan);
 
         // הגדרת מאזינים למעבר בין מסכים
         btnToExit.setOnClickListener(v -> LogoutHelper.logout(MainActivity.this));
@@ -71,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
         btnToAdmin.setOnClickListener(v -> startActivity(new Intent(this, AdminActivity.class)));
         btnToMoodTracker.setOnClickListener(v -> startActivity(new Intent(this, MoodTrackerActivity.class)));
         btnToGoal.setOnClickListener(v -> startActivity(new Intent(this, GoalActivity.class)));
-        
+        btnToAppInfo.setOnClickListener(v -> startActivity(new Intent(this, AppInfoActivity.class)));
+        btnToYourEmergencyPlan.setOnClickListener(v -> startActivity(new Intent(this, YourEmergencyPlanActivity.class)));
+
         if (btnToMusic != null) {
             btnToMusic.setOnClickListener(v -> startActivity(new Intent(this, MediaPlayerActivity.class)));
         }

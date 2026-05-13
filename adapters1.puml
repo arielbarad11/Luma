@@ -1,0 +1,66 @@
+@startuml
+class com.example.luma.adapters.PsychologistAdapter {
+- List<Psychologist> psychologistList
+- OnClickListener onClickListener
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setList(List<Psychologist>)
++ void add(Psychologist)
++ void update(Psychologist)
++ void remove(Psychologist)
+}
+
+
+interface com.example.luma.adapters.PsychologistAdapter$OnClickListener {
+~ void onClick(Psychologist)
+~ void onLongClick(Psychologist)
+~ void onEmailCLick(Psychologist)
+}
+
+class com.example.luma.adapters.PsychologistAdapter$ViewHolder {
+~ TextView tvName
+~ TextView tvEmail
+~ TextView tvCity
+~ TextView tvSessionPrice
+}
+
+class com.example.luma.adapters.UserAdapter {
+- List<User> userList
+- OnUserClickListener onUserClickListener
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setUserList(List<User>)
++ void addUser(User)
++ void updateUser(User)
++ void removeUser(User)
+}
+
+
+interface com.example.luma.adapters.UserAdapter$OnUserClickListener {
+~ void onUserClick(User)
+~ void onLongUserClick(User)
+~ boolean showAdminChip(User)
+~ boolean showRemoveAdminBtn(User)
+~ boolean showMakeAdminBtn(User)
+}
+
+class com.example.luma.adapters.UserAdapter$ViewHolder {
+~ TextView tvName
+~ TextView tvEmail
+~ TextView tvInitials
+~ Chip chipRole
+}
+
+
+
+com.example.luma.adapters.Adapter <|-- com.example.luma.adapters.PsychologistAdapter
+com.example.luma.adapters.PsychologistAdapter +.. com.example.luma.adapters.PsychologistAdapter$OnClickListener
+com.example.luma.adapters.PsychologistAdapter +.. com.example.luma.adapters.PsychologistAdapter$ViewHolder
+com.example.luma.adapters.ViewHolder <|-- com.example.luma.adapters.PsychologistAdapter$ViewHolder
+com.example.luma.adapters.Adapter <|-- com.example.luma.adapters.UserAdapter
+com.example.luma.adapters.UserAdapter +.. com.example.luma.adapters.UserAdapter$OnUserClickListener
+com.example.luma.adapters.UserAdapter +.. com.example.luma.adapters.UserAdapter$ViewHolder
+com.example.luma.adapters.ViewHolder <|-- com.example.luma.adapters.UserAdapter$ViewHolder
+@enduml
