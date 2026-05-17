@@ -7,6 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -292,10 +293,9 @@ public class MoodTrackerActivity extends BaseActivity {
 
         Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_full_graph);
-
+        dialog.setContentView(R.layout.dialog_fullscreen_chart);
         LineChart fullChart = dialog.findViewById(R.id.fullscreenChart);
-        Button btnClose = dialog.findViewById(R.id.btnCloseChart);
+        ImageButton btnClose = dialog.findViewById(R.id.btnCloseChart);
 
         configureChart(fullChart, moodHistory); // שימוש באותה פונקציית הגדרת גרף
 
