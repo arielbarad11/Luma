@@ -34,6 +34,7 @@ import com.example.luma.models.User;
 import com.example.luma.screens.BaseActivity;
 import com.example.luma.screens.LandingActivity;
 import com.example.luma.screens.LoginActivity;
+import com.example.luma.screens.PsychologistListActivity;
 import com.example.luma.services.DatabaseService;
 import com.example.luma.utils.SharedPreferencesUtil;
 import com.google.android.material.textfield.TextInputEditText;
@@ -149,8 +150,15 @@ public class AdminPsychologistListActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // טעינת הנתונים מחדש בכל פעם שהמשתמש חוזר למסך
+        loadPsychologists();
+    }
+
     /**
-     * משיכת כל הפסיכולוגים מ-Firebase.
+     * משיכת רשימת הפסיכולוגים מ-Firebase.
      */
     private void loadPsychologists() {
         showLoading(true);
@@ -160,14 +168,14 @@ public class AdminPsychologistListActivity extends BaseActivity {
                 showLoading(false);
                 fullList = new ArrayList<>(psychologists);
                 psychologistAdapter.setList(psychologists);
-                updateUIState();
+                updatePsychologistCount();
+                updateEmptyState();
             }
 
             @Override
             public void onFailed(Exception e) {
                 showLoading(false);
-                Toast.makeText(AdminPsychologistListActivity.this, "שגיאה בטעינת הרשימה", Toast.LENGTH_SHORT).show();
-            }
+                Toast.makeText(AdminPsychologistListActivity.this, "שגיאה בטעינת הרשימה", Toast.LENGTH_SHORT).show();            }
         });
     }
 
@@ -319,13 +327,20 @@ public class AdminPsychologistListActivity extends BaseActivity {
         psychologistAdapter.setList(sorted);
     }
 
-    private void updateUIState() {
-        tvPsychologistCount.setText("מספר הפסיכולוגים: " + psychologistAdapter.getItemCount());
+
+
+    private void updatePsychologistCount() {
+        tvPsychologistCount.setText("מספר הפסיכולוגים שלנו: " + psychologistAdapter.getItemCount());
+    }
+
+    private void updateEmptyState() {
+        if (emptyState == null) return;
         emptyState.setVisibility(psychologistAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     private void showLoading(boolean show) {
-        if (progressBar != null) progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (progressBar == null) return;
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void showUserViewDialog(Psychologist p) {
@@ -357,5 +372,10 @@ public class AdminPsychologistListActivity extends BaseActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+
+    private void updateUIState() {
+        updatePsychologistCount();
+        updateEmptyState();
     }
 }
