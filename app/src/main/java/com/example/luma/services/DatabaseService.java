@@ -241,6 +241,13 @@ public class DatabaseService {
         });
     }
 
+    /**
+     * עדכון/הגדרה של תוכנית חירום אישית .
+     */
+    public void updateUserCrisisTime(@NotNull final String uid, @NotNull final ArrayList<String> crisisTime, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(USERS_PATH + "/" + uid + "/crisisTime", crisisTime, callback);
+    }
+
     // ───────────── ניהול פסיכולוגים (Psychologist Section) ─────────────
 
     public String generatePsychologistId() { return generateNewId(Psychologist_PATH); }

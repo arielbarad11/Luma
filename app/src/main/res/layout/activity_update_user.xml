@@ -159,6 +159,48 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- תוכנית חירום אישית -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🛟 תוכנית החירום שלי"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#005396"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="בחר אפשרויות שיעזרו לך בזמן אמת:"
+                    android:textSize="13sp"
+                    android:textColor="#6B7280"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- הצ'קבוקסים ייבנו כאן דינמית מהקוד -->
+                <LinearLayout
+                    android:id="@+id/ll_crisis_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- כפתור עדכון -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_edit_profile"
