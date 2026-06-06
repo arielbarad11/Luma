@@ -30,7 +30,7 @@ public class YourEmergencyPlanActivity extends BaseActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_your_emergency_plan);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.yourEmergencyPlan), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
