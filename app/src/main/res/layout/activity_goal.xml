@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F7FA"
+    android:id="@+id/goal"
     android:layoutDirection="rtl">
 
     <LinearLayout
@@ -76,18 +77,18 @@
                     app:startIconDrawable="@android:drawable/ic_menu_edit"
                     app:startIconTint="#3B82F6">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="#1E293B"
-                        android:textDirection="rtl"
-                        android:textSize="16sp" />
-
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="#1E293B"
+                    android:textDirection="rtl"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
