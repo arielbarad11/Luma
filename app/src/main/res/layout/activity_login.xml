@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -50,7 +51,7 @@
             style="?attr/textInputFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
+            android:paddingBottom="0dp"
             android:hint="אימייל">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -58,7 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:backgroundTint="#DEEFEBEB"
-                android:fontFamily="@font/font_secularone_regular" />
+                android:fontFamily="@font/font_secularone_regular"
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password -->
@@ -66,16 +68,18 @@
             style="?attr/textInputFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:hint="סיסמא"
-            android:inputType="textPassword">
+            android:hint="סיסמה"
+            app:endIconMode="password_toggle"
+            android:layoutDirection="rtl">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_login_password"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:backgroundTint="#DEEFEBEB"
-                android:fontFamily="@font/font_secularone_regular" />
+                android:fontFamily="@font/font_secularone_regular"
+                android:textAlignment="viewStart" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Login Button – צמוד לגמרי -->
