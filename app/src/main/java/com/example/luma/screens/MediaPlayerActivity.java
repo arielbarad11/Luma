@@ -119,9 +119,9 @@ public class MediaPlayerActivity extends AppCompatActivity {
 
     private void initSongList() {
         songList = new ArrayList<>();
-        songList.add(new RelaxSong("Gnossienne No.1 – Erik Satie", 0, android.R.drawable.ic_menu_gallery));
-        songList.add(new RelaxSong("Gymnopédie No.1 – Erik Satie", 0, android.R.drawable.ic_menu_gallery));
-        songList.add(new RelaxSong("Fugue BWV 543 – Bach", 0, android.R.drawable.ic_menu_gallery));
+        songList.add(new RelaxSong("Gnossienne No.1 – Erik Satie", 0, R.drawable.song1));
+        songList.add(new RelaxSong("Gymnopédie No.1 – Erik Satie", 0, R.drawable.song2));
+        songList.add(new RelaxSong("Fugue BWV 543 – Bach", 0, R.drawable.song3));
     }
 
     private void loadSong(int index) {
