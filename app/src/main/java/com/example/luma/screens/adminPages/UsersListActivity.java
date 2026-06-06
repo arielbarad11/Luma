@@ -243,7 +243,7 @@ public class UsersListActivity extends BaseActivity {
 
     private void removeAdmin(User user) {
         if (user.getId().equals(SharedPreferencesUtil.getUserId(this))) {
-            Toast.makeText(this, "לא יכול להסיר את הרשאת המנהל של היוזר הזה", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "לא יכול להסיר את הרשאת המנהל שלך!", Toast.LENGTH_SHORT).show();
             return;
         }
         databaseService.updateUser(user.getId(), user1 -> {
@@ -267,6 +267,13 @@ public class UsersListActivity extends BaseActivity {
     }
 
     private void confirmDeleteUser(User user) {
+        // 🛑 חסימה: בדיקה האם המנהל מנסה למחוק את עצמו
+        if (user.getId().equals(SharedPreferencesUtil.getUserId(this))) {
+            Toast.makeText(this, "אינך יכול למחוק את חשבון המנהל של עצמך!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // אם זה לא הוא עצמו, נמשיך לתהליך המחיקה הרגיל
         new AlertDialog.Builder(this, R.style.RtlDialogTheme)
                 .setTitle("מחק משתמש")
                 .setMessage("בטוח שאתה רוצה למחוק את " + user.getFirstName() + "?")
@@ -276,11 +283,13 @@ public class UsersListActivity extends BaseActivity {
                             public void onCompleted(Void object) {
                                 // ✅ הסרה מיידית מהרשימה
                                 userAdapter.removeUser(user);
+                                Toast.makeText(UsersListActivity.this, "המשתמש נמחק בהצלחה", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onFailed(Exception e) {
                                 Log.e(TAG, "מחיקת המשתמש נכשלה", e);
+                                Toast.makeText(UsersListActivity.this, "מחיקת המשתמש נכשלה", Toast.LENGTH_SHORT).show();
                             }
                         }))
                 .setNegativeButton("ביטול", null)
