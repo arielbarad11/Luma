@@ -95,6 +95,16 @@ public class UsersListActivity extends BaseActivity {
 
             @Override
             public void onLongUserClick(User user) {
+                //  לצורכי חסימה: קבלת ה-ID של המנהל שמחובר כרגע מה-SharedPreferences
+                String currentUserId = SharedPreferencesUtil.getUserId(UsersListActivity.this);
+
+                // אם המנהל הנוכחי לחץ לחיצה ארוכה על עצמו - אנחנו עוצרים כאן ולא מציגים את הדיאלוג
+                if (user.id != null && user.id.equals(currentUserId)) {
+                    Toast.makeText(UsersListActivity.this, "לא ניתן לבצע פעולות ניהול על החשבון שלך", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // אם זה משתמש אחר, נפתח את תפריט הניהול כרגיל
                 showAdminActionsDialog(user);
             }
 
@@ -243,7 +253,7 @@ public class UsersListActivity extends BaseActivity {
 
     private void removeAdmin(User user) {
         if (user.getId().equals(SharedPreferencesUtil.getUserId(this))) {
-            Toast.makeText(this, "לא יכול להסיר את הרשאת המנהל שלך!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "אתה לא יכול להסיר את הרשאת המנהל של עצמך!", Toast.LENGTH_SHORT).show();
             return;
         }
         databaseService.updateUser(user.getId(), user1 -> {
