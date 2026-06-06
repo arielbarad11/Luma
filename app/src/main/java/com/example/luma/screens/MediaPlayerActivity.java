@@ -23,27 +23,35 @@ import java.util.List;
 
 public class MediaPlayerActivity extends AppCompatActivity {
 
-    // שימוש במודל שיצרת במקום מערכים מופרדים
     private List<RelaxSong> songList;
     private int currentIndex = 0;
 
     private MediaPlayer mediaPlayer;
-    private FloatingActionButton btnPlayPause;
+    private FloatingActionButton btnPlayPause, btnNext, btnPrev;
     private SeekBar seekBar;
     private TextView tvTitle, tvArtist;
     private ImageView albumArt;
 
     private boolean isPlaying = false;
+    private boolean isPrepared = false;
+    private int retryCount = 0;
+    private static final int MAX_RETRIES = 3;
 
     private final Handler handler = new Handler();
     private final Runnable updateSeekBar = new Runnable() {
         @Override
         public void run() {
-            if (mediaPlayer != null && isPlaying) {
+            if (mediaPlayer != null && isPlaying && isPrepared) {
                 seekBar.setProgress(mediaPlayer.getCurrentPosition());
                 handler.postDelayed(this, 500);
             }
         }
+    };
+
+    private final String[] URLS = {
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
     };
 
     @Override
@@ -51,7 +59,6 @@ public class MediaPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_player);
 
-        // הגדרת Padding אוטומטי כדי שהתוכן לא יוסתר על ידי ה-System Bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mediaPlayer), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -59,68 +66,85 @@ public class MediaPlayerActivity extends AppCompatActivity {
         });
 
         btnPlayPause = findViewById(R.id.btn_play_pause);
+        btnNext      = findViewById(R.id.btn_next);
+        btnPrev      = findViewById(R.id.btn_prev);
         seekBar      = findViewById(R.id.seekbar);
         tvTitle      = findViewById(R.id.tv_title);
         tvArtist     = findViewById(R.id.tv_artist);
         albumArt     = findViewById(R.id.album_art);
 
-        // אתחול רשימת השירים באמצעות המודל שלך
-        initSongList();
+        btnPlayPause.setEnabled(false);
+        btnNext.setEnabled(false);
+        btnPrev.setEnabled(false);
 
-        // טעינת השיר הראשון
+        initSongList();
         loadSong(currentIndex);
 
         btnPlayPause.setOnClickListener(v -> togglePlayPause());
 
+        btnNext.setOnClickListener(v -> {
+            currentIndex = (currentIndex + 1) % songList.size();
+            loadSong(currentIndex);
+        });
+
+        btnPrev.setOnClickListener(v -> {
+            currentIndex = (currentIndex - 1 + songList.size()) % songList.size();
+            loadSong(currentIndex);
+        });
+
+        // תיקון הגררה — seekTo עובד רק כשהנגן מוכן
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
-                if (fromUser && mediaPlayer != null) {
-                    mediaPlayer.seekTo(progress);
+            @Override
+            public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
+                // לא עושים כלום כאן
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar sb) {
+                // משהמשתמש מתחיל לגרור — עוצרים את העדכון האוטומטי
+                handler.removeCallbacks(updateSeekBar);
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar sb) {
+                // רק כשמשחררים — מבצעים את הקפיצה
+                if (mediaPlayer != null && isPrepared) {
+                    mediaPlayer.seekTo(sb.getProgress());
+                }
+                // מחדשים את העדכון האוטומטי אם מנגן
+                if (isPlaying) {
+                    handler.post(updateSeekBar);
                 }
             }
-            @Override public void onStartTrackingTouch(SeekBar sb) {}
-            @Override public void onStopTrackingTouch(SeekBar sb) {}
         });
     }
 
     private void initSongList() {
         songList = new ArrayList<>();
-
-        // הערה: מכיוון שהמודל המקורי שלך מקבל int לקובץ השמע (עבור תיקיית raw),
-        // זמנית נציב שם 0 ונשתמש בקישורים הקיימים, או שתוכל להחליף את המודל ל-String עבור URL.
-        // כאן השתמשנו במודל שלך, ובזמן הטעינה נשלב את הקישורים שבחרת:
         songList.add(new RelaxSong("Gnossienne No.1 – Erik Satie", 0, android.R.drawable.ic_menu_gallery));
         songList.add(new RelaxSong("Gymnopédie No.1 – Erik Satie", 0, android.R.drawable.ic_menu_gallery));
         songList.add(new RelaxSong("Fugue BWV 543 – Bach", 0, android.R.drawable.ic_menu_gallery));
     }
 
-    // מערך עזר זמני לקישורים בהתאמה לאינדקסים של המודל שלך
-    private final String[] URLS = {
-            "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bd/Gnossienne_No_1.ogg/Gnossienne_No_1.ogg.mp3",
-            "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6a/Erik_Satie_-_Gymnopedie_No._1.ogg/Erik_Satie_-_Gymnopedie_No._1.ogg.mp3",
-            "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4e/BWV_543-fugue.ogg/BWV_543-fugue.ogg.mp3"
-    };
-
     private void loadSong(int index) {
-        if (songList == null || songList.isEmpty()) return;
+        retryCount = 0;
+        loadSongWithRetry(index);
+    }
 
+    private void loadSongWithRetry(int index) {
         RelaxSong currentSong = songList.get(index);
 
-        // עדכון ממשק המשתמש מהמודל
         tvTitle.setText(currentSong.getTitle());
         tvArtist.setText("מוזיקה מרגיעה 🎵");
         albumArt.setImageResource(currentSong.getImageResourceId());
 
-        // עצירה וניקוי של הנגן הקודם
-        if (mediaPlayer != null) {
-            handler.removeCallbacks(updateSeekBar);
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
+        releasePlayer();
 
+        isPrepared = false;
         isPlaying = false;
+        btnPlayPause.setEnabled(false);
+        btnNext.setEnabled(false);
+        btnPrev.setEnabled(false);
         btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
-        seekBar.setProgress(0); // איפוס הבר בתחילת שיר חדש
+        seekBar.setProgress(0);
 
         Toast.makeText(this, "טוען שיר...", Toast.LENGTH_SHORT).show();
 
@@ -131,37 +155,45 @@ public class MediaPlayerActivity extends AppCompatActivity {
                 .build());
 
         try {
-            // טעינה מהאינטרנט לפי האינדקס הנוכחי
             mediaPlayer.setDataSource(URLS[index]);
             mediaPlayer.prepareAsync();
 
             mediaPlayer.setOnPreparedListener(mp -> {
-                Toast.makeText(this, "מוכן לנגינה ▶", Toast.LENGTH_SHORT).show();
+                isPrepared = true;
+                seekBar.setMax(mp.getDuration());
                 btnPlayPause.setEnabled(true);
-                seekBar.setMax(mediaPlayer.getDuration()); // הגדרת אורך הבר המקסימלי
+                btnNext.setEnabled(true);
+                btnPrev.setEnabled(true);
+                Toast.makeText(this, "מוכן — לחץ להפעלה ▶", Toast.LENGTH_SHORT).show();
             });
 
             mediaPlayer.setOnCompletionListener(mp -> {
-                // מעבר אוטומטי לשיר הבא בלולאה קבועה
                 currentIndex = (currentIndex + 1) % songList.size();
                 loadSong(currentIndex);
-                // הפעלה אוטומטית של השיר הבא
-                togglePlayPause();
             });
 
             mediaPlayer.setOnErrorListener((mp, what, extra) -> {
-                Toast.makeText(this, "שגיאה בטעינת השיר", Toast.LENGTH_SHORT).show();
+                isPrepared = false;
+                if (retryCount < MAX_RETRIES) {
+                    retryCount++;
+                    Toast.makeText(this, "בעיית רשת, מנסה שוב... (" + retryCount + "/" + MAX_RETRIES + ")", Toast.LENGTH_SHORT).show();
+                    handler.postDelayed(() -> loadSongWithRetry(index), 2000);
+                } else {
+                    Toast.makeText(this, "לא ניתן לטעון, מדלג לשיר הבא", Toast.LENGTH_LONG).show();
+                    currentIndex = (currentIndex + 1) % songList.size();
+                    loadSong(currentIndex);
+                }
                 return true;
             });
 
-            btnPlayPause.setEnabled(false);
         } catch (Exception e) {
             Toast.makeText(this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void togglePlayPause() {
-        if (mediaPlayer == null) return;
+        if (mediaPlayer == null || !isPrepared) return;
+
         if (isPlaying) {
             mediaPlayer.pause();
             handler.removeCallbacks(updateSeekBar);
@@ -174,13 +206,26 @@ public class MediaPlayerActivity extends AppCompatActivity {
         isPlaying = !isPlaying;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private void releasePlayer() {
         handler.removeCallbacks(updateSeekBar);
         if (mediaPlayer != null) {
+            try {
+                if (mediaPlayer.isPlaying()) mediaPlayer.stop();
+            } catch (Exception ignored) {}
             mediaPlayer.release();
             mediaPlayer = null;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isPlaying) togglePlayPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        releasePlayer();
     }
 }
